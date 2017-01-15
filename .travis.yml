@@ -17,4 +17,4 @@ android:
 
 # Build
 script:
-  - ./gradlew build connectedCheck
+  - ./gradlew assembleAndroidTest
