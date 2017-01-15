@@ -11,10 +11,15 @@ android:
   components:
     - build-tools-23.0.2
     - android-23
-    - extra
-  # Ressource(s) to run emulator during test
+    # Google repository for license agreements
+    - extra-android-m2repository
+    # Ressource(s) to run emulator during test
     - sys-img-armeabi-v7a-android-23
 
 # Build
 script:
   - ./gradlew assembleAndroidTest
+  
+# Sync Slack
+notifications:
+  slack: assogenda:m88NLRiY4UxkgThbI1ONxdFr
