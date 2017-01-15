@@ -1,0 +1,16 @@
+language: android
+android:
+  components:
+    - build-tools-25.0.1
+    - android-25
+    - extra
+  # Ressource(s) to run emulator during test
+    - sys-img-armeabi-v7a-android-25
+
+# Specify jdk to run lambda expression
+jdk:
+  - oraclejdk8
+
+# Build
+script:
+  - ./gradlew build connectedCheck jaccocoTestReport coveralls
