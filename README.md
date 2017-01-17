@@ -13,6 +13,6 @@ Asso’Genda est une application android de gestion et de partage d’événemen
 
 ### Use Case ###
 
-![](/diagram/usecase_association.png)
+![](/diagrams/usecase_associations.png)
 
-![](/diagram/usecase_etudiant.png)
+![](/diagrams/usecase_etudiant.png)
