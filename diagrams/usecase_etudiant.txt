@@ -1,0 +1,32 @@
+@startuml
+skinparam backgroundColor LightGrey
+skinparam handwritten false
+left to right direction
+skinparam packageStyle rect
+actor Étudiant
+
+skinparam usecase {
+  BackgroundColor 7788AA
+  BorderColor Dark
+  ArrowColor Olive
+  ActorBorderColor black
+  ActorFontName Courier
+  ActorBackgroundColor<< Human >> Gold
+}
+
+skinparam rectangle {
+  BackgroundColor 2D4471
+}
+
+rectangle AssoGenda{
+
+  Étudiant -- (Inscription)
+  Étudiant -- (Connexion)
+  Étudiant -- (Chercher des évènements)
+  Étudiant -- (Enregistrer ses préférences)
+  Étudiant -- (Télécharger un évènement sous différents formats)
+  Étudiant -- (Synchroniser son planning avec google agenda)
+  Étudiant -- (Chercher des associations)
+  Étudiant -- (Suivre des associations)
+}
+@enduml
