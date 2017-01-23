@@ -2,8 +2,8 @@ package fr.paris10.projet.assogenda.assogenda.model;
 
 import java.util.Set;
 
-import fr.paris10.projet.assogenda.assogenda.model.Association.Association;
-import fr.paris10.projet.assogenda.assogenda.model.User.User;
+import fr.paris10.projet.assogenda.assogenda.model.association.Association;
+import fr.paris10.projet.assogenda.assogenda.model.user.User;
 
 /**
  * Created by valentin on 22/01/17.
