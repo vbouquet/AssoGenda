@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AssoGenda</string>
+    <string name="create_association_fragment_title">Créer une association [A modifier]</string>
+    <string name="main_association_fragment_title">Gérer association [A modifier]</string>
 </resources>

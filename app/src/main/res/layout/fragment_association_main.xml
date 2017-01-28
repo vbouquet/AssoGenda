@@ -1,0 +1,26 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.paris10.projet.assogenda.assogenda.ui.activites.AssociationMainFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/main_association_fragment_title"
+            android:id="@+id/fragment_main_association_fragment_title" />
+
+        <Button
+            android:text="@string/create_association_fragment_title"
+            android:layout_width="match_parent"
+            android:layout_height="81dp"
+            android:id="@+id/fragment_association_main_button_create_association" />
+
+    </LinearLayout>
+
+</FrameLayout>
