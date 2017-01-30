@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 
@@ -15,7 +17,7 @@ import fr.paris10.projet.assogenda.assogenda.R;
  * A simple {@link Fragment} subclass.
  * Create an instance of this fragment.
  */
-public class CreateAssociationFragment extends Fragment {
+public class CreateAssociationFragment extends Fragment implements View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
 
@@ -41,7 +43,10 @@ public class CreateAssociationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_create_association, container, false);
+        final View v = inflater.inflate(R.layout.fragment_create_association, container, false);
+        Button buttonValidate = (Button)
+                v.findViewById(R.id.fragment_create_association_button_validate);
+        buttonValidate.setOnClickListener(this);
         return v;
     }
 
@@ -76,6 +81,12 @@ public class CreateAssociationFragment extends Fragment {
         super.onDetach();
         Log.i(this.getClass().getCanonicalName(), "Entre dans onDetach");
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        Log.i(this.getClass().getCanonicalName(), "Entre dans onClick ");
+        mListener.onCreateAssociationFragmentInteraction();
     }
 
     /**

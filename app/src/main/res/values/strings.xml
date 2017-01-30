@@ -1,5 +1,37 @@
 <resources>
     <string name="app_name">AssoGenda</string>
-    <string name="create_association_fragment_title">Créer une association [A modifier]</string>
-    <string name="main_association_fragment_title">Gérer association [A modifier]</string>
+
+    <!-- Association -->
+    <string name="fragment_association_main_title">Gérer association</string>
+    <string name="activity_main_button_association">Association</string>
+    <string name="fragment_association_main_button_create_association">Créer association</string>
+    <string name="fragment_create_association_name_title">Nom de l\'association</string>
+    <string name="fragment_create_association_name">Nom</string>
+    <string name="fragment_create_association_university_title">Université</string>
+    <string name="fragment_create_association_university">Nom de l\'université</string>
+    <string name="fragment_create_association_description_title">Description de l\'association</string>
+    <string name="fragment_create_association_description">Description</string>
+    <string name="fragment_create_association_logo_title">Logo de l\'association [TODO]</string>
+    <string name="fragment_create_association_button_validate">Valider</string>
+    <string name="fragment_create_association_form_validation_name">Nom requis !</string>
+    <string name="fragment_create_association_form_validation_universite">Université requise !</string>
+    <string name="fragment_create_association_form_validation_description">Description requise !</string>
+    <string name="fragment_create_association_form_validation_title">Sûr de créer cette assoc frère ?</string>
+    <string name="fragment_create_association_form_validation_ok">Oui</string>
+    <string name="fragment_create_association_form_validation_cancel">Non</string>
+
+
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
+    <string name="sign_up_button_label">Sign Up</string>
+    <string name="signup_error_message">Please make sure you enter an email address and password!</string>
+    <string name="signup_error_title">Error!</string>
+    <string name="signup_success">Account successfully created! You can now Login.</string>
+    <string name="login_error_message">Please make sure you enter an email address and password!</string>
+    <string name="login_error_title">Error!</string>
+    <string name="login_button_label">Login</string>
+    <string name="sign_up_text">Sign Up!</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="add_item">Add New Item</string>
+    <string name="action_logout">Logout</string>
 </resources>
