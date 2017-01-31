@@ -4,12 +4,16 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ImageView;
+
+import java.io.IOException;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 
@@ -17,8 +21,9 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         AssociationMainFragment.OnFragmentInteractionListener,
         CreateAssociationFragment.OnFragmentInteractionListener {
 
-    public static final String IMAGE_TYPE = "image/*";
     private static final int SELECT_SINGLE_PICTURE = 101;
+    public static final String IMAGE_TYPE = "image/*";
+    private ImageView imagePreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +106,14 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
             validate = false;
         }
 
+        if (imagePreview == null) {
+            Log.i(this.getClass().getCanonicalName(),
+                    "Pas d'image");
+        } else {
+            Log.i(this.getClass().getCanonicalName(),
+                    "Image");
+        }
+
         if (validate) {
             Dialog formValidation = onCreateDialog();
             formValidation.show();
@@ -111,12 +124,36 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
     public void onAddImageAssociationFragmentInteraction() {
         Log.i(this.getClass().getCanonicalName(),
                 "Entre dans onAddImageAssociationFragmentInteraction");
+
+        //Execute onActivityResult method
         Intent intent = new Intent();
         intent.setType(IMAGE_TYPE);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         startActivityForResult(Intent.createChooser(intent,
                 "Select picture"), SELECT_SINGLE_PICTURE);
+
+        //Display image preview in association create form
+        imagePreview = (ImageView) findViewById(R.id.fragment_create_association_logo_imageView);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(this.getClass().getCanonicalName(),
+                "Entre dans onActivityResult");
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_SINGLE_PICTURE) {
+
+                Uri selectedImageUri = data.getData();
+                try {
+                    imagePreview.setImageBitmap(new UserPicture(selectedImageUri, getContentResolver()).getBitmap());
+                } catch (IOException e) {
+                    Log.e(MainActivity.class.getSimpleName(), "Failed to load image", e);
+                }
+            }
+        } else {
+            Log.d(MainActivity.class.getSimpleName(), "Failed to get intent data, result code is " + resultCode);
+        }
     }
 
     public Dialog onCreateDialog() {
