@@ -3,6 +3,7 @@ package fr.paris10.projet.assogenda.assogenda.ui.activites;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +16,9 @@ import fr.paris10.projet.assogenda.assogenda.R;
 public class AssociationDashboardActivity extends AppCompatActivity implements
         AssociationMainFragment.OnFragmentInteractionListener,
         CreateAssociationFragment.OnFragmentInteractionListener {
+
+    public static final String IMAGE_TYPE = "image/*";
+    private static final int SELECT_SINGLE_PICTURE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,9 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                 .commit();
     }
 
+    /**
+     * Form validator for association creation.
+     */
     @Override
     public void onCreateAssociationFragmentInteraction() {
         Log.i(this.getClass().getCanonicalName(),
@@ -100,6 +107,18 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    public void onAddImageAssociationFragmentInteraction() {
+        Log.i(this.getClass().getCanonicalName(),
+                "Entre dans onAddImageAssociationFragmentInteraction");
+        Intent intent = new Intent();
+        intent.setType(IMAGE_TYPE);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        startActivityForResult(Intent.createChooser(intent,
+                "Select picture"), SELECT_SINGLE_PICTURE);
+    }
+
     public Dialog onCreateDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.fragment_create_association_form_validation_title)
@@ -107,7 +126,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                /* Faire connexion avec la base
+                                /* //TODO Faire connexion avec la base
                                 associationName.trim().replaceAll(" +", " ");
                                 associationUniversite.trim().replaceAll(" +", " ");
                                 associationDescription.trim().replaceAll(" +", " ");

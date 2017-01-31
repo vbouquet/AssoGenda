@@ -44,6 +44,10 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_create_association, container, false);
+        Button buttonAddImage = (Button)
+                v.findViewById(R.id.fragment_create_association_button_logo);
+        buttonAddImage.setOnClickListener(this);
+
         Button buttonValidate = (Button)
                 v.findViewById(R.id.fragment_create_association_button_validate);
         buttonValidate.setOnClickListener(this);
@@ -72,7 +76,7 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
             mListener = (CreateAssociationFragment.OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -83,10 +87,27 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
         mListener = null;
     }
 
+    /**
+     * Manage buttons actions.
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         Log.i(this.getClass().getCanonicalName(), "Entre dans onClick ");
-        mListener.onCreateAssociationFragmentInteraction();
+        switch (view.getId()) {
+
+            case R.id.fragment_create_association_button_validate:
+                mListener.onCreateAssociationFragmentInteraction();
+                break;
+
+            case R.id.fragment_create_association_button_logo:
+                mListener.onAddImageAssociationFragmentInteraction();
+                break;
+
+            default:
+                Log.i(this.getClass().getCanonicalName(), "Aucun id n'est reconnu !");
+                break;
+        }
     }
 
     /**
@@ -98,5 +119,6 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
     public interface OnFragmentInteractionListener {
 
         void onCreateAssociationFragmentInteraction();
+        void onAddImageAssociationFragmentInteraction();
     }
 }

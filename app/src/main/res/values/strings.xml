@@ -5,13 +5,16 @@
     <string name="fragment_association_main_title">Gérer association</string>
     <string name="activity_main_button_association">Association</string>
     <string name="fragment_association_main_button_create_association">Créer association</string>
+
+    <!-- Association form -->
     <string name="fragment_create_association_name_title">Nom de l\'association</string>
     <string name="fragment_create_association_name">Nom</string>
     <string name="fragment_create_association_university_title">Université</string>
     <string name="fragment_create_association_university">Nom de l\'université</string>
     <string name="fragment_create_association_description_title">Description de l\'association</string>
     <string name="fragment_create_association_description">Description</string>
-    <string name="fragment_create_association_logo_title">Logo de l\'association [TODO]</string>
+    <string name="fragment_create_association_logo_title">Logo de l\'association</string>
+    <string name="fragment_create_association_button_logo">Ajouter une image</string>
     <string name="fragment_create_association_button_validate">Valider</string>
     <string name="fragment_create_association_form_validation_name">Nom requis !</string>
     <string name="fragment_create_association_form_validation_universite">Université requise !</string>

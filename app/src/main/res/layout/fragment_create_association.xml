@@ -1,5 +1,4 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -66,6 +65,13 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:id="@+id/fragment_create_association_logo_title"
+            android:layout_weight="0.04" />
+
+        <Button
+            android:text="@string/fragment_create_association_button_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_create_association_button_logo"
             android:layout_weight="0.04" />
 
         <Button
