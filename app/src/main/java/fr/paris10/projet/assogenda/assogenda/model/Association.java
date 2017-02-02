@@ -20,8 +20,9 @@ public class Association {
     public Association() {
     }
 
-    public Association(String name, String description) {
+    public Association(String name, String university, String description) {
         this.name = name;
+        this.university = university;
         this.description = description;
     }
 

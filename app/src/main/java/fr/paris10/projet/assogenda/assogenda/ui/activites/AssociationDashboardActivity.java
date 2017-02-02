@@ -13,9 +13,14 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.IOException;
 
 import fr.paris10.projet.assogenda.assogenda.R;
+import fr.paris10.projet.assogenda.assogenda.model.Association;
 
 public class AssociationDashboardActivity extends AppCompatActivity implements
         AssociationMainFragment.OnFragmentInteractionListener,
@@ -24,6 +29,11 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
     private static final int SELECT_SINGLE_PICTURE = 101;
     public static final String IMAGE_TYPE = "image/*";
     private ImageView imagePreview;
+    private DatabaseReference database;
+
+    private String associationName;
+    private String associationUniversity;
+    private String associationDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +41,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_association_dashboard);
         Log.i(this.getClass().getCanonicalName(), "Entre dans onCreate");
 
+        database = FirebaseDatabase.getInstance().getReference("association");
         Fragment associationMainFragment = new AssociationMainFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction
@@ -81,7 +92,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
 
         EditText associationNameEdit = (EditText)
                 findViewById(R.id.fragment_create_association_name);
-        String associationName = associationNameEdit.getText().toString();
+        associationName = associationNameEdit.getText().toString();
         if (associationName.length() == 0) {
             associationNameEdit.setError(
                     getString(R.string.fragment_create_association_form_validation_name));
@@ -90,8 +101,8 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
 
         EditText associationUniversiteEdit = (EditText)
                 findViewById(R.id.fragment_create_association_university);
-        String associationUniversite = associationUniversiteEdit.getText().toString();
-        if (associationUniversite.length() == 0) {
+        associationUniversity = associationUniversiteEdit.getText().toString();
+        if (associationUniversity.length() == 0) {
             associationUniversiteEdit.setError(
                     getString(R.string.fragment_create_association_form_validation_universite));
             validate = false;
@@ -99,7 +110,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
 
         EditText associationDescriptionEdit = (EditText)
                 findViewById(R.id.fragment_create_association_description);
-        String associationDescription = associationDescriptionEdit.getText().toString();
+        associationDescription = associationDescriptionEdit.getText().toString();
         if (associationDescription.length() == 0) {
             associationDescriptionEdit.setError(
                     getString(R.string.fragment_create_association_form_validation_description));
@@ -163,11 +174,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                /* //TODO Faire connexion avec la base
-                                associationName.trim().replaceAll(" +", " ");
-                                associationUniversite.trim().replaceAll(" +", " ");
-                                associationDescription.trim().replaceAll(" +", " ");
-                                */
+                                createAssociation();
 
                                 Fragment associationMainFragment = new AssociationMainFragment();
                                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -184,5 +191,14 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                             }
                         });
         return builder.create();
+    }
+
+    public void createAssociation() {
+        associationName.trim().replaceAll(" +", " ");
+        associationUniversity.trim().replaceAll(" +", " ");
+        associationDescription.trim().replaceAll(" +", " ");
+
+        Association association = new Association(associationName, associationUniversity, associationDescription);
+        database.push().setValue(association);
     }
 }

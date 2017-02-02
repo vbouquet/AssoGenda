@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.io.InvalidObjectException;
 
 /**
+ * This class has been taken here : http://stackoverflow.com/users/1797000/hdante
+ *
  * Creates resized images without exploding memory. Uses the method described in android
  * documentation concerning bitmap allocation, which is to subsample the image to a smaller size,
  * close to some expected size. This is required because the android standard library is unable to
@@ -25,7 +27,7 @@ import java.io.InvalidObjectException;
  * See : https://github.com/hanscappelle/SO-2169649/blob/master/app/src/main/java/be/hcpl/android/so_2169649/UserPicture.java
  *
  * implementation by user @hdante
- * http://stackoverflow.com/users/1797000/hdante
+ *
  */
 public class UserPicture {
 
