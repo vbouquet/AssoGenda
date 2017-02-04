@@ -31,14 +31,14 @@ import java.io.InvalidObjectException;
  */
 public class UserPicture {
 
-    static int MAX_WIDTH = 600;
-    static int MAX_HEIGHT = 800;
-    Uri uri;
-    ContentResolver resolver;
-    String path;
-    Matrix orientation;
-    int storedHeight;
-    int storedWidth;
+    private static int MAX_WIDTH = 600;
+    private static int MAX_HEIGHT = 800;
+    private Uri uri;
+    private ContentResolver resolver;
+    private String path;
+    private Matrix orientation;
+    private int storedHeight;
+    private int storedWidth;
 
     public UserPicture(Uri uri, ContentResolver resolver) {
         this.uri = uri;

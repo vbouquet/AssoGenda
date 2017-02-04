@@ -2,7 +2,6 @@ package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 
@@ -22,9 +20,6 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
 
     private OnFragmentInteractionListener mListener;
 
-    public CreateAssociationFragment() {
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -32,8 +27,7 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
      * @return A new instance of fragment AssociationMainFragment.
      */
     public static CreateAssociationFragment newInstance() {
-        CreateAssociationFragment fragment = new CreateAssociationFragment();
-        return fragment;
+        return new CreateAssociationFragment();
     }
 
     @Override

@@ -20,9 +20,6 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
 
     private OnFragmentInteractionListener mListener;
 
-    public AssociationMainFragment() {
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -30,8 +27,7 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
      * @return A new instance of fragment AssociationMainFragment.
      */
     public static AssociationMainFragment newInstance() {
-        AssociationMainFragment fragment = new AssociationMainFragment();
-        return fragment;
+        return new AssociationMainFragment();
     }
 
     @Override

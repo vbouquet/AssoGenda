@@ -23,6 +23,11 @@
     <string name="fragment_create_association_form_validation_ok">Oui</string>
     <string name="fragment_create_association_form_validation_cancel">Non</string>
 
+    <!-- Dashboard activity -->
+    <string name="AssociationDashboardActivity_upload_logo">Uploading</string>
+    <string name="AssociationDashboardActivity_association_creation_success">Association créée !</string>
+
+
 
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
