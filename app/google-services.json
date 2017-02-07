@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "948725645383",
+    "firebase_url": "https://assogenda.firebaseio.com",
+    "project_id": "assogenda",
+    "storage_bucket": "assogenda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948725645383:android:4f287b7415978682",
+        "android_client_info": {
+          "package_name": "fr.paris10.projet.assogenda.assogenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948725645383-26v6hvt8ddmfusqld4r10ig19niov0c7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjbUey26M8pa5FdFhJgpGyF2GsMb1ncyc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
