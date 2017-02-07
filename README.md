@@ -1,6 +1,6 @@
 # AssoGenda
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![GitHub version](https://badge.fury.io/gh/bouquet2%2Fassogenda.svg)](http://badge.fury.io/gh/bouquet2%2Fassogenda)
 
 Master | Develop
 --- | --- | --- 
