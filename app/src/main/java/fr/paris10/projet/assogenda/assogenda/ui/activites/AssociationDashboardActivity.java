@@ -159,7 +159,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         startActivityForResult(Intent.createChooser(intent,
                 "Select picture"), SELECT_SINGLE_PICTURE);
 
-        //Now we can avoid initializing our imageView with empty data, show image preview
+        //Initializing our imageView
         imagePreview = (ImageView) findViewById(R.id.fragment_create_association_logo_imageView);
     }
 
@@ -175,15 +175,21 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
 
                 //path to our image
                 filePath = data.getData();
+
+                Log.i(this.getClass().getCanonicalName(), "Path : " + data.getData().getPath());
+
                 try {
 
-                    //Sets a Bitmap as the content of this ImageView
+                    //Sets a Bitmap as the content of this ImageView, show imagePreview
                     imagePreview.setImageBitmap(new UserPicture(filePath, getContentResolver()).getBitmap());
                 } catch (IOException e) {
+
+                    Toast.makeText(getApplicationContext(), R.string.AssociationDashboardActivity_association_image_load_error, Toast.LENGTH_SHORT).show();
                     Log.e(MainActivity.class.getSimpleName(), "Failed to load image", e);
                 }
             }
         } else {
+
             Log.d(MainActivity.class.getSimpleName(), "Failed to get intent data, result code is " + resultCode);
             imagePreview = null;
         }
@@ -243,8 +249,9 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
 
     /**
      * Upload association logo to firebase
-     * //TODO only images can be uploaded (not random files)
+     * //TODO only images can be uploaded (not random files). Create FileValidator class, voir https://www.mkyong.com/regular-expressions/how-to-validate-image-file-extension-with-regular-expression/
      * //TODO manage image names (actually for all association only logo.jpg is created)
+     * //TODO supprimer tous les privates
      */
     public void uploadFile() {
         final ProgressDialog progressDialog = new ProgressDialog(this);

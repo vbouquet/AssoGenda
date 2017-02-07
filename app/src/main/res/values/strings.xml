@@ -26,6 +26,8 @@
     <!-- Dashboard activity -->
     <string name="AssociationDashboardActivity_upload_logo">Uploading</string>
     <string name="AssociationDashboardActivity_association_creation_success">Association créée !</string>
+    <string name="AssociationDashboardActivity_association_image_load_error">Impossible de charger l\'image !</string>
+
 
 
 
