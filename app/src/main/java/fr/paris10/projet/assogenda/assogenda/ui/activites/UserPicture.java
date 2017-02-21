@@ -31,14 +31,14 @@ import java.io.InvalidObjectException;
  */
 public class UserPicture {
 
-    private static int MAX_WIDTH = 600;
-    private static int MAX_HEIGHT = 800;
-    private Uri uri;
-    private ContentResolver resolver;
-    private String path;
-    private Matrix orientation;
-    private int storedHeight;
-    private int storedWidth;
+    public static int MAX_WIDTH = 600;
+    public static int MAX_HEIGHT = 800;
+    public Uri uri;
+    public ContentResolver resolver;
+    public String path;
+    public Matrix orientation;
+    public int storedHeight;
+    public int storedWidth;
 
     public UserPicture(Uri uri, ContentResolver resolver) {
         this.uri = uri;
@@ -83,12 +83,8 @@ public class UserPicture {
     }
 
     private boolean getInformation() throws IOException {
-        if (getInformationFromMediaDatabase())
+        if (getInformationFromMediaDatabase() || getInformationFromFileSystem())
             return true;
-
-        if (getInformationFromFileSystem())
-            return true;
-
         return false;
     }
 
@@ -102,11 +98,10 @@ public class UserPicture {
 
         cursor.moveToFirst();
         path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-        int orientation = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION));
+        int cursorInt = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION));
         this.orientation = new Matrix();
-        this.orientation.setRotate(orientation);
+        this.orientation.setRotate(cursorInt);
         cursor.close();
-
         return true;
     }
 
@@ -118,11 +113,11 @@ public class UserPicture {
             return false;
 
         ExifInterface exif = new ExifInterface(path);
-        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+        int attributeInt = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                 ExifInterface.ORIENTATION_NORMAL);
 
         this.orientation = new Matrix();
-        switch (orientation) {
+        switch (attributeInt) {
             case ExifInterface.ORIENTATION_NORMAL:
                 /* Identity matrix */
                 break;
@@ -148,6 +143,8 @@ public class UserPicture {
                 break;
             case ExifInterface.ORIENTATION_ROTATE_270:
                 this.orientation.setRotate(-90);
+                break;
+            default:
                 break;
         }
 

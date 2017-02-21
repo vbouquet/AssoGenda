@@ -38,15 +38,15 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         AssociationMainFragment.OnFragmentInteractionListener,
         CreateAssociationFragment.OnFragmentInteractionListener {
 
-    private static final int SELECT_SINGLE_PICTURE = 101;
+    public static final int SELECT_SINGLE_PICTURE = 101;
     public static final String IMAGE_TYPE = "image/*";
-    private ImageView imagePreview;
-    private DatabaseReference database;
-    private StorageReference mStorageRef;
-    private Uri filePath;
-    private String associationName;
-    private String associationUniversity;
-    private String associationDescription;
+    public ImageView imagePreview;
+    public DatabaseReference database;
+    public StorageReference mStorageRef;
+    public Uri filePath;
+    public String associationName;
+    public String associationUniversity;
+    public String associationDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         //Main fragment which allow us to manage other fragments
-        Fragment associationMainFragment = new AssociationMainFragment();
+        Fragment associationMainFragment = AssociationMainFragment.newInstance();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction
                 .replace(R.id.activity_association_dashboard_fragment_container,
@@ -251,7 +251,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
      * Upload association logo to firebase
      * //TODO only images can be uploaded (not random files). Create FileValidator class, voir https://www.mkyong.com/regular-expressions/how-to-validate-image-file-extension-with-regular-expression/
      * //TODO manage image names (actually for all association only logo.jpg is created)
-     * //TODO supprimer tous les privates
      */
     public void uploadFile() {
         final ProgressDialog progressDialog = new ProgressDialog(this);

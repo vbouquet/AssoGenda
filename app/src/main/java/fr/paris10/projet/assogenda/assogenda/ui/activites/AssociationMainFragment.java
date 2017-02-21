@@ -53,7 +53,7 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
         if (context instanceof CreateAssociationFragment.OnFragmentInteractionListener) {
             mListener = (AssociationMainFragment.OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
+            throw new FragmentRuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
@@ -66,7 +66,7 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
         try {
             mListener = (AssociationMainFragment.OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new FragmentClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
     }

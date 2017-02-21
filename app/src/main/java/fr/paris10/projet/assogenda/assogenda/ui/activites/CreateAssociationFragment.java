@@ -57,7 +57,7 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (CreateAssociationFragment.OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
+            throw new FragmentRuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
@@ -70,7 +70,7 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
         try {
             mListener = (CreateAssociationFragment.OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new FragmentClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
