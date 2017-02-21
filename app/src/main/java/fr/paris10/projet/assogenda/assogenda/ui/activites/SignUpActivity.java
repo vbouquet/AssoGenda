@@ -14,15 +14,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import fr.paris10.projet.assogenda.assogenda.R;
+import fr.paris10.projet.assogenda.assogenda.model.User;
 
 public class SignUpActivity extends AppCompatActivity {
 
     protected EditText passwordEditText;
     protected EditText emailEditText;
     protected Button signUpButton;
+    protected EditText firstNameEditText;
+    protected EditText lastNameEditText;
     private FirebaseAuth mFirebaseAuth;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         passwordEditText = (EditText)findViewById(R.id.signup_password);
         emailEditText = (EditText)findViewById(R.id.signup_email);
+        firstNameEditText = (EditText) findViewById(R.id.first_name);
+        lastNameEditText = (EditText) findViewById(R.id.last_name);
         signUpButton = (Button)findViewById(R.id.signup_validate);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +71,8 @@ public class SignUpActivity extends AppCompatActivity {
                                         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        Log.i(this.getClass().getCanonicalName(),"On va dans MainActivity");
+                                        User newUserToInsert = new User(emailEditText.getText().toString(), firstNameEditText.getText().toString(), lastNameEditText.getText().toString());
+                                        database.child(task.getResult().getUser().getUid()).setValue(newUserToInsert);
                                         startActivity(intent);
                                     } else {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
@@ -75,6 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+
                 }
             }
         });
