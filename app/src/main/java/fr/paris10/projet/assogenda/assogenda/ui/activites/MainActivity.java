@@ -8,27 +8,23 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private DatabaseReference mDatabase;
-    private String mUserId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FirebaseAuth mFirebaseAuth;
+        FirebaseUser mFirebaseUser;
 
         // Initialize Firebase Auth and Database Reference
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Button logout = (Button) findViewById(R.id.main_logout_button);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -43,9 +39,10 @@ public class MainActivity extends AppCompatActivity {
         if (mFirebaseUser == null) {
             // Not logged in, launch the Log In activity
             loadLogInView();
-        } else {
-
         }
+        /*
+        Insert an Else statement later
+        */
     }
 
     @Override
