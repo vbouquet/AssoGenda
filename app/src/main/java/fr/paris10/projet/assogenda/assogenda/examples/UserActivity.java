@@ -27,9 +27,6 @@ import fr.paris10.projet.assogenda.assogenda.model.User;
  * and display elements in a listView with a customAdapter
  */
 public class UserActivity extends AppCompatActivity {
-    Button addButton;
-    Button clearButton;
-    ListView listView;
     private DatabaseReference database;
     private CustomUserAdapter adapter;
     public ArrayList<User> items;
@@ -50,6 +47,10 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_example);
+
+        Button addButton;
+        Button clearButton;
+        ListView listView;
 
         /**
          * Init users and connection to database
