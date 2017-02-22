@@ -17,23 +17,6 @@ Asso’Genda est une application android de gestion et de partage d’événemen
 AssoGenda utilise android sdk version 23.0.2.
 Vérifiez qu'il est installé et que la variable d'environnement ANDROID_HOME est présente dans votre PATH.
 
-Sinon exécutez les commandes suivantes:
-```
-curl --location "http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz" | tar -xz -C "$HOME/android-sdk-linux"
-```
-
-Ajoutez les lignes suivantes au .bashrc
-```
-# ANDROID_HOME
-export ANDROID_HOME=/home/valentin/Android/android-sdk-linux
-
-# Path Android sdk
-export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-
-# Reset path
-source ~/.bashrc
-```
-
 ### Use Case ###
 
 ![](/diagrams/usecase_associations.png)
