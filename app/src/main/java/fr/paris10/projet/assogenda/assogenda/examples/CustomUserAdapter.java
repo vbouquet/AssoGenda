@@ -20,9 +20,9 @@ class CustomUserAdapter extends ArrayAdapter<User> {
     }
 
     private static class ViewHolder {
-        TextView textFirstName;
-        TextView textLastName;
-        TextView textEmail;
+        private TextView textFirstName;
+        private TextView textLastName;
+        private TextView textEmail;
     }
 
     @NonNull

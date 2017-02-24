@@ -5,7 +5,6 @@ import com.google.firebase.database.Exclude;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class Association {
     public String id;
