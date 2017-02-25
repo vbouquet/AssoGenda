@@ -9,8 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 import fr.paris10.projet.assogenda.assogenda.R;
+import fr.paris10.projet.assogenda.assogenda.model.Association;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +31,10 @@ import fr.paris10.projet.assogenda.assogenda.R;
 public class AssociationMainFragment extends Fragment implements View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
+    private CustomAssociationAdapter associationAdapter;
+    ListView listView;
+    private DatabaseReference databaseReference;
+    public ArrayList<Association> items;
 
     /**
      * Use this factory method to create a new instance of
@@ -33,12 +49,47 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i(this.getClass().getCanonicalName(), "Entre dans onCreate");
+        items = new ArrayList<>();
+        associationAdapter = new CustomAssociationAdapter(getActivity(), items);
+        databaseReference = FirebaseDatabase.getInstance().getReference("association");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference.orderByChild("president").equalTo(user.getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                Association association = snapshot.getValue(Association.class);
+                items.add(association);
+                associationAdapter.notifyDataSetChanged();
+                Log.i(this.getClass().getCanonicalName(), snapshot.getKey() + " a pour nom : " + association.name);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(this.getClass().getCanonicalName(), "Entre dans onCreateView");
         View v = inflater.inflate(R.layout.fragment_association_main, container, false);
+        listView = (ListView) v.findViewById(R.id.fragment_association_main_listView);
+        listView.setAdapter(associationAdapter);
         Button createAssociationButton =
                 (Button) v.findViewById(R.id.fragment_association_main_button_create_association);
         createAssociationButton.setOnClickListener(this);

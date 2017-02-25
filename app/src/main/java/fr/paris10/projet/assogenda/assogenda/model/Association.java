@@ -14,15 +14,16 @@ public class Association {
     public int logo;
     public Date startSubscription;
     public Date endSubscription;
-    public User president;
+    public String president;
 
     public Association() {
     }
 
-    public Association(String name, String university, String description) {
+    public Association(String name, String university, String description, String president) {
         this.name = name;
         this.university = university;
         this.description = description;
+        this.president = president;
     }
 
     /**

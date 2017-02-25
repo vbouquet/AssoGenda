@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -95,7 +97,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         Log.i(this.getClass().getCanonicalName(),
                 "Entre dans onAssociationDashboardFragmentInteraction");
 
-        Fragment createAssociationFragment = new CreateAssociationFragment();
+        Fragment createAssociationFragment = CreateAssociationFragment.newInstance();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction
                 .replace(R.id.activity_association_dashboard_fragment_container,
@@ -211,7 +213,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                                 Toast.makeText(getApplicationContext(), R.string.AssociationDashboardActivity_association_creation_success, Toast.LENGTH_LONG).show();
 
                                 //Redirection to main fragment
-                                Fragment associationMainFragment = new AssociationMainFragment();
+                                Fragment associationMainFragment = AssociationMainFragment.newInstance();
                                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                                 transaction
                                         .replace(R.id.activity_association_dashboard_fragment_container,
@@ -243,7 +245,9 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
             uploadFile();
         }
 
-        Association association = new Association(associationName, associationUniversity, associationDescription);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        Association association = new Association(associationName, associationUniversity, associationDescription, user.getUid());
         database.push().setValue(association);
     }
 

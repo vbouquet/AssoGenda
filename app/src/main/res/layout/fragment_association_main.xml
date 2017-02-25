@@ -21,6 +21,14 @@
             android:layout_height="81dp"
             android:id="@+id/fragment_association_main_button_create_association" />
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_association_main_listView"
+            android:layout_marginTop="93dp" />
+
     </LinearLayout>
+
+
 
 </FrameLayout>
