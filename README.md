@@ -6,7 +6,7 @@ Master | Develop
 --- | --- | --- 
 [![Build Status](https://travis-ci.org/Bouquet2/AssoGenda.svg?branch=master)](https://travis-ci.org/Bouquet2/AssoGenda) | [![Build Status](https://travis-ci.org/Bouquet2/AssoGenda.svg?branch=develop)](https://travis-ci.org/Bouquet2/AssoGenda)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/726fc6a1a7514acc91f321082a3d2b51?branch=master)](https://www.codacy.com/app/Bouquet2/AssoGenda?utm_source=github.com&utm_medium=referral&utm_content=Bouquet2/AssoGenda&utm_campaign=badger) | [![Codacy Badge](https://api.codacy.com/project/badge/Grade/726fc6a1a7514acc91f321082a3d2b51?branch=develop)](https://www.codacy.com/app/Bouquet2/AssoGenda?utm_source=github.com&utm_medium=referral&utm_content=Bouquet2/AssoGenda&utm_campaign=badger)
-[![Coverage Status](https://coveralls.io/repos/github/Bouquet2/AssoGenda/badge.svg?branch=master)](https://coveralls.io/github/Bouquet2/AssoGenda?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/Bouquet2/AssoGenda/badge.svg?branch=master)](https://coveralls.io/github/Bouquet2/AssoGenda?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/Bouquet2/AssoGenda/badge.svg?branch=master)](https://coveralls.io/github/Bouquet2/AssoGenda?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/Bouquet2/AssoGenda/badge.svg?branch=develop)](https://coveralls.io/github/Bouquet2/AssoGenda?branch=develop)
 
 Asso’Genda est une application android de gestion et de partage d’événements associatifs ayant deux objectifs principaux :  
 
