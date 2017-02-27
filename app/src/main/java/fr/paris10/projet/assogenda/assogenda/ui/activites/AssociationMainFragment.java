@@ -30,10 +30,10 @@ import fr.paris10.projet.assogenda.assogenda.model.Association;
  */
 public class AssociationMainFragment extends Fragment implements View.OnClickListener {
 
-    private OnFragmentInteractionListener mListener;
-    private CustomAssociationAdapter associationAdapter;
-    ListView listView;
-    private DatabaseReference databaseReference;
+    public OnFragmentInteractionListener mListener;
+    public CustomAssociationAdapter associationAdapter;
+    public ListView listView;
+    public DatabaseReference databaseReference;
     public ArrayList<Association> items;
 
     /**
@@ -62,7 +62,7 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
                 Association association = snapshot.getValue(Association.class);
                 items.add(association);
                 associationAdapter.notifyDataSetChanged();
-                Log.i(this.getClass().getCanonicalName(), snapshot.getKey() + " a pour nom : " + association.name);
+                Log.i(this.getClass().getCanonicalName(), snapshot.getKey() + " Association : " + association);
             }
 
             @Override

@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
@@ -32,6 +33,8 @@ import java.io.IOException;
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
 
+//TODO vérifier que le nom de l'association n'est pas déjà pris
+
 /**
  * Activity for associations management.
  * Associations are managed via fragments.
@@ -42,6 +45,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
 
     public static final int SELECT_SINGLE_PICTURE = 101;
     public static final String IMAGE_TYPE = "image/*";
+    public static String LOGO_PATH = null;
     public ImageView imagePreview;
     public DatabaseReference database;
     public StorageReference mStorageRef;
@@ -153,6 +157,19 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         Log.i(this.getClass().getCanonicalName(),
                 "Entre dans onAddImageAssociationFragmentInteraction");
 
+        EditText associationNameEdit = (EditText)
+                findViewById(R.id.fragment_create_association_name);
+        associationName = associationNameEdit.getText().toString();
+        if (associationName.length() == 0) {
+            associationNameEdit.setError(
+                    getString(R.string.fragment_create_association_form_validation_name));
+        } else {
+            chooseImage();
+        }
+    }
+
+    public void chooseImage() {
+
         //open picture selection
         Intent intent = new Intent();
         intent.setType(IMAGE_TYPE);
@@ -178,11 +195,12 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                 //path to our image
                 filePath = data.getData();
 
-                Log.i(this.getClass().getCanonicalName(), "Path : " + data.getData().getPath());
-
                 try {
 
                     //Sets a Bitmap as the content of this ImageView, show imagePreview
+                    if (imagePreview != null) {
+                        uploadImage();
+                    }
                     imagePreview.setImageBitmap(new UserPicture(filePath, getContentResolver()).getBitmap());
                 } catch (IOException e) {
 
@@ -207,7 +225,12 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                createAssociation();
+                                try {
+                                    createAssociation();
+                                    LOGO_PATH = null;
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
 
                                 //Success toast
                                 Toast.makeText(getApplicationContext(), R.string.AssociationDashboardActivity_association_creation_success, Toast.LENGTH_LONG).show();
@@ -233,37 +256,28 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
     /**
      * Create association on firebase database and association logo on firebase storage.
      */
-    public void createAssociation() {
+    public void createAssociation() throws InterruptedException {
 
         //Delete unfortunate spaces : this "  test   test   " will become : "test test"
         associationName = associationName.trim().replaceAll(" +", " ");
         associationUniversity = associationUniversity.trim().replaceAll(" +", " ");
         associationDescription = associationDescription.trim().replaceAll(" +", " ");
 
-        //Upload only if an image is set
-        if (imagePreview != null) {
-            uploadFile();
-        }
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        Association association = new Association(associationName, associationUniversity, associationDescription, user.getUid());
+        Association association = new Association(associationName, associationUniversity, associationDescription, user.getUid(), LOGO_PATH);
         database.push().setValue(association);
     }
 
-    /**
-     * Upload association logo to firebase
-     * //TODO only images can be uploaded (not random files). Create FileValidator class, voir https://www.mkyong.com/regular-expressions/how-to-validate-image-file-extension-with-regular-expression/
-     * //TODO manage image names (actually for all association only logo.jpg is created)
-     */
-    public void uploadFile() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
+    public void uploadImage() {
+
+        final ProgressDialog progressDialog = new ProgressDialog(AssociationDashboardActivity.this);
         progressDialog.setTitle(R.string.AssociationDashboardActivity_upload_logo);
         progressDialog.show();
 
-        //reference creation (where our image will be stored)
-        StorageReference riversRef = mStorageRef.child("images/logo/logo.jpg");
-        riversRef.putFile(filePath)
+        LOGO_PATH = "images/" + associationName + "/logo.jpg";
+        StorageReference storageReference = mStorageRef.child(LOGO_PATH);
+        storageReference.putFile(filePath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

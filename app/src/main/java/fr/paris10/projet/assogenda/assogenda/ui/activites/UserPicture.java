@@ -83,9 +83,7 @@ public class UserPicture {
     }
 
     private boolean getInformation() throws IOException {
-        if (getInformationFromMediaDatabase() || getInformationFromFileSystem())
-            return true;
-        return false;
+        return getInformationFromMediaDatabase() || getInformationFromFileSystem();
     }
 
     /* Support for gallery apps and remote ("picasa") images */
