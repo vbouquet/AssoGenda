@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
@@ -45,7 +44,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
 
     public static final int SELECT_SINGLE_PICTURE = 101;
     public static final String IMAGE_TYPE = "image/*";
-    public static String LOGO_PATH = null;
     public ImageView imagePreview;
     public DatabaseReference database;
     public StorageReference mStorageRef;
@@ -198,9 +196,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                 try {
 
                     //Sets a Bitmap as the content of this ImageView, show imagePreview
-                    if (imagePreview != null) {
-                        uploadImage();
-                    }
                     imagePreview.setImageBitmap(new UserPicture(filePath, getContentResolver()).getBitmap());
                 } catch (IOException e) {
 
@@ -227,7 +222,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
 
                                 try {
                                     createAssociation();
-                                    LOGO_PATH = null;
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -235,13 +229,18 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                                 //Success toast
                                 Toast.makeText(getApplicationContext(), R.string.AssociationDashboardActivity_association_creation_success, Toast.LENGTH_LONG).show();
 
-                                //Redirection to main fragment
-                                Fragment associationMainFragment = AssociationMainFragment.newInstance();
-                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                transaction
-                                        .replace(R.id.activity_association_dashboard_fragment_container,
-                                                associationMainFragment)
-                                        .commit();
+                                //Skip upload if no image is set
+                                if(imagePreview == null) {
+
+                                    //Redirection to main fragment
+                                    Fragment associationMainFragment = AssociationMainFragment.newInstance();
+                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                    transaction
+                                            .replace(R.id.activity_association_dashboard_fragment_container,
+                                                    associationMainFragment)
+                                            .addToBackStack(null)
+                                            .commit();
+                                }
                             }
                         })
                 .setNegativeButton(R.string.fragment_create_association_form_validation_cancel,
@@ -258,14 +257,21 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
      */
     public void createAssociation() throws InterruptedException {
 
+        String logo = null;
+
         //Delete unfortunate spaces : this "  test   test   " will become : "test test"
         associationName = associationName.trim().replaceAll(" +", " ");
         associationUniversity = associationUniversity.trim().replaceAll(" +", " ");
         associationDescription = associationDescription.trim().replaceAll(" +", " ");
 
+        if(imagePreview != null) {
+            logo = "images/" + associationName + "/logo.jpg";
+            uploadImage();
+        }
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        Association association = new Association(associationName, associationUniversity, associationDescription, user.getUid(), LOGO_PATH);
+        Association association = new Association(associationName, associationUniversity, associationDescription, user.getUid(), logo);
         database.push().setValue(association);
     }
 
@@ -275,13 +281,22 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         progressDialog.setTitle(R.string.AssociationDashboardActivity_upload_logo);
         progressDialog.show();
 
-        LOGO_PATH = "images/" + associationName + "/logo.jpg";
-        StorageReference storageReference = mStorageRef.child(LOGO_PATH);
+        StorageReference storageReference = mStorageRef.child("images/" + associationName + "/logo.jpg");
         storageReference.putFile(filePath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         imagePreview = null;
+
+                        //Redirection to main fragment
+                        Fragment associationMainFragment = AssociationMainFragment.newInstance();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction
+                                .replace(R.id.activity_association_dashboard_fragment_container,
+                                        associationMainFragment)
+                                .addToBackStack(null)
+                                .commit();
+
                         progressDialog.dismiss();
                     }
                 })
