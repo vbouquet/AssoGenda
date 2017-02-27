@@ -55,32 +55,37 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
         associationAdapter = new CustomAssociationAdapter(getActivity(), items);
         databaseReference = FirebaseDatabase.getInstance().getReference("association");
 
+        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference.orderByChild("president").equalTo(user.getUid()).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                Association association = snapshot.getValue(Association.class);
-                items.add(association);
-                associationAdapter.notifyDataSetChanged();
-                Log.i(this.getClass().getCanonicalName(), snapshot.getKey() + " Association : " + association);
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
+        if(mFirebaseAuth.getCurrentUser() != null) {
+            databaseReference.orderByChild("president").equalTo(user.getUid()).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                    Association association = snapshot.getValue(Association.class);
+                    items.add(association);
+                    associationAdapter.notifyDataSetChanged();
+                    Log.i(this.getClass().getCanonicalName(), snapshot.getKey() + " Association : " + association);
+                }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
     }
 
     @Override

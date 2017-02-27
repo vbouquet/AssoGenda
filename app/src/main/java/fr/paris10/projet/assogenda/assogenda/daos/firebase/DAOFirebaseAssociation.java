@@ -28,8 +28,10 @@ public class DAOFirebaseAssociation {
     }
 
     public void createAssociation(String associationName, String associationUniversity, String associationDescription, String logo) {
-        Association association = new Association(associationName, associationUniversity, associationDescription, mFirebaseAuth.getCurrentUser().getUid(), logo);
-        database.push().setValue(association);
+        if(mFirebaseAuth.getCurrentUser() != null) {
+            Association association = new Association(associationName, associationUniversity, associationDescription, mFirebaseUser.getUid(), logo);
+            database.push().setValue(association);
+        }
     }
 
     //TODO vérifier que le nom de l'association n'est pas déjà pris
