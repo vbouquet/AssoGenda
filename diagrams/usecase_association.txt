@@ -1,0 +1,35 @@
+@startuml
+skinparam backgroundColor LightGrey
+skinparam handwritten false
+left to right direction
+skinparam packageStyle rect
+actor Président
+actor Membre
+
+
+skinparam usecase {
+  BackgroundColor 7788AA
+  BorderColor Dark
+  ArrowColor Olive
+  ActorBorderColor black
+  ActorFontName Courier
+  ActorBackgroundColor<< Human >> Gold
+}
+
+skinparam rectangle {
+  BackgroundColor 2D4471
+}
+
+rectangle AssoGenda{
+  Président -- (Inscription)
+  Président -- (Connexion)
+  Membre-- (Connexion)
+  Président -- (Gestion des membres)
+  Président -- (Gestion des évènements)
+  Membre -- (Gestion des évènements)
+  Membre -- (Visualiser les évènements avec un planning)
+  Membre -- (Modifier la description de l'association)
+  Président -- (Visualiser les évènements avec un planning)
+  Président -- (Modifier la description de l'association)
+}
+@enduml
