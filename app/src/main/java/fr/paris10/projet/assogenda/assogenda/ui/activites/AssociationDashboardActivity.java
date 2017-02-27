@@ -18,10 +18,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -30,9 +26,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 
 import fr.paris10.projet.assogenda.assogenda.R;
-import fr.paris10.projet.assogenda.assogenda.model.Association;
-
-//TODO vérifier que le nom de l'association n'est pas déjà pris
+import fr.paris10.projet.assogenda.assogenda.daos.DAOAssociation;
 
 /**
  * Activity for associations management.
@@ -45,12 +39,14 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
     public static final int SELECT_SINGLE_PICTURE = 101;
     public static final String IMAGE_TYPE = "image/*";
     public ImageView imagePreview;
-    public DatabaseReference database;
-    public StorageReference mStorageRef;
     public Uri filePath;
+
+    public StorageReference mStorageRef;
+
     public String associationName;
     public String associationUniversity;
     public String associationDescription;
+    public DAOAssociation daoAssociation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +54,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_association_dashboard);
         Log.i(this.getClass().getCanonicalName(), "Entre dans onCreate");
 
-        //create firebase database association reference
-        database = FirebaseDatabase.getInstance().getReference("association");
+        daoAssociation = DAOAssociation.getInstance();
 
         //create firebase storage reference
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -115,36 +110,32 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
     public void onCreateAssociationFragmentInteraction() {
         Log.i(this.getClass().getCanonicalName(),
                 "Entre dans onCreateAssociationFragmentInteraction");
-        boolean validate = true;
 
         EditText associationNameEdit = (EditText)
                 findViewById(R.id.fragment_create_association_name);
         associationName = associationNameEdit.getText().toString();
-        if (associationName.length() == 0) {
+        if (!daoAssociation.validateAssociationName(associationName)) {
             associationNameEdit.setError(
                     getString(R.string.fragment_create_association_form_validation_name));
-            validate = false;
         }
 
         EditText associationUniversiteEdit = (EditText)
                 findViewById(R.id.fragment_create_association_university);
         associationUniversity = associationUniversiteEdit.getText().toString();
-        if (associationUniversity.length() == 0) {
+        if (!daoAssociation.validateAssociationUniversity(associationUniversity)) {
             associationUniversiteEdit.setError(
                     getString(R.string.fragment_create_association_form_validation_universite));
-            validate = false;
         }
 
         EditText associationDescriptionEdit = (EditText)
                 findViewById(R.id.fragment_create_association_description);
         associationDescription = associationDescriptionEdit.getText().toString();
-        if (associationDescription.length() == 0) {
+        if (!daoAssociation.validateAssociationDescription(associationDescription)) {
             associationDescriptionEdit.setError(
                     getString(R.string.fragment_create_association_form_validation_description));
-            validate = false;
         }
 
-        if (validate) {
+        if (daoAssociation.validateAssociation(associationName, associationUniversity, associationDescription)) {
             Dialog formValidation = onCreateDialog();
             formValidation.show();
         }
@@ -154,19 +145,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
     public void onAddImageAssociationFragmentInteraction() {
         Log.i(this.getClass().getCanonicalName(),
                 "Entre dans onAddImageAssociationFragmentInteraction");
-
-        EditText associationNameEdit = (EditText)
-                findViewById(R.id.fragment_create_association_name);
-        associationName = associationNameEdit.getText().toString();
-        if (associationName.length() == 0) {
-            associationNameEdit.setError(
-                    getString(R.string.fragment_create_association_form_validation_name));
-        } else {
-            chooseImage();
-        }
-    }
-
-    public void chooseImage() {
 
         //open picture selection
         Intent intent = new Intent();
@@ -223,14 +201,14 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                                 try {
                                     createAssociation();
                                 } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                                    Log.i(MainActivity.class.getSimpleName(), "" + e);
                                 }
 
                                 //Success toast
                                 Toast.makeText(getApplicationContext(), R.string.AssociationDashboardActivity_association_creation_success, Toast.LENGTH_LONG).show();
 
                                 //Skip upload if no image is set
-                                if(imagePreview == null) {
+                                if (imagePreview == null) {
 
                                     //Redirection to main fragment
                                     Fragment associationMainFragment = AssociationMainFragment.newInstance();
@@ -264,17 +242,19 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         associationUniversity = associationUniversity.trim().replaceAll(" +", " ");
         associationDescription = associationDescription.trim().replaceAll(" +", " ");
 
-        if(imagePreview != null) {
+        if (imagePreview != null) {
             logo = "images/" + associationName + "/logo.jpg";
             uploadImage();
         }
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        Association association = new Association(associationName, associationUniversity, associationDescription, user.getUid(), logo);
-        database.push().setValue(association);
+        daoAssociation.createAssociation(associationName, associationUniversity, associationDescription, logo);
     }
 
+
+    //TODO check if only image are uploaded (and not random files)
+    /**
+     * Upload association logo to firebase
+     */
     public void uploadImage() {
 
         final ProgressDialog progressDialog = new ProgressDialog(AssociationDashboardActivity.this);

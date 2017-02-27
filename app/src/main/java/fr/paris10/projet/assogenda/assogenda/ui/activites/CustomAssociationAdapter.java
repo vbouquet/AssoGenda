@@ -30,8 +30,8 @@ public class CustomAssociationAdapter extends ArrayAdapter<Association> {
     }
 
     private static class ViewHolder {
-        /*private*/ TextView textAssociationName;
-        /*private*/ ImageView imageAssociationLogo;
+        private TextView textAssociationName;
+        private ImageView imageAssociationLogo;
     }
 
     @NonNull
