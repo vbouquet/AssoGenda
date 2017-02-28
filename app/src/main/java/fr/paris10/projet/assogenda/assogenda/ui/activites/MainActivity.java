@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         this.daoUser = DAOUser.getInstance();
         redirectIfNotLoggedIn();
 
-        Button logoutButon = (Button) findViewById(R.id.main_logout_button);
+        Button logoutButon = (Button) findViewById(R.id.activity_main_logout_button);
         logoutButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

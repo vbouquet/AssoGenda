@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".examples.UserActivity" />
         <activity android:name=".ui.activites.SignUpActivity" />
-        <activity android:name=".ui.activites.LoginActivity"></activity>
+        <activity android:name=".ui.activites.LoginActivity" />
+        <activity android:name=".ui.activites.CreateEventActivity"></activity>
     </application>
 
 </manifest>

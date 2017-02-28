@@ -15,4 +15,16 @@
     <string name="action_logout">Logout</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="event_name">Event Name</string>
+    <string name="event_create">Create event</string>
+    <string name="event_create_submit_error_message">Please make sure to fill all fields</string>
+    <string name="event_create_submit_error_title">Error !</string>
+    <string name="event_create_start_time">Start time</string>
+    <string name="event_create_start_date">Start date</string>
+    <string name="event_create_end_time">End time</string>
+    <string name="event_create_end_date">End date</string>
+    <string name="event_description">Event description</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

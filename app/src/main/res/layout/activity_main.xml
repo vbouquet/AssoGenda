@@ -17,5 +17,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/main_logout_button" />
+        android:id="@+id/activity_main_logout_button" />
 </RelativeLayout>

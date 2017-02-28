@@ -35,10 +35,10 @@ public class LoginActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         daoUser = DAOUser.getInstance();
 
-        signUpTextView      = (TextView) findViewById(R.id.signUpText);
-        emailEditText       = (EditText) findViewById(R.id.login_email);
-        passwordEditText    = (EditText) findViewById(R.id.login_password);
-        logInButton         = (Button) findViewById(R.id.login_validate);
+        signUpTextView      = (TextView) findViewById(R.id.activity_login_to_activity_sign_up);
+        emailEditText       = (EditText) findViewById(R.id.activity_login_email);
+        passwordEditText    = (EditText) findViewById(R.id.activity_login_password);
+        logInButton         = (Button) findViewById(R.id.activity_login_validate);
 
         signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
