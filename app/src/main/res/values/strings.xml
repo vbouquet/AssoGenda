@@ -29,8 +29,6 @@
     <string name="AssociationDashboardActivity_association_image_load_error">Impossible de charger l\'image !</string>
 
 
-
-
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
     <string name="sign_up_button_label">Sign Up</string>
@@ -44,4 +42,6 @@
     <string name="title_activity_login">Sign in</string>
     <string name="add_item">Add New Item</string>
     <string name="action_logout">Logout</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
 </resources>

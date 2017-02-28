@@ -5,8 +5,8 @@ package fr.paris10.projet.assogenda.assogenda.util;
  */
 
 public class Period {
-    private int begin;
-    private int end;
+    public int begin;
+    public int end;
 
     public Period(int begin, int end) throws PeriodException {
         if (begin > end || begin == end)
