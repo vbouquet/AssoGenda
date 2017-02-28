@@ -1,30 +1,22 @@
 package fr.paris10.projet.assogenda.assogenda.daos;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import fr.paris10.projet.assogenda.assogenda.model.Association;
 
 import static org.junit.Assert.*;
 
 public class DAOAssociationTest {
 
-    private Context appContext;
     private DAOAssociation daoAssociation;
 
     @Before
     public void setUp() throws Exception {
-        this.appContext  = InstrumentationRegistry.getTargetContext();
         this.daoAssociation = DAOAssociation.getInstance();
     }
 
     @After
     public void tearDown() throws Exception {
-        this.appContext = null;
         this.daoAssociation = null;
     }
 
@@ -33,10 +25,8 @@ public class DAOAssociationTest {
         assertNotNull(daoAssociation);
     }
 
-    //String name, String university, String description, String president, String logo
     @Test
     public void testValidateAssociation() throws Exception {
-        Association association = new Association("Name", "University", "Description", "President", "logo");
         assertFalse(daoAssociation.validateAssociation(null, null, null));
         assertFalse(daoAssociation.validateAssociationName(null));
 

@@ -1,4 +1,4 @@
-package fr.paris10.projet.assogenda.assogenda.ui.activites;
+package fr.paris10.projet.assogenda.assogenda.ui.fragment;
 
 /**
  * Created by repocque on 21/02/2017.

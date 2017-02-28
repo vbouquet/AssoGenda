@@ -1,4 +1,4 @@
-package fr.paris10.projet.assogenda.assogenda.ui.activites;
+package fr.paris10.projet.assogenda.assogenda.util.association;
 
 import android.content.ContentResolver;
 import android.database.Cursor;

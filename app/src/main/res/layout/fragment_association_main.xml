@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.paris10.projet.assogenda.assogenda.ui.activites.AssociationMainFragment">
+    tools:context="fr.paris10.projet.assogenda.assogenda.ui.fragment.AssociationMainFragment">
 
     <LinearLayout
         android:orientation="vertical"

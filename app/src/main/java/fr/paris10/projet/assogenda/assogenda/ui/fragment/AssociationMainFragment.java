@@ -1,4 +1,4 @@
-package fr.paris10.projet.assogenda.assogenda.ui.activites;
+package fr.paris10.projet.assogenda.assogenda.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
+import fr.paris10.projet.assogenda.assogenda.ui.adapter.CustomAssociationAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

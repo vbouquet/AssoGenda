@@ -27,6 +27,9 @@ import java.io.IOException;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.daos.DAOAssociation;
+import fr.paris10.projet.assogenda.assogenda.ui.fragment.AssociationMainFragment;
+import fr.paris10.projet.assogenda.assogenda.ui.fragment.CreateAssociationFragment;
+import fr.paris10.projet.assogenda.assogenda.util.association.UserPicture;
 
 /**
  * Activity for associations management.

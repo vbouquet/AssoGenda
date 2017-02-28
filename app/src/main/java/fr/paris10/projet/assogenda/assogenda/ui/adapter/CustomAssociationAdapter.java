@@ -1,4 +1,4 @@
-package fr.paris10.projet.assogenda.assogenda.ui.activites;
+package fr.paris10.projet.assogenda.assogenda.ui.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
