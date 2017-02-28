@@ -1,5 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-version '0.0.1'
+version '0.1.0'
 
 buildscript {
     repositories {
