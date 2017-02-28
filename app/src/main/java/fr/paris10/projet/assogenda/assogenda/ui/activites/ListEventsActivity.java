@@ -74,12 +74,12 @@ public class ListEventsActivity extends AppCompatActivity {
         listEvents.setAdapter(adapter);
 
 
-       /*listEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       listEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(),EventInfoActivity.class);
+                Intent intent = new Intent(getApplicationContext(),EventInfosActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 }
