@@ -1,0 +1,95 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.paris10.projet.assogenda.assogenda.ui.fragment.CreateAssociationFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <TextView
+            android:text="@string/fragment_create_association_name_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/fragment_create_association_name_title"
+            android:layout_weight="0.04" />
+
+        <EditText
+            android:hint="@string/fragment_create_association_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/fragment_create_association_name" />
+
+        <TextView
+            android:text="@string/fragment_create_association_university_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/fragment_create_association_university_title"
+            android:layout_weight="0.03" />
+
+        <EditText
+            android:hint="@string/fragment_create_association_university"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/fragment_create_association_university" />
+
+        <TextView
+            android:text="@string/fragment_create_association_description_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/fragment_create_association_description_title"
+            android:layout_weight="0.03" />
+
+        <EditText
+            android:hint="@string/fragment_create_association_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/fragment_create_association_description"
+            android:layout_weight="0.11" />
+
+        <TextView
+            android:text="@string/fragment_create_association_logo_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/fragment_create_association_logo_title"
+            android:layout_weight="0.04" />
+
+        <Button
+            android:text="@string/fragment_create_association_button_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_create_association_button_logo"
+            android:layout_weight="0.04" />
+
+        <ImageView
+            android:id="@+id/fragment_create_association_logo_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.04"
+            android:layout_below="@+id/fragment_create_association_button_logo"/>
+
+        <Button
+            android:text="@string/fragment_create_association_button_validate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_create_association_button_validate"
+            android:layout_weight="0.04" />
+
+
+
+    </LinearLayout>
+</FrameLayout>
