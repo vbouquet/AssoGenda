@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,6 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onAttach Context");
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (CreateAssociationFragment.OnFragmentInteractionListener) context;
         } else {
@@ -66,7 +64,6 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onAttach Activity");
         try {
             mListener = (CreateAssociationFragment.OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -78,7 +75,6 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onDetach");
         mListener = null;
     }
 
@@ -88,7 +84,6 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
      */
     @Override
     public void onClick(View view) {
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onClick ");
         switch (view.getId()) {
 
             case R.id.fragment_create_association_button_validate:
@@ -100,7 +95,6 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
                 break;
 
             default:
-                Log.i(this.getClass().getCanonicalName(), "Aucun id n'est reconnu !");
                 break;
         }
     }

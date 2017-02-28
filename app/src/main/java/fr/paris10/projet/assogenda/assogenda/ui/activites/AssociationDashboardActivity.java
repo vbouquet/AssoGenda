@@ -55,7 +55,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_association_dashboard);
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onCreate");
 
         daoAssociation = DAOAssociation.getInstance();
 
@@ -74,19 +73,16 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onResume");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onDestroy");
     }
 
     /**
@@ -94,8 +90,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
      */
     @Override
     public void onAssociationDashboardFragmentInteraction() {
-        Log.i(this.getClass().getCanonicalName(),
-                "Entre dans onAssociationDashboardFragmentInteraction");
 
         Fragment createAssociationFragment = CreateAssociationFragment.newInstance();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -111,8 +105,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
      */
     @Override
     public void onCreateAssociationFragmentInteraction() {
-        Log.i(this.getClass().getCanonicalName(),
-                "Entre dans onCreateAssociationFragmentInteraction");
 
         EditText associationNameEdit = (EditText)
                 findViewById(R.id.fragment_create_association_name);
@@ -146,8 +138,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
 
     @Override
     public void onAddImageAssociationFragmentInteraction() {
-        Log.i(this.getClass().getCanonicalName(),
-                "Entre dans onAddImageAssociationFragmentInteraction");
 
         //open picture selection
         Intent intent = new Intent();
@@ -166,8 +156,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(this.getClass().getCanonicalName(),
-                "Entre dans onActivityResult");
+
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_SINGLE_PICTURE && data != null) {
 
@@ -186,7 +175,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
             }
         } else {
 
-            Log.d(MainActivity.class.getSimpleName(), "Failed to get intent data, result code is " + resultCode);
+            Log.i(MainActivity.class.getSimpleName(), "Failed to get intent data, result code is " + resultCode);
             imagePreview = null;
         }
     }
@@ -195,6 +184,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
      * On positive button, add association to firebase.
      */
     public Dialog onCreateDialog() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.fragment_create_association_form_validation_title)
                 .setPositiveButton(R.string.fragment_create_association_form_validation_ok,
@@ -253,8 +243,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
         daoAssociation.createAssociation(associationName, associationUniversity, associationDescription, logo);
     }
 
-
-    //TODO check if only image are uploaded (and not random files)
     /**
      * Upload association logo to firebase
      */

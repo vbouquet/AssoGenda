@@ -2,7 +2,6 @@ package fr.paris10.projet.assogenda.assogenda.ui.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +37,6 @@ public class CustomAssociationAdapter extends ArrayAdapter<Association> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Log.i(this.getClass().getCanonicalName(), "Entre dans getView");
-
         Association association = getItem(position);
         View view = convertView;
 
@@ -56,7 +53,6 @@ public class CustomAssociationAdapter extends ArrayAdapter<Association> {
         //set association name
         viewHolder.textAssociationName.setText(association.name);
 
-        //TODO Add a custom default image
         //Set association logo
         if (association.logo != null) {
             StorageReference storageReference = FirebaseStorage.getInstance().getReference();

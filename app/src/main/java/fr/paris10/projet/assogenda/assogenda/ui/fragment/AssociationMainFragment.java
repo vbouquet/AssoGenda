@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +50,6 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onCreate");
         items = new ArrayList<>();
         associationAdapter = new CustomAssociationAdapter(getActivity(), items);
         databaseReference = FirebaseDatabase.getInstance().getReference("association");
@@ -67,7 +65,6 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
                     Association association = snapshot.getValue(Association.class);
                     items.add(association);
                     associationAdapter.notifyDataSetChanged();
-                    Log.i(this.getClass().getCanonicalName(), snapshot.getKey() + " Association : " + association);
                 }
 
                 @Override
@@ -92,7 +89,6 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onCreateView");
         View v = inflater.inflate(R.layout.fragment_association_main, container, false);
         listView = (ListView) v.findViewById(R.id.fragment_association_main_listView);
         listView.setAdapter(associationAdapter);
@@ -106,7 +102,6 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onAttach Context");
         if (context instanceof CreateAssociationFragment.OnFragmentInteractionListener) {
             mListener = (AssociationMainFragment.OnFragmentInteractionListener) context;
         } else {
@@ -119,7 +114,6 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onAttach Activity");
         try {
             mListener = (AssociationMainFragment.OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -132,13 +126,11 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onDetach");
         mListener = null;
     }
 
     @Override
     public void onClick(View view) {
-        Log.i(this.getClass().getCanonicalName(), "Entre dans onClick ");
         mListener.onAssociationDashboardFragmentInteraction();
     }
 
