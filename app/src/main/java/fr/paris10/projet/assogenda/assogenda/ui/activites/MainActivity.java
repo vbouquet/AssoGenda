@@ -20,11 +20,19 @@ public class MainActivity extends AppCompatActivity {
         this.daoUser = DAOUser.getInstance();
         redirectIfNotLoggedIn();
 
-        Button logoutButon = (Button) findViewById(R.id.activity_main_logout_button);
-        logoutButon.setOnClickListener(new View.OnClickListener() {
+        Button logoutButton = (Button) findViewById(R.id.activity_main_logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loggedOut();
+            }
+        });
+
+        Button goToEventCreation = (Button) findViewById(R.id.activity_main_create_event_button);
+        goToEventCreation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadCreateEventView();
             }
         });
 
@@ -51,5 +59,12 @@ public class MainActivity extends AppCompatActivity {
         daoUser.signOut();
         finish();
         startActivity(getIntent());
+    }
+
+    protected void loadCreateEventView(){
+        Intent intent = new Intent(this, CreateEventActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

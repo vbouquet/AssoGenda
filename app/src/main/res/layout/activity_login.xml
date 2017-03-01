@@ -50,4 +50,13 @@
         android:layout_marginTop="69dp"
         android:text="@string/sign_up_text" />
 
+    <Button
+        android:text="TEMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity_login_to_activity_sign_up"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="97dp"
+        android:id="@+id/tmp_button" />
+
 </RelativeLayout>

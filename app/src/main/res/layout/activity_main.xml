@@ -11,11 +11,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fr.paris10.projet.assogenda.assogenda.ui.activites.MainActivity">
 
-    <Button
-        android:text="Déconnexion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/activity_main_logout_button" />
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:text="Create event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_main_create_event_button" />
+
+        <Button
+            android:text="Log out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_main_logout_button"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="51dp" />
+    </LinearLayout>
+
 </RelativeLayout>

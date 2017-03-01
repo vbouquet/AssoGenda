@@ -63,6 +63,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button temp = (Button) findViewById(R.id.tmp_button);
+        temp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadCreateEventView();
+            }
+        });
     }
 
     public void signIn(final String email, final String password) {
@@ -90,5 +98,13 @@ public class LoginActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok, null);
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+
+    protected void loadCreateEventView(){
+        Intent intent = new Intent(this, CreateEventActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }
