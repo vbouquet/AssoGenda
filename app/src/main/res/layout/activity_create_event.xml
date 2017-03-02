@@ -41,6 +41,7 @@
                 android:ems="10"
                 android:layout_weight="1"
                 android:hint="@string/event_create_start_time"
+                android:focusable="false"
                 android:id="@+id/activity_create_event_start_time" />
 
             <EditText
@@ -50,6 +51,7 @@
                 android:ems="10"
                 android:id="@+id/activity_create_event_start_date"
                 android:layout_weight="1"
+                android:focusable="false"
                 android:hint="@string/event_create_start_date" />
         </LinearLayout>
 
@@ -66,6 +68,7 @@
                 android:ems="10"
                 android:id="@+id/activity_create_event_end_time"
                 android:layout_weight="1"
+                android:focusable="false"
                 android:hint="@string/event_create_end_time"
                 />
 
@@ -76,6 +79,7 @@
                 android:ems="10"
                 android:id="@+id/activity_create_event_end_date"
                 android:layout_weight="1"
+                android:focusable="false"
                 android:hint="@string/event_create_end_date" />
         </LinearLayout>
 
