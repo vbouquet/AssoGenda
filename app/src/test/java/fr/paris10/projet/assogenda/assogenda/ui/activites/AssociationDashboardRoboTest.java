@@ -14,7 +14,6 @@ import org.robolectric.annotation.Config;
 
 import fr.paris10.projet.assogenda.assogenda.BuildConfig;
 import fr.paris10.projet.assogenda.assogenda.R;
-import fr.paris10.projet.assogenda.assogenda.model.Association;
 
 import static org.junit.Assert.*;
 
