@@ -74,8 +74,9 @@ public class Event {
     public Map<String, Object> toMap() {
         Map<String, Object> result = new HashMap<>();
         result.put("name", name);
-        result.put("association", association.name);
-        result.put("location", location);
+        result.put("description", description);
+        //result.put("association", association.name);
+        //result.put("location", location);
         result.put("start", dateFormat.format(start));
         result.put("end",dateFormat.format(end));
         return result;

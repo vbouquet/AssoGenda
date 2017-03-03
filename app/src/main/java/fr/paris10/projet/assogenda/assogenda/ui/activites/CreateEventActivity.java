@@ -3,15 +3,14 @@ package fr.paris10.projet.assogenda.assogenda.ui.activites;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -21,7 +20,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
@@ -105,6 +103,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
                 else{
                     database.push().setValue(new Event(eventName, eventStart, eventEnd, eventDescription).toMap());
+                    loadMain();
                 }
             }
         });
@@ -143,7 +142,7 @@ public class CreateEventActivity extends AppCompatActivity {
     }
 
     public Date eventDatesConverter(EditText time, EditText date){
-        DateFormat dateFormatter = new SimpleDateFormat("hh:mm dd/MM/yyyy", Locale.FRANCE);
+        DateFormat dateFormatter = new SimpleDateFormat("kk:mm dd/MM/yyyy");
         String tmpTime = time.getText().toString().trim();
         String tmpDate = date.getText().toString().trim();
 
@@ -157,5 +156,12 @@ public class CreateEventActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void loadMain(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }
