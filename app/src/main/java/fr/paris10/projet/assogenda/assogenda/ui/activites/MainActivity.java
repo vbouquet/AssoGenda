@@ -10,6 +10,7 @@ import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.daos.DAOUser;
 
 public class MainActivity extends AppCompatActivity {
+
     private DAOUser daoUser;
 
     @Override
@@ -33,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), AssociationDashboardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button agendaButton = (Button) findViewById(R.id.activity_main_calendar_button);
+        agendaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AsynchronousActivity.class);
                 startActivity(intent);
             }
         });
