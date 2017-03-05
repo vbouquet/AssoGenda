@@ -49,11 +49,16 @@ public class Event {
         this.association=association;
     }
 
-    public Event(String name, Date start, Date end, String type, String description){
+    public Event(String name, Date start, Date end, String type, String location,
+                 int price, int seat_number, String description){
         this.name=name;
         this.start=start;
         this.end=end;
         this.type=type;
+        this.location=location;
+        this.price=price;
+        this.seat_free=seat_number;
+        this.seat_number=seat_number;
         this.description=description;
     }
 
@@ -79,7 +84,9 @@ public class Event {
         result.put("description", description);
         result.put("type", type);
         //result.put("association", association.name);
-        //result.put("location", location);
+        result.put("location", location);
+        result.put("seats number", seat_number);
+        result.put("seats free", seat_free);
         result.put("start", dateFormat.format(start));
         result.put("end",dateFormat.format(end));
         return result;

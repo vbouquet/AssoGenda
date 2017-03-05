@@ -15,7 +15,7 @@
     <string name="action_logout">Logout</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
-    <string name="event_name">Event Name</string>
+    <string name="event_create_name">Name</string>
     <string name="event_create">Create event</string>
     <string name="event_create_submit_error_message">Please make sure to fill all fields</string>
     <string name="event_create_submit_error_title">Error !</string>
@@ -23,9 +23,14 @@
     <string name="event_create_start_date">Start date</string>
     <string name="event_create_end_time">End time</string>
     <string name="event_create_end_date">End date</string>
-    <string name="event_description">Event description</string>
+    <string name="event_create_description">Description</string>
+    <string name="event_create_location">Location</string>
+    <string name="event_create_price">Price</string>
+    <string name="event_create_seats_available">Seats available</string>
     <string name="event_create_submit_date_error_message">The end date cannot be anterior to the start !</string>
-    <string name="event_create_event_spinner_text">Event type</string>
+    <string name="event_create_submit_seats_error_message">You need at least five seats available to your event !</string>
+    <string name="event_create_submit_price_error_message">The price cannot be negative !</string>
+
 
     <string-array name="event_create_event_types">
         <item>Sport</item>

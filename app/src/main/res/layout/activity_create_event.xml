@@ -29,10 +29,11 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:ems="10"
             android:id="@+id/activity_create_event_name"
-            android:hint="@string/event_name">
+            android:hint="@string/event_create_name"
+            android:fontFamily="sans-serif">
             <requestFocus />
         </EditText>
 
@@ -107,10 +108,36 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/activity_create_event_location"
+            android:hint="@string/event_create_location" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/activity_create_event_price"
+            android:hint="@string/event_create_price"
+            android:inputType="numberDecimal"
+            android:digits="0123456789."/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/activity_create_event_seats_available"
+            android:hint="@string/event_create_seats_available"
+            android:inputType="numberSigned"
+            android:digits="0123456789" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/activity_create_event_description"
-            android:hint="@string/event_description" />
+            android:hint="@string/event_create_description" />
 
         <Button
             android:text="@string/event_create"

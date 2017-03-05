@@ -36,6 +36,9 @@ public class CreateEventActivity extends AppCompatActivity {
     protected EditText eventDescriptionEditText;
     protected Button eventCreateButton;
     protected Spinner eventTypeSpinner;
+    protected EditText eventLocationEditText;
+    protected EditText eventSeatsAvailableEditText;
+    protected EditText eventPriceEditText;
 
     protected DateFormat dateFormatter;
 
@@ -56,6 +59,9 @@ public class CreateEventActivity extends AppCompatActivity {
         eventDescriptionEditText = (EditText) findViewById(R.id.activity_create_event_description);
         eventCreateButton = (Button) findViewById(R.id.activity_create_event_submit);
         eventTypeSpinner = (Spinner) findViewById(R.id.activity_create_event_type_spinner);
+        eventLocationEditText = (EditText) findViewById(R.id.activity_create_event_location);
+        eventSeatsAvailableEditText = (EditText) findViewById(R.id.activity_create_event_seats_available);
+        eventPriceEditText = (EditText) findViewById(R.id.activity_create_event_price);
 
         //Sets the spinner's content
         ArrayAdapter<CharSequence> tmpAdapterEventTypes = ArrayAdapter.createFromResource(this,R.array.event_create_event_types, android.R.layout.simple_spinner_item);
@@ -101,10 +107,30 @@ public class CreateEventActivity extends AppCompatActivity {
                 final Date eventEnd = eventDatesConverter(eventEndTimeEditText, eventEndDateEditText);
                 final String eventType = eventTypeSpinner.getItemAtPosition(eventTypeSpinner.getSelectedItemPosition()).toString().trim();
                 final String eventDescription = eventDescriptionEditText.getText().toString().trim();
+                final String eventLocation = eventLocationEditText.getText().toString().trim();
+                final String eventSeatsAvailable = eventSeatsAvailableEditText.getText().toString().trim();
+                final String eventPrice = eventPriceEditText.getText().toString().trim();
 
-                if (eventName.isEmpty() || eventDescription.isEmpty() || eventStart == null || eventEnd == null || eventType.isEmpty()) {
+                if (eventName.isEmpty() || eventDescription.isEmpty() || eventStart == null || eventEnd == null
+                        || eventType.isEmpty() || eventLocation.isEmpty() || eventSeatsAvailable.isEmpty() || eventPrice.isEmpty()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
                     builder.setMessage(R.string.event_create_submit_error_message)
+                            .setTitle(R.string.event_create_submit_error_title)
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                else if (Integer.parseInt(eventSeatsAvailable) < 5){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
+                    builder.setMessage(R.string.event_create_submit_seats_error_message)
+                            .setTitle(R.string.event_create_submit_error_title)
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                else if(Integer.parseInt(eventPrice) < 0.0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
+                    builder.setMessage(R.string.event_create_submit_price_error_message)
                             .setTitle(R.string.event_create_submit_error_title)
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
@@ -119,7 +145,10 @@ public class CreateEventActivity extends AppCompatActivity {
                     dialog.show();
                 }
                 else{
-                    database.push().setValue(new Event(eventName, eventStart, eventEnd, eventType, eventDescription).toMap());
+                    database.push()
+                            .setValue(new Event(eventName, eventStart, eventEnd, eventType, eventLocation,
+                                    Integer.parseInt(eventPrice), Integer.parseInt(eventSeatsAvailable), eventDescription)
+                            .toMap());
                     loadMain();
                 }
             }
