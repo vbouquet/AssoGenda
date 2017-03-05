@@ -19,7 +19,7 @@ public class Event {
     public Date end;
     public String description;
     public String location;
-    public List<String> tags;
+    public String type;
     public int price;
     public int bail;
     public int seat_number;
@@ -33,11 +33,12 @@ public class Event {
     public Event(){
     }
 
-    public Event(String name, Date start, Date end, String description, String location,
+    public Event(String name, Date start, Date end, String type, String description, String location,
                  int price, int bail, int seat_number, Association association, int logo){
         this.name=name;
         this.start=start;
         this.end=end;
+        this.type=type;
         this.description=description;
         this.location=location;
         this.price=price;
@@ -48,10 +49,11 @@ public class Event {
         this.association=association;
     }
 
-    public Event(String name, Date start, Date end, String description){
+    public Event(String name, Date start, Date end, String type, String description){
         this.name=name;
         this.start=start;
         this.end=end;
+        this.type=type;
         this.description=description;
     }
 
@@ -75,6 +77,7 @@ public class Event {
         Map<String, Object> result = new HashMap<>();
         result.put("name", name);
         result.put("description", description);
+        result.put("type", type);
         //result.put("association", association.name);
         //result.put("location", location);
         result.put("start", dateFormat.format(start));

@@ -18,6 +18,14 @@
         android:id="@+id/activity_create_event_layout"
         android:layout_alignParentTop="true">
 
+        <TextView
+            android:text="Event Creation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_create_event_title_textview"
+            android:textAlignment="center"
+            android:textSize="22sp" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,7 +89,20 @@
                 android:layout_weight="1"
                 android:focusable="false"
                 android:hint="@string/event_create_end_date" />
+
         </LinearLayout>
+
+        <TextView
+            android:text="Event type :"
+            android:layout_width="match_parent"
+            android:id="@+id/activity_create_event_type_selection_textview"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_create_event_type_spinner" />
 
         <EditText
             android:layout_width="match_parent"
