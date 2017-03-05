@@ -1,38 +1,85 @@
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
+import android.util.Log;
+
 import com.alamkanak.weekview.WeekViewEvent;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import fr.paris10.projet.assogenda.assogenda.R;
+import fr.paris10.projet.assogenda.assogenda.model.Event;
 
 /**
- * A basic example of how to use week view library.
- * Created by Raquib-ul-Alam Kanak on 1/3/2014.
- * Website: http://alamkanak.github.io
+ * Events loader.
  */
-public class BasicActivity extends BaseActivity {
+public class AgendaGeneratorActivity extends WeekViewActivity {
 
     @Override
-    public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-        // Populate the week view with some events.
-        List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+    public List<? extends WeekViewEvent> onMonthChange(int newYear, final int newMonth) {
 
-        Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 3);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth - 1);
-        startTime.set(Calendar.YEAR, newYear);
-        Calendar endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR, 1);
-        endTime.set(Calendar.MONTH, newMonth - 1);
-        WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime), startTime, endTime);
+        // Populate the week view with some events.
+        List<WeekViewEvent> events = new ArrayList<>();
+
+        Calendar startTime;
+        Calendar endTime;
+        WeekViewEvent event;
+
+        //TODO recupérer les events dans firebase et if (event.mois == newMonth) alors on le crée
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("events");
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for(DataSnapshot events : dataSnapshot.getChildren()) {
+                        Event event = events.getValue(Event.class);
+                        if(Integer.parseInt(event.start.substring(0, 1)) == newMonth) {
+                            Log.i("Event : ", " " + event);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Error : ", "onCancelled", databaseError.toException());
+            }
+        });
+
+        /*
+        startTime.set(Calendar.HOUR_OF_DAY, 8);
+        startTime.set(Calendar.MINUTE, 30);
+        startTime.set(Calendar.MONTH, 3 - 1);
+        startTime.set(Calendar.YEAR, 2017);
+
+        endTime.add(Calendar.HOUR_OF_DAY, 20);
+        endTime.add(Calendar.MINUTE, 20);
+        endTime.set(Calendar.MONTH, 3 - 1);
+        WeekViewEvent event = new WeekViewEvent(1, "Event test", startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_01));
-        events.add(event);
+        events.add(event);*/
 
         startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, 8);
+        startTime.set(Calendar.MINUTE, 30);
+        startTime.set(Calendar.MONTH, newMonth);
+        startTime.set(Calendar.YEAR, newYear);
+        endTime = (Calendar) startTime.clone();
+        endTime.add(Calendar.HOUR_OF_DAY, 3);
+        endTime.set(Calendar.MONTH, newMonth);
+        event = new WeekViewEvent(3, getEventTitle(startTime), startTime, endTime);
+        event.setColor(getResources().getColor(R.color.event_color_03));
+        events.add(event);
+
+        /*startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 3);
         startTime.set(Calendar.MINUTE, 30);
         startTime.set(Calendar.MONTH, newMonth-1);
@@ -158,7 +205,7 @@ public class BasicActivity extends BaseActivity {
         event = new WeekViewEvent(8, getEventTitle(startTime), null, startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_01));
         events.add(event);
-
+        */
         return events;
     }
 
