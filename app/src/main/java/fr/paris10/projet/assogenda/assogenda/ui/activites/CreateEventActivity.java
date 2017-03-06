@@ -22,7 +22,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
@@ -128,7 +127,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
-                else if(Integer.parseInt(eventPrice) < 0.0){
+                else if(Float.parseFloat(eventPrice) < 0.0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
                     builder.setMessage(R.string.event_create_submit_price_error_message)
                             .setTitle(R.string.event_create_submit_error_title)
@@ -147,7 +146,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 else{
                     database.push()
                             .setValue(new Event(eventName, eventStart, eventEnd, eventType, eventLocation,
-                                    Integer.parseInt(eventPrice), Integer.parseInt(eventSeatsAvailable), eventDescription)
+                                    Float.parseFloat(eventPrice), Integer.parseInt(eventSeatsAvailable), eventDescription)
                             .toMap());
                     loadMain();
                 }

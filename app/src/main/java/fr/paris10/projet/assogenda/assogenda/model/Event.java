@@ -5,7 +5,6 @@ import com.google.firebase.database.Exclude;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,7 +19,7 @@ public class Event {
     public String description;
     public String location;
     public String type;
-    public int price;
+    public float price;
     public int bail;
     public int seat_number;
     public int seat_free;
@@ -34,7 +33,7 @@ public class Event {
     }
 
     public Event(String name, Date start, Date end, String type, String description, String location,
-                 int price, int bail, int seat_number, Association association, int logo){
+                 float price, int bail, int seat_number, Association association, int logo){
         this.name=name;
         this.start=start;
         this.end=end;
@@ -50,7 +49,7 @@ public class Event {
     }
 
     public Event(String name, Date start, Date end, String type, String location,
-                 int price, int seat_number, String description){
+                 float price, int seat_number, String description){
         this.name=name;
         this.start=start;
         this.end=end;
@@ -85,6 +84,7 @@ public class Event {
         result.put("type", type);
         //result.put("association", association.name);
         result.put("location", location);
+        result.put("price", price);
         result.put("seats number", seat_number);
         result.put("seats free", seat_free);
         result.put("start", dateFormat.format(start));
