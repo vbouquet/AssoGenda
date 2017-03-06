@@ -102,8 +102,8 @@ public class CreateEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String eventName = eventNameEditText.getText().toString().trim();
-                final Date eventStart = eventDatesConverter(eventStartTimeEditText, eventStartDateEditText);
-                final Date eventEnd = eventDatesConverter(eventEndTimeEditText, eventEndDateEditText);
+                final String eventStart = eventDatesConverter(eventStartTimeEditText, eventStartDateEditText);
+                final String eventEnd = eventDatesConverter(eventEndTimeEditText, eventEndDateEditText);
                 final String eventType = eventTypeSpinner.getItemAtPosition(eventTypeSpinner.getSelectedItemPosition()).toString().trim();
                 final String eventDescription = eventDescriptionEditText.getText().toString().trim();
                 final String eventLocation = eventLocationEditText.getText().toString().trim();
@@ -186,7 +186,7 @@ public class CreateEventActivity extends AppCompatActivity {
         mTimePicker.show();
     }
 
-    public Date eventDatesConverter(EditText time, EditText date){
+    public String eventDatesConverter(EditText time, EditText date){
         DateFormat dateFormatter = new SimpleDateFormat("kk:mm dd/MM/yyyy");
         String tmpTime = time.getText().toString().trim();
         String tmpDate = date.getText().toString().trim();
@@ -196,7 +196,8 @@ public class CreateEventActivity extends AppCompatActivity {
         }
 
         try {
-            return dateFormatter.parse(tmpTime + " " + tmpDate);
+            Date tmp = dateFormatter.parse(tmpTime + " " + tmpDate);
+            return dateFormatter.format(tmp);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;

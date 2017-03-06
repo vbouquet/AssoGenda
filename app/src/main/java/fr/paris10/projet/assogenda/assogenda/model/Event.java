@@ -3,7 +3,6 @@ package fr.paris10.projet.assogenda.assogenda.model;
 import com.google.firebase.database.Exclude;
 
 import java.text.DateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,8 +13,8 @@ import java.util.Map;
 public class Event {
     public String id;
     public String name;
-    public Date start;
-    public Date end;
+    public String start;
+    public String end;
     public String description;
     public String location;
     public String type;
@@ -32,7 +31,7 @@ public class Event {
     public Event(){
     }
 
-    public Event(String name, Date start, Date end, String type, String description, String location,
+    public Event(String name, String start, String end, String type, String description, String location,
                  float price, int bail, int seat_number, Association association, int logo){
         this.name=name;
         this.start=start;
@@ -48,7 +47,7 @@ public class Event {
         this.association=association;
     }
 
-    public Event(String name, Date start, Date end, String type, String location,
+    public Event(String name, String start, String end, String type, String location,
                  float price, int seat_number, String description){
         this.name=name;
         this.start=start;
@@ -87,8 +86,8 @@ public class Event {
         result.put("price", price);
         result.put("seats number", seat_number);
         result.put("seats free", seat_free);
-        result.put("start", dateFormat.format(start));
-        result.put("end",dateFormat.format(end));
+        result.put("start", start);
+        result.put("end", end);
         return result;
     }
 
