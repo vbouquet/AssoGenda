@@ -13,8 +13,6 @@ public class Agenda {
     public int hourEnd;
     public int minEnd;
 
-    public Agenda() {}
-
     public void initDate(String dateStart, String dateEnd) {
 
         dayStart = Integer.parseInt(dateStart.substring(6, 8));
