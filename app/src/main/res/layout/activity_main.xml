@@ -25,11 +25,10 @@
             android:id="@+id/activity_main_create_event_button" />
         <Button
             android:text="@string/activity_main_button_association"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="93dp"
             android:id="@+id/activity_main_button_association" />
 
         <Button
@@ -38,8 +37,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/activity_main_logout_button"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="51dp" />
+            android:layout_centerHorizontal="true" />
     </LinearLayout>
 
 </RelativeLayout>

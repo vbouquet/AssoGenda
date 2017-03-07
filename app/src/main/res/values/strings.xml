@@ -19,7 +19,7 @@
     <string name="fragment_create_association_form_validation_name">Nom requis !</string>
     <string name="fragment_create_association_form_validation_universite">Université requise !</string>
     <string name="fragment_create_association_form_validation_description">Description requise !</string>
-    <string name="fragment_create_association_form_validation_title">Sûr de créer cette assoc frère ?</string>
+    <string name="fragment_create_association_form_validation_title">Valider la création ?</string>
     <string name="fragment_create_association_form_validation_ok">Oui</string>
     <string name="fragment_create_association_form_validation_cancel">Non</string>
 

@@ -38,19 +38,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         Button goToEventCreation = (Button) findViewById(R.id.activity_main_create_event_button);
-        //if (true) {
-        //
-        //}
-        //else{
-            goToEventCreation.setVisibility(View.VISIBLE);
-            goToEventCreation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    loadCreateEventView();
-                }
-            });
-        //}
+        goToEventCreation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadCreateEventView();
+            }
+        });
 
 
     }

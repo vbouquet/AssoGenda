@@ -39,11 +39,7 @@ public class CreateEventActivity extends AppCompatActivity {
     protected EditText eventSeatsAvailableEditText;
     protected EditText eventPriceEditText;
 
-    protected DateFormat dateFormatter;
-
     protected DatabaseReference database = FirebaseDatabase.getInstance().getReference("events");
-
-    protected static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +131,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
-                else if (eventEnd.compareTo(eventStart)<0){
+                else if (!firstDateAnteriorToSecond(eventStart, eventEnd)){
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
                     builder.setMessage(R.string.event_create_submit_date_error_message)
                             .setTitle(R.string.event_create_submit_error_title)
@@ -152,6 +148,25 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean firstDateAnteriorToSecond(String eventStart, String eventEnd) {
+        DateFormat dateFormatter = new SimpleDateFormat("kk:mm dd/MM/yyyy");
+        Date start;
+        Date end;
+
+        try {
+            start = dateFormatter.parse(eventStart);
+            end = dateFormatter.parse(eventEnd);
+            if (start.after(end)){
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
     public void dateDialog(final EditText editText){
