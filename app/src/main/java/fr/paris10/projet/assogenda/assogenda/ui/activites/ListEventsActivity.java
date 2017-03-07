@@ -15,7 +15,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,12 +45,29 @@ public class ListEventsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(),EventInfosActivity.class);
                 Event event = listeEvenements.get(position);
-                //Log.i("TEST : ",""+event.uid);
 
                 intent.putExtra("eventUID", event.uid);
                 startActivity(intent);
             }
         });
+    }
+
+    private Boolean convertToDate(String eventDate) {
+        DateFormat dateFormatter = new SimpleDateFormat("kk:mm dd/MM/yyyy");
+        Date start;
+        Date today;
+        Calendar c = Calendar.getInstance();
+        try {
+            start = dateFormatter.parse(eventDate);
+            today = dateFormatter.parse(dateFormatter.format(c.getTime()));
+            if (start.after(today)){
+                return true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+           return false;
+        }
+        return false;
     }
 
     public void loadEventInBackground() {
@@ -56,17 +78,17 @@ public class ListEventsActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot e : dataSnapshot.getChildren()) {
                         Event event = e.getValue(Event.class);
-                        //Log.i("TEST KEY : ",""+e.getKey());
                         event.uid=e.getKey();
-                        listeEvenements.add(event);
-                        HashMap<String,Object> hashMapValuesEvent = new HashMap<>();
-                        hashMapValuesEvent.put("nameEvent",event.name);
-                        hashMapValuesEvent.put("association",event.association);
-                        hashMapValuesEvent.put("dateEvent",event.start);
-                        hashMapValuesEvent.put("locationEvent",event.location);
-                        hashMapValuesEvent.put("tagsEvent",event.type);
-                        listValuesEvents.add(hashMapValuesEvent);
-
+                        if(convertToDate(event.start)){
+                            listeEvenements.add(event);
+                            HashMap<String,Object> hashMapValuesEvent = new HashMap<>();
+                            hashMapValuesEvent.put("nameEvent",event.name);
+                            hashMapValuesEvent.put("association",event.association);
+                            hashMapValuesEvent.put("dateEvent",event.start);
+                            hashMapValuesEvent.put("locationEvent",event.location);
+                            hashMapValuesEvent.put("tagsEvent",event.type);
+                            listValuesEvents.add(hashMapValuesEvent);
+                        }
                     }
                     String[] from = new String[] {"nameEvent","association","dateEvent","placeEvent","tagsEvent"};
                     int[] to = new int[] {R.id.content_list_events_name_event,R.id.content_list_events_name_association,R.id.content_list_events_date_event,R.id.content_list_events_location_event,R.id.content_list_events_tags_event};
