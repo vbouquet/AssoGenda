@@ -1,7 +1,6 @@
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.alamkanak.weekview.WeekViewEvent;
@@ -42,21 +41,30 @@ public class AgendaGeneratorActivity extends WeekViewActivity {
     //Populate the week view with some events.
     public static List<WeekViewEvent> events = new ArrayList<>();
 
+    public static boolean isDisplayed;
+
     @Override
     public List onMonthChange(int newYear, final int newMonth) {
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
 
-        if(newMonth == Calendar.getInstance().get(Calendar.MONTH) + 1 && events.size() == 0) {
+        if(newMonth == currentMonth  && events.size() == 0) {
             loadEventInBackground(newMonth);
+        }
+        if(!isDisplayed) {
+            Log.i("Events : ", "" + events);
+            return new ArrayList<>();
+        } else {
+            Log.i("Events 2 : ", "" + events);
+            isDisplayed = false;
             return events;
         }
-        return events;
     }
 
     public void loadEventInBackground(final int newMonth) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("events");
         id = 0;
-        Log.i("Start ", "1");
+        isDisplayed = false;
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -66,12 +74,13 @@ public class AgendaGeneratorActivity extends WeekViewActivity {
                         monthStart = Integer.parseInt(event.start.substring(9, 11));
                         if (monthStart == newMonth) {
 
-                            Log.i("Start ", "2");
                             initDate(event.start, event.end);
-                            setEvents(event.name, newMonth);
+                            setEvents(event.name);
                         }
                     }
                     if (monthStart == newMonth) {
+
+                        isDisplayed = true;
 
                         Intent intent = getIntent();
                         finish();
@@ -88,8 +97,6 @@ public class AgendaGeneratorActivity extends WeekViewActivity {
 
     public void initDate(String dateStart, String dateEnd) {
 
-        Log.i("InititDate ", " initDate");
-
         dayStart = Integer.parseInt(dateStart.substring(6, 8));
         yearStart = Integer.parseInt(dateStart.substring(12, 16));
         hourStart = Integer.parseInt(dateStart.substring(0, 2));
@@ -102,27 +109,54 @@ public class AgendaGeneratorActivity extends WeekViewActivity {
         minEnd = Integer.parseInt(dateEnd.substring(3, 5));
     }
 
-    public void setEvents(String title, int newMonth) {
+    public void setEvents(String title) {
 
-        Log.i("SetEvents ", " setEvents");
+        if(id == 4) {
+            Log.i("Event : ", "" + id);
+
+            Log.i("DayStart : ", "" + dayStart);
+            Log.i("MonthStart : ", "" + monthStart);
+            Log.i("yearStart : ", "" + yearStart);
+            Log.i("HourStart : ", "" + hourStart);
+            Log.i("MinStart : ", "" + minStart);
+
+            Log.i("DayEnd : ", "" + dayEnd);
+            Log.i("MonthEnd : ", "" + monthEnd);
+            Log.i("YearEnd : ", "" + yearEnd);
+            Log.i("HourEnd : ", "" + hourEnd);
+            Log.i("MinEnd : ", "" + minEnd);
+        }
 
         Calendar startTime;
         Calendar endTime;
 
         startTime = Calendar.getInstance();
         startTime.set(Calendar.DAY_OF_MONTH, dayStart);
-        startTime.set(Calendar.MONTH, newMonth - 1);
+        startTime.set(Calendar.MONTH, monthStart - 1);
         startTime.set(Calendar.YEAR, yearStart);
         startTime.set(Calendar.HOUR_OF_DAY, hourStart);
         startTime.set(Calendar.MINUTE, minStart);
         endTime = (Calendar) startTime.clone();
         endTime.set(Calendar.DAY_OF_MONTH, dayEnd);
-        endTime.set(Calendar.MONTH, newMonth - 1);
+        endTime.set(Calendar.MONTH, monthStart - 1);
         endTime.set(Calendar.YEAR, yearEnd);
         endTime.set(Calendar.HOUR_OF_DAY, hourEnd);
         endTime.set(Calendar.MINUTE, minEnd);
+        endTime.set(Calendar.HOUR_OF_DAY, hourEnd);
         event = new WeekViewEvent(++id, title, startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_01));
+
+
+        if(id%4 == 0) {
+            event.setColor(getResources().getColor(R.color.event_color_01));
+        } else if(id%4 == 1) {
+            event.setColor(getResources().getColor(R.color.event_color_02));
+        } else if(id%4 == 2) {
+            event.setColor(getResources().getColor(R.color.event_color_03));
+        } else if(id%4 == 3) {
+            event.setColor(getResources().getColor(R.color.event_color_04));
+        } else if(id%4 == 4) {
+            event.setColor(getResources().getColor(R.color.event_color_05));
+        }
         events.add(event);
     }
 }
