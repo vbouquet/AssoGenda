@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
         this.daoUser = DAOUser.getInstance();
         redirectIfNotLoggedIn();
 
+
+
         Button logoutButton = (Button) findViewById(R.id.activity_main_logout_button);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,12 +31,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button goToEventCreation = (Button) findViewById(R.id.activity_main_create_event_button);
-        goToEventCreation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadCreateEventView();
-            }
-        });
+        //if (true) {
+        //
+        //}
+        //else{
+            goToEventCreation.setVisibility(View.VISIBLE);
+            goToEventCreation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadCreateEventView();
+                }
+            });
+        //}
+
 
     }
 
