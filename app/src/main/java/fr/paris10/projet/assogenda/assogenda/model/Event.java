@@ -1,11 +1,8 @@
 package fr.paris10.projet.assogenda.assogenda.model;
-
 import com.google.firebase.database.Exclude;
 
 import java.text.DateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,12 +12,13 @@ import java.util.Map;
 public class Event {
     public String id;
     public String name;
-    public Date start;
-    public Date end;
+    public String start;
+    public String end;
     public String description;
     public String location;
-    public List<String> tags;
-    public int price;
+    public String type;
+    public String uid;
+    public float price;
     public int bail;
     public int seat_number;
     public int seat_free;
@@ -33,11 +31,13 @@ public class Event {
     public Event(){
     }
 
-    public Event(String name, Date start, Date end, String description, String location,
-                 int price, int bail, int seat_number, Association association, int logo){
+    public Event(String uid,String name, String start, String end, String type, String description, String location,
+                 float price, int bail, int seat_number, Association association, int logo){
+        this.uid=uid;
         this.name=name;
         this.start=start;
         this.end=end;
+        this.type=type;
         this.description=description;
         this.location=location;
         this.price=price;
@@ -48,10 +48,17 @@ public class Event {
         this.association=association;
     }
 
-    public Event(String name, Date start, Date end, String description){
+    public Event(String uid, String name, String start, String end, String type, String location,
+                 float price, int seat_number, String description){
+        this.uid = uid;
         this.name=name;
         this.start=start;
         this.end=end;
+        this.type=type;
+        this.location=location;
+        this.price=price;
+        this.seat_free=seat_number;
+        this.seat_number=seat_number;
         this.description=description;
     }
 
@@ -74,10 +81,15 @@ public class Event {
     public Map<String, Object> toMap() {
         Map<String, Object> result = new HashMap<>();
         result.put("name", name);
-        result.put("association", association.name);
+        result.put("description", description);
+        result.put("type", type);
+        //result.put("association", association.name);
         result.put("location", location);
-        result.put("start", dateFormat.format(start));
-        result.put("end",dateFormat.format(end));
+        result.put("price", price);
+        result.put("seats number", seat_number);
+        result.put("seats free", seat_free);
+        result.put("start", start);
+        result.put("end", end);
         return result;
     }
 
