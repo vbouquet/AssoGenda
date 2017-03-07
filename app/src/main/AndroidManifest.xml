@@ -15,10 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".examples.UserActivity" />
         <activity android:name=".ui.activites.SignUpActivity" />
         <activity android:name=".ui.activites.LoginActivity" />
         <activity android:name=".ui.activites.CreateEventActivity"></activity>
+        <activity android:name=".ui.activites.AssociationDashboardActivity"></activity>
     </application>
 
 </manifest>

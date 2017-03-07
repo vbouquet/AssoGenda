@@ -30,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button associationButton = (Button) findViewById(R.id.activity_main_button_association);
+        associationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AssociationDashboardActivity.class);
+                startActivity(intent);
+            }
+        });
         Button goToEventCreation = (Button) findViewById(R.id.activity_main_create_event_button);
         //if (true) {
         //

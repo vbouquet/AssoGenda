@@ -11,17 +11,20 @@ public class Association {
     public String name;
     public String description;
     public String university;
-    public int logo;
+    public String logo;
     public Date startSubscription;
     public Date endSubscription;
-    public User president;
+    public String president;
 
     public Association() {
     }
 
-    public Association(String name, String description) {
+    public Association(String name, String university, String description, String president, String logo) {
         this.name = name;
+        this.university = university;
         this.description = description;
+        this.president = president;
+        this.logo = logo;
     }
 
     /**
@@ -45,6 +48,9 @@ public class Association {
         StringBuilder sb = new StringBuilder();
         sb.append("name= ").append(name).append("\n");
         sb.append("description= ").append(description).append("\n");
+        sb.append("university= ").append(university).append("\n");
+        sb.append("logo= ").append(logo).append("\n");
+        sb.append("president= ").append(president).append("\n");
         return sb.toString();
     }
 }
