@@ -203,7 +203,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                                 //Skip upload if no image is set
                                 if (imagePreview == null) {
 
-                                    //Redirection to main fragment
+                                    //Redirection to agenda_main_menu fragment
                                     Fragment associationMainFragment = AssociationMainFragment.newInstance();
                                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                                     transaction
@@ -259,7 +259,7 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         imagePreview = null;
 
-                        //Redirection to main fragment
+                        //Redirection to agenda_main_menu fragment
                         Fragment associationMainFragment = AssociationMainFragment.newInstance();
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
                         transaction

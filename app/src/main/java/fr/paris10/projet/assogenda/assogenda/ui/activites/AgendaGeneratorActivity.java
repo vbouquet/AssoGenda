@@ -1,6 +1,5 @@
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;

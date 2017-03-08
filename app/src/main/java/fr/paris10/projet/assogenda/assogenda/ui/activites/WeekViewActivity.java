@@ -62,7 +62,7 @@ public abstract class WeekViewActivity extends AppCompatActivity implements Week
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.agenda_main_menu, menu);
         return true;
     }
 
