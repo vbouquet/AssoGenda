@@ -110,6 +110,7 @@ public abstract class WeekViewActivity extends AppCompatActivity implements Week
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
                 }
                 return true;
+            default: break;
         }
 
         return super.onOptionsItemSelected(item);

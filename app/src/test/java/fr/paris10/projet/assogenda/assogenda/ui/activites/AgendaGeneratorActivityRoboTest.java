@@ -11,10 +11,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.fakes.RoboMenuItem;
-import org.robolectric.shadows.ShadowActivity;
 
 import fr.paris10.projet.assogenda.assogenda.BuildConfig;
 import fr.paris10.projet.assogenda.assogenda.R;
