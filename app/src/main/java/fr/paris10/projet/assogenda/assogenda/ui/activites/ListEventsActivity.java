@@ -70,28 +70,74 @@ public class ListEventsActivity extends AppCompatActivity {
         return false;
     }
 
+    private Boolean compareDate(String event1, String event2) {
+        DateFormat dateFormatter = new SimpleDateFormat("kk:mm dd/MM/yyyy");
+        Date myEvent;
+        Date eventNext;
+        try {
+            myEvent = dateFormatter.parse(event1);
+            eventNext = dateFormatter.parse(event2);
+            if (myEvent.before(eventNext)){
+                return true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
+
     public void loadEventInBackground() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("events");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Event> listEventSort = new ArrayList<>();
+                int tailleList;
+                int nbEvent;
+                int eventRestant;
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot e : dataSnapshot.getChildren()) {
                         Event event = e.getValue(Event.class);
                         event.uid=e.getKey();
-                        if(convertToDate(event.start)){
+                        if(convertToDate(event.start) || convertToDate(event.end)){
                             listeEvenements.add(event);
-                            HashMap<String,Object> hashMapValuesEvent = new HashMap<>();
-                            hashMapValuesEvent.put("nameEvent",event.name);
-                            hashMapValuesEvent.put("association",event.association);
-                            hashMapValuesEvent.put("dateEvent",event.start);
-                            hashMapValuesEvent.put("locationEvent",event.location);
-                            hashMapValuesEvent.put("tagsEvent",event.type);
-                            listValuesEvents.add(hashMapValuesEvent);
                         }
                     }
-                    String[] from = new String[] {"nameEvent","association","dateEvent","placeEvent","tagsEvent"};
-                    int[] to = new int[] {R.id.content_list_events_name_event,R.id.content_list_events_name_association,R.id.content_list_events_date_event,R.id.content_list_events_location_event,R.id.content_list_events_tags_event};
+                    eventRestant = listeEvenements.size();
+                    while(eventRestant>0) {
+                        tailleList = listeEvenements.size();
+                        for (int i = 0; i < tailleList; i++) {
+                            nbEvent = 1;
+                            for (int j = 0; j < tailleList; j++) {
+                                if (i != j) {
+                                    if (compareDate(listeEvenements.get(i).start, listeEvenements.get(j).start)) {
+                                        nbEvent++;
+                                    }
+                                }
+                            }
+                            if (nbEvent == eventRestant) {
+                                listEventSort.add(listeEvenements.get(i));
+                                eventRestant--;
+                            }
+                        }
+                    }
+
+                    for(Event event : listEventSort){
+                        HashMap<String,Object> hashMapValuesEvent = new HashMap<>();
+                        hashMapValuesEvent.put("nameEvent",event.name);
+                        if(event.association==null)
+                            hashMapValuesEvent.put("association","Nom asso");
+                        else
+                            hashMapValuesEvent.put("association",event.association);
+                        hashMapValuesEvent.put("dateEventBegin",event.start);
+                        hashMapValuesEvent.put("dateEventEnd",event.end);
+                        hashMapValuesEvent.put("locationEvent",event.location);
+                        hashMapValuesEvent.put("tagsEvent",event.type);
+                        listValuesEvents.add(hashMapValuesEvent);
+                    }
+                    String[] from = new String[] {"nameEvent","association","dateEventBegin","dateEventEnd","locationEvent","tagsEvent"};
+                    int[] to = new int[] {R.id.content_list_events_name_event,R.id.content_list_events_name_association,R.id.content_list_events_date_event_begin,R.id.content_list_events_date_event_end,R.id.content_list_events_location_event,R.id.content_list_events_tags_event};
 
                     listEvents = (ListView) findViewById(R.id.activity_list_events_list);
                     adapter = new SimpleAdapter(ListEventsActivity.this,listValuesEvents,R.layout.content_list_events,from,to);
