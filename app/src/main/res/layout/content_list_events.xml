@@ -33,9 +33,15 @@
                 android:text="Date et heure"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/content_list_events_date_event" />
+                android:id="@+id/content_list_events_date_event_begin" />
 
-            <TextView
+        <TextView
+            android:text="Date et heure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/content_list_events_date_event_end" />
+
+        <TextView
                 android:text="Lieu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
