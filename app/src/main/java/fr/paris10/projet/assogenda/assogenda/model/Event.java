@@ -5,8 +5,11 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Event {
+/**
+ * Created by wilpiron on 28/02/2017.
+ */
 
+public class Event {
     public String id;
     public String name;
     public String start;

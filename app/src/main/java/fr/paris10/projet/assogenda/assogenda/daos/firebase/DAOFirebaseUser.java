@@ -12,7 +12,9 @@ public class DAOFirebaseUser {
     private static DAOFirebaseUser instance;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-    private DatabaseReference database;
+    private static DatabaseReference database;
+
+    private static boolean isAssoMember = false;
 
     private DAOFirebaseUser() {
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -72,4 +74,34 @@ public class DAOFirebaseUser {
     private boolean validateLastName(String lastName) {
         return lastName != null && !lastName.isEmpty() && lastName.length() >= 3;
     }
+
+    /*
+    public static boolean isAssoMember(final String uid) {
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    if(child.getKey().equals(uid)){
+                        isAssoMember = child.getValue(User.class).isAssoMember;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+        return isAssoMember;
+    }
+
+    public String getCurrentUserUid() {
+        try{
+            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }catch (NullPointerException e){
+            Log.d("NullPointerException", Log.getStackTraceString(e.getCause()));
+        }
+        return "";
+    }
+    */
 }

@@ -42,8 +42,8 @@ public class LoginActivityRoboTest {
 
     @Test
     public void fillFields() throws Exception {
-        TextView email = (TextView) activity.findViewById(R.id.login_email);
-        TextView password = (TextView) activity.findViewById(R.id.login_password);
+        TextView email = (TextView) activity.findViewById(R.id.activity_login_email);
+        TextView password = (TextView) activity.findViewById(R.id.activity_login_password);
         assertNotNull(email);
         assertNotNull(password);
         email.setText(textEmail);
@@ -56,9 +56,9 @@ public class LoginActivityRoboTest {
     public void shouldNotSignedIn() throws Exception {
         activity.signIn(textEmail, textPwd);
         assertEquals(null, shadowOf(activity).peekNextStartedActivity());
-        TextView email = (TextView) activity.findViewById(R.id.login_email);
-        TextView password = (TextView) activity.findViewById(R.id.login_password);
-        Button logInButton = (Button) activity.findViewById(R.id.login_validate);
+        TextView email = (TextView) activity.findViewById(R.id.activity_login_email);
+        TextView password = (TextView) activity.findViewById(R.id.activity_login_password);
+        Button logInButton = (Button) activity.findViewById(R.id.activity_login_validate);
         assertNotNull(logInButton);
         assertTrue(logInButton.performClick());
         assertEquals(null, shadowOf(activity).peekNextStartedActivity());

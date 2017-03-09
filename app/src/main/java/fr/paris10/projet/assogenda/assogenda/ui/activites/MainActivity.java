@@ -10,7 +10,6 @@ import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.daos.DAOUser;
 
 public class MainActivity extends AppCompatActivity {
-
     private DAOUser daoUser;
 
     @Override
@@ -21,8 +20,10 @@ public class MainActivity extends AppCompatActivity {
         this.daoUser = DAOUser.getInstance();
         redirectIfNotLoggedIn();
 
-        Button logoutButon = (Button) findViewById(R.id.main_logout_button);
-        logoutButon.setOnClickListener(new View.OnClickListener() {
+
+
+        Button logoutButton = (Button) findViewById(R.id.activity_main_logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loggedOut();
@@ -37,6 +38,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button goToEventCreation = (Button) findViewById(R.id.activity_main_create_event_button);
+        goToEventCreation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadCreateEventView();
+            }
+        });
+
+
 
         Button agendaButton = (Button) findViewById(R.id.activity_main_calendar_button);
         agendaButton.setOnClickListener(new View.OnClickListener() {
@@ -69,5 +80,12 @@ public class MainActivity extends AppCompatActivity {
         daoUser.signOut();
         finish();
         startActivity(getIntent());
+    }
+
+    protected void loadCreateEventView(){
+        Intent intent = new Intent(this, CreateEventActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }
