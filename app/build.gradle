@@ -56,6 +56,10 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.google.firebase:firebase-storage:10.0.1'
     compile 'com.firebaseui:firebase-ui-storage:0.6.0'
+
+    //Agenda api
+    compile 'com.github.alamkanak:android-week-view:1.2.6'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
 }
 
 // Enable coverage for AndroidTests and UnitTests
@@ -68,7 +72,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
     def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
-    def mainSrc = "${project.projectDir}/src/main/java"
+    def mainSrc = "${project.projectDir}/src/agenda_main_menu/java"
 
     sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])

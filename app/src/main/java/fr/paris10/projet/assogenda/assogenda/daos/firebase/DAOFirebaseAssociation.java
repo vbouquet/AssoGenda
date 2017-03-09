@@ -43,7 +43,6 @@ public class DAOFirebaseAssociation {
         }
     }
 
-    //TODO vérifier que le nom de l'association n'est pas déjà pris
     public boolean validateAssociationName(String associationName) {
         return associationName != null && !associationName.isEmpty() && associationName.length() >= 3;
     }

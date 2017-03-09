@@ -2,7 +2,6 @@ package fr.paris10.projet.assogenda.assogenda.model;
 
 import com.google.firebase.database.Exclude;
 
-import java.text.DateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,9 +23,6 @@ public class Event {
     public int seat_free;
     public Association association;
     public int logo;
-
-    public static DateFormat dateFormat =
-            DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
 
     public Event(){
     }
@@ -63,7 +59,6 @@ public class Event {
     /**
      * Two methods to control the number of seats available
      */
-
     public void reserveSeat(){
         seat_free -= seat_free;
     }

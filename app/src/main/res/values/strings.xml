@@ -28,6 +28,9 @@
     <string name="AssociationDashboardActivity_association_creation_success">Association créée !</string>
     <string name="AssociationDashboardActivity_association_image_load_error">Impossible de charger l\'image !</string>
 
+    <!-- Calendar -->
+    <string name="activity_main_calendar_button">Agenda</string>
+
 
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
