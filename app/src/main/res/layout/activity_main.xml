@@ -11,36 +11,38 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fr.paris10.projet.assogenda.assogenda.ui.activites.MainActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <Button
+        android:text="Déconnexion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/main_logout_button" />
+
+
+    <Button
+        android:text="@string/activity_main_button_association"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="93dp"
+        android:id="@+id/activity_main_button_association" />
+
+    <Button
+        android:text="@string/activity_main_calendar_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity_main_button_association"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:id="@+id/activity_main_calendar_button" />
+
+    <Button
+        android:text="Liste des événements"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            android:text="@string/activity_main_button_association"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="93dp"
-            android:id="@+id/activity_main_button_association" />
-
-        <Button
-            android:text="Liste des événements"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/main_list_events_button" />
-
-        <Button
-            android:text="Déconnexion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/main_logout_button" />
-    </LinearLayout>
-
-
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/main_list_events_button" />
 </RelativeLayout>

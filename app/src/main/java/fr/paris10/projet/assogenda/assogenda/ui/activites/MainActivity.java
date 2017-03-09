@@ -37,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button agendaButton = (Button) findViewById(R.id.activity_main_calendar_button);
+        agendaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AgendaActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button listEventButton = (Button) findViewById(R.id.main_list_events_button);
         listEventButton.setOnClickListener(new View.OnClickListener() {
             @Override

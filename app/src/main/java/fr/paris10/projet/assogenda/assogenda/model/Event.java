@@ -1,4 +1,5 @@
 package fr.paris10.projet.assogenda.assogenda.model;
+<<<<<<< HEAD
 import com.google.firebase.database.Exclude;
 
 import java.text.DateFormat;
@@ -10,6 +11,16 @@ import java.util.Map;
  */
 
 public class Event {
+=======
+
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Event {
+
+>>>>>>> 2b73b84291d178c5bf50cd0e2afbfc9304829ad5
     public String id;
     public String name;
     public String start;
@@ -65,7 +76,6 @@ public class Event {
     /**
      * Two methods to control the number of seats available
      */
-
     public void reserveSeat(){
         seat_free -= seat_free;
     }
