@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true">
 
         <Button
-            android:text="Create event"
+            android:text="@string/event_create"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/activity_main_create_event_button" />
@@ -27,26 +27,19 @@
             android:text="@string/activity_main_button_association"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:id="@+id/activity_main_button_association" />
 
         <Button
             android:text="@string/activity_main_calendar_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/activity_main_button_association"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="53dp"
             android:id="@+id/activity_main_calendar_button" />
 
         <Button
-            android:text="Log out"
+            android:text="@string/action_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/activity_main_logout_button"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:id="@+id/activity_main_logout_button" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -25,7 +25,7 @@ public class MainActivityTest {
     public void testLogOutButton() {
         DAOUser daoUser = DAOUser.getInstance();
         if (daoUser.isLoggedIn()) {
-            onView(withId(R.id.main_logout_button)).perform(click());
+            onView(withId(R.id.activity_main_logout_button)).perform(click());
             assertFalse(daoUser.isLoggedIn());
         }
     }
