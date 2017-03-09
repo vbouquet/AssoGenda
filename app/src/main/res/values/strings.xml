@@ -31,6 +31,8 @@
     <!-- Calendar -->
     <string name="activity_main_calendar_button">Agenda</string>
 
+    <!-- Event research -->
+    <string name="activity_event_research_title_info">Rechercher un évènement</string>
 
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
