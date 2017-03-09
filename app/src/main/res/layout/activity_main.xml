@@ -11,14 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fr.paris10.projet.assogenda.assogenda.ui.activites.MainActivity">
 
-    <Button
-        android:text="Déconnexion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/main_logout_button" />
-
 
     <Button
         android:text="@string/activity_main_button_association"
@@ -45,4 +37,13 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/main_list_events_button" />
+
+    <Button
+        android:text="Déconnexion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_logout_button"
+        android:layout_below="@+id/activity_main_calendar_button"
+        android:layout_alignStart="@+id/activity_main_button_association"
+        android:layout_marginTop="61dp" />
 </RelativeLayout>
