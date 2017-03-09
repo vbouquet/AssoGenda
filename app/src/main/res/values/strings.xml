@@ -49,4 +49,10 @@
     <string name="action_logout">Logout</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+
+    <string-array name="event_create_event_types">
+        <item>Sport</item>
+        <item>Party</item>
+        <item>Training</item>
+    </string-array>
 </resources>

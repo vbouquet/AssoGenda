@@ -24,5 +24,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/activity_event_research_title_info"
             android:layout_weight="0.05" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_event_research_eventype_spinner"
+            android:layout_weight="0.05" />
     </LinearLayout>
 </RelativeLayout>
