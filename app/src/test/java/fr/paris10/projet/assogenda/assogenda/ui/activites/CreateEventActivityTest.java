@@ -1,6 +1,8 @@
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
+
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
 
@@ -37,6 +39,14 @@ public class CreateEventActivityTest {
     @Test
     public void shouldNotBeNull() throws Exception {
         assertNotNull(activity);
+        TextView textView = (TextView) activity.findViewById(R.id.activity_create_event_name);
+        assertNotNull(textView);
+        textView = (TextView) activity.findViewById(R.id.activity_create_event_description);
+        assertNotNull(textView);
+        textView = (TextView)  activity.findViewById(R.id.activity_create_event_seats_available);
+        assertNotNull(textView);
+        Button button = (Button) activity.findViewById(R.id.activity_create_event_submit);
+        assertNotNull(button);
     }
 
     @After
@@ -50,8 +60,5 @@ public class CreateEventActivityTest {
         assertNotNull(button);
         assertTrue(button.performClick());
     }
-
-
-
 
 }
