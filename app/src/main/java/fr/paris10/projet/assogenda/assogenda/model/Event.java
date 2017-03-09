@@ -2,11 +2,21 @@ package fr.paris10.projet.assogenda.assogenda.model;
 
 import com.google.firebase.database.Exclude;
 
+import java.text.DateFormat;
+import java.util.HashMap;
+import java.util.Map;
+import com.google.firebase.database.Exclude;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Event {
 
+/**
+ * Created by wilpiron on 28/02/2017.
+ */
+
+
+public class Event {
     public String id;
     public String name;
     public String start;
@@ -14,6 +24,7 @@ public class Event {
     public String description;
     public String location;
     public String type;
+    public String uid;
     public float price;
     public int bail;
     public int seat_number;
@@ -21,11 +32,15 @@ public class Event {
     public Association association;
     public int logo;
 
+    public static DateFormat dateFormat =
+            DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+
     public Event(){
     }
 
-    public Event(String name, String start, String end, String type, String description, String location,
+    public Event(String uid,String name, String start, String end, String type, String description, String location,
                  float price, int bail, int seat_number, Association association, int logo){
+        this.uid=uid;
         this.name=name;
         this.start=start;
         this.end=end;
@@ -40,8 +55,9 @@ public class Event {
         this.association=association;
     }
 
-    public Event(String name, String start, String end, String type, String location,
+    public Event(String uid, String name, String start, String end, String type, String location,
                  float price, int seat_number, String description){
+        this.uid = uid;
         this.name=name;
         this.start=start;
         this.end=end;
