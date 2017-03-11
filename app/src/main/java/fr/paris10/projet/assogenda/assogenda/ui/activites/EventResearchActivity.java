@@ -69,14 +69,14 @@ public class EventResearchActivity extends AppCompatActivity {
                 String date = eventDateEditText.getText().toString();
                 items.clear();
                 eventAdapter.notifyDataSetChanged();
-                loadEventInBackground(eventType, date);
+                loadEvent(eventType, date);
             }
         });
     }
 
-    public void loadEventInBackground(final String eventType, final String date) {
+    public void loadEvent(final String eventType, final String date) {
 
-        if (eventType.equals("") && date.equals("")) {
+        if ("".equals(eventType) && "".equals(date)) {
             databaseReference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot snapshot, String previousChild) {
@@ -105,7 +105,7 @@ public class EventResearchActivity extends AppCompatActivity {
                     Log.i(this.getClass().getCanonicalName(), " onCancelled");
                 }
             });
-        } else if (!eventType.equals("") && date.equals("")) {
+        } else if (!"".equals(eventType) && "".equals(date)) {
             databaseReference.orderByChild("type").equalTo(eventType).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot snapshot, String previousChild) {
@@ -134,7 +134,7 @@ public class EventResearchActivity extends AppCompatActivity {
                     Log.i(this.getClass().getCanonicalName(), " onCancelled");
                 }
             });
-        } else if (!eventType.equals("") && !date.equals("")) {
+        } else if (!"".equals(eventType) && !"".equals(date)) {
             databaseReference.orderByChild("type").equalTo(eventType).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot snapshot, String previousChild) {
@@ -209,8 +209,7 @@ public class EventResearchActivity extends AppCompatActivity {
         DatePickerDialog mDatePicker;
         mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                selectedmonth = selectedmonth + 1;
-                editText.setText(String.format("%02d/%02d/%d", selectedday, selectedmonth, selectedyear));
+                editText.setText(String.format("%02d/%02d/%d", selectedday, selectedmonth + 1, selectedyear));
             }
         }, mYear, mMonth, mDay);
         mDatePicker.setTitle("Select Date");
