@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,134 +70,54 @@ public class EventResearchActivity extends AppCompatActivity {
                 String date = eventDateEditText.getText().toString();
                 items.clear();
                 eventAdapter.notifyDataSetChanged();
-                loadEvent(eventType, date);
+                loadEventsInBackground(eventType, date);
             }
         });
     }
 
-    public void loadEvent(final String eventType, final String date) {
+    public void loadEventsInBackground(final String eventType, final String date) {
 
-        if ("".equals(eventType) && "".equals(date)) {
-            databaseReference.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                    Event event = snapshot.getValue(Event.class);
-                    items.add(event);
-                    eventAdapter.notifyDataSetChanged();
-                }
+        Query query = databaseReference;
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildChanged");
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildRemoved");
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildMoved");
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.i(this.getClass().getCanonicalName(), " onCancelled");
-                }
-            });
-        } else if (!"".equals(eventType) && "".equals(date)) {
-            databaseReference.orderByChild("type").equalTo(eventType).addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                    Event event = snapshot.getValue(Event.class);
-                    items.add(event);
-                    eventAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildChanged");
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildRemoved");
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildMoved");
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.i(this.getClass().getCanonicalName(), " onCancelled");
-                }
-            });
-        } else if (!"".equals(eventType) && !"".equals(date)) {
-            databaseReference.orderByChild("type").equalTo(eventType).addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                    Event event = snapshot.getValue(Event.class);
-                    if (event.start.endsWith(date)) {
-                        items.add(event);
-                        eventAdapter.notifyDataSetChanged();
-                    }
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildChanged");
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildRemoved");
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildMoved");
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.i(this.getClass().getCanonicalName(), " onCancelled");
-                }
-            });
-        } else {
-            databaseReference.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                    Event event = snapshot.getValue(Event.class);
-                    if (event.start.endsWith(date)) {
-                        items.add(event);
-                        eventAdapter.notifyDataSetChanged();
-                    }
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildChanged");
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildRemoved");
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                    Log.i(this.getClass().getCanonicalName(), " onChildMoved");
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.i(this.getClass().getCanonicalName(), " onCancelled");
-                }
-            });
+        if (!"".equals(eventType) && "".equals(date) || !"".equals(eventType) && !"".equals(date)) {
+            query = databaseReference.orderByChild("type").equalTo(eventType);
         }
+
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                Event event = snapshot.getValue(Event.class);
+                if (!"".equals(date)) {
+                    if (event.start.endsWith(date)) {
+                        items.add(event);
+                        eventAdapter.notifyDataSetChanged();
+                    }
+                } else {
+                    items.add(event);
+                    eventAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.i(this.getClass().getCanonicalName(), " onChildChanged");
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.i(this.getClass().getCanonicalName(), " onChildRemoved");
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.i(this.getClass().getCanonicalName(), " onChildMoved");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i(this.getClass().getCanonicalName(), " onCancelled");
+            }
+        });
     }
 
     public void dateDialog(final EditText editText) {
