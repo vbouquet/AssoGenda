@@ -16,8 +16,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activites.SignUpActivity" />
-        <activity android:name=".ui.activites.LoginActivity"></activity>
-        <activity android:name=".ui.activites.AssociationDashboardActivity"></activity>
+        <activity android:name=".ui.activites.LoginActivity" />
+        <activity android:name=".ui.activites.AssociationDashboardActivity" />
+        <activity android:name=".ui.activites.ListAssociationActivity"></activity>
     </application>
 
 </manifest>

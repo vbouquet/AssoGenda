@@ -28,4 +28,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="93dp"
         android:id="@+id/activity_main_button_association" />
+
+    <Button
+        android:text="liste des associations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_activity.list_asso_button"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

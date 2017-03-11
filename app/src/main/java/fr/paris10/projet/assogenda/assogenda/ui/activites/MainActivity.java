@@ -36,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button listAssociationsButton = (Button) findViewById(R.id.main_activity_list_asso_button);
+        listAssociationsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ListAssociationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
