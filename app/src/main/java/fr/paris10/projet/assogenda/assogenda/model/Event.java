@@ -6,10 +6,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
-import com.google.firebase.database.Exclude;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Event {
     public String id;
@@ -102,6 +98,8 @@ public class Event {
         //sb.append("association= ").append(association.name).append("\n");
         sb.append("start= ").append(start).append("\n");
         sb.append("end= ").append(end).append("\n");
+        sb.append("seatNumber= ").append(seat_number).append("\n");
+        sb.append("seatFree= ").append(seat_free).append("\n");
         return sb.toString();
     }
 }

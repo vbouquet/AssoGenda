@@ -128,7 +128,7 @@ public class EventResearchActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.i(this.getClass().getCanonicalName(), " onCancelled");
+                Log.e("Error : ", "onCancelled", databaseError.toException());
             }
         });
     }
