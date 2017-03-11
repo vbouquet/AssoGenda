@@ -19,8 +19,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
@@ -87,8 +89,19 @@ public class EventResearchActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
                 Event event = snapshot.getValue(Event.class);
+                Date endDate = new Date();
+                Date pickedDate = new Date();
+                Date startDate = new Date();
+
+                try {
+                    endDate = Event.dateFormatter.parse(event.end);
+                    pickedDate = Event.dateFormatter.parse("00:00 " + date);
+                    startDate = Event.dateFormatter.parse(event.start);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 if (!"".equals(date)) {
-                    if (event.start.endsWith(date)) {
+                    if (pickedDate.before(endDate) && pickedDate.after(startDate)) {
                         items.add(event);
                         eventAdapter.notifyDataSetChanged();
                     }

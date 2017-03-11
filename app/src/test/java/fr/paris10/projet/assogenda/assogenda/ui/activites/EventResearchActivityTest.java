@@ -1,6 +1,10 @@
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
 
@@ -38,6 +42,14 @@ public class EventResearchActivityTest {
     @Test
     public void shouldNotBeNull() throws Exception {
         assertNotNull(eventResearchActivity);
+        TextView textView = (TextView) eventResearchActivity.findViewById(R.id.activity_event_research_title_info);
+        assertNotNull(textView);
+        EditText editText = (EditText) eventResearchActivity.findViewById(R.id.activity_event_research_start_date);
+        assertNotNull(editText);
+        Spinner spinner = (Spinner) eventResearchActivity.findViewById(R.id.activity_event_research_eventype_spinner);
+        assertNotNull(spinner);
+        ListView listView = (ListView) eventResearchActivity.findViewById(R.id.activity_event_research_list_view);
+        assertNotNull(listView);
     }
 
     @Test

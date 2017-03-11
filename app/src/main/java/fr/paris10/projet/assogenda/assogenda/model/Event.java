@@ -3,18 +3,13 @@ package fr.paris10.projet.assogenda.assogenda.model;
 import com.google.firebase.database.Exclude;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;
 import java.util.Map;
-
-
-/**
- * Created by wilpiron on 28/02/2017.
- */
-
 
 public class Event {
     public String id;
@@ -34,6 +29,7 @@ public class Event {
 
     public static DateFormat dateFormat =
             DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+    public static DateFormat dateFormatter = new SimpleDateFormat("kk:mm dd/MM/yyyy");
 
     public Event(){
     }
