@@ -46,6 +46,11 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
     }
 
     @Override
+    public void add(@Nullable Association object) {
+        associationsDisplayed.add(object);
+    }
+
+    @Override
     public int getCount() {
         return associationsDisplayed.size();
     }
@@ -105,8 +110,6 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
      * Filter association depending on user input :
      * - search by association name
      * - search by univerty
-     *
-     * @param text
      */
     public void filter(String text) {
         Log.d("Filter", "Message : " + text);

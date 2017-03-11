@@ -18,9 +18,7 @@ import fr.paris10.projet.assogenda.assogenda.model.Association;
 import fr.paris10.projet.assogenda.assogenda.ui.adapter.SearchAssociationAdapter;
 
 /**
- * TODO - onCreate display all associations
- * TODO - OnQueryTextSubmit close search form
- * TODO - onQu
+ * - TODO onItemClick show association activity page
  */
 public class ListAssociationActivity extends AppCompatActivity {
 
@@ -45,6 +43,7 @@ public class ListAssociationActivity extends AppCompatActivity {
                 Association association = dataSnapshot.getValue(Association.class);
                 association.id = dataSnapshot.getKey();
                 associations.add(association);
+                adapter.add(association);
                 adapter.notifyDataSetChanged();
             }
 
@@ -79,6 +78,8 @@ public class ListAssociationActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 adapter.filter(query);
+                searchView.setIconified(true);
+                searchView.clearFocus();
                 return true;
             }
 
@@ -86,8 +87,15 @@ public class ListAssociationActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 return true;
             }
+        });
 
-
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                adapter.filter("");
+                searchView.clearFocus();
+                return true;
+            }
         });
     }
 }
