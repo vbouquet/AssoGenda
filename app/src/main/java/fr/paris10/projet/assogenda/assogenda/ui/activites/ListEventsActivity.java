@@ -27,6 +27,9 @@ import java.util.List;
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
 
+/**
+ * Display incoming events.
+ */
 public class ListEventsActivity extends AppCompatActivity {
     private ListView listEvents;
     private ArrayList<HashMap<String, Object>> listValuesEvents = new ArrayList<>();

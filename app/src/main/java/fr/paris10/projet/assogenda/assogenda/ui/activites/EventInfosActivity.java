@@ -19,12 +19,13 @@ import java.util.HashMap;
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
 
+/**
+ * Event infos page, display event infos.
+ */
 public class EventInfosActivity extends AppCompatActivity {
-    private ListView listInfos;
+
     private ArrayList<HashMap<String, Object>> listValues = new ArrayList<>();
-    private SimpleAdapter adapter;
     private String eventUID;
-    private Event event;
     private TextView nameEvent;
 
     @Override
@@ -37,10 +38,15 @@ public class EventInfosActivity extends AppCompatActivity {
     }
 
     public void loadEventInfoInBackground() {
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("events");
         reference.child(eventUID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Event event;
+                SimpleAdapter adapter;
+                ListView listInfos;
+
                 event = dataSnapshot.getValue(Event.class);
                 event.uid = eventUID;
                 nameEvent.setText(event.name);
