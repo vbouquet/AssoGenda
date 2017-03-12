@@ -1,6 +1,7 @@
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
@@ -14,7 +15,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
-import java.text.ParseException;
 import java.util.Calendar;
 
 import fr.paris10.projet.assogenda.assogenda.BuildConfig;
@@ -47,6 +47,8 @@ public class ListEventsActivityTest {
         assertNotNull(textView);
         ListView listView = (ListView) listEventsActivity.findViewById(R.id.activity_list_events_list);
         assertNotNull(listView);
+        RelativeLayout relativeLayout = (RelativeLayout) listEventsActivity.findViewById(R.id.activity_list_events);
+        assertNotNull(relativeLayout);
     }
 
     @Test
@@ -65,24 +67,4 @@ public class ListEventsActivityTest {
         c.add(Calendar.HOUR, 1);
         assertTrue(listEventsActivity.convertToDate(Event.dateFormatter.format(c.getTime())));
     }
-
-    /*
-    public Boolean convertToDate(String eventDate) {
-        DateFormat dateFormatter = new SimpleDateFormat("kk:mm dd/MM/yyyy");
-        Date start;
-        Date today;
-        Calendar c = Calendar.getInstance();
-        try {
-            start = dateFormatter.parse(eventDate);
-            today = dateFormatter.parse(dateFormatter.format(c.getTime()));
-            if (start.after(today)) {
-                return true;
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return false;
-    }
-     */
 }
