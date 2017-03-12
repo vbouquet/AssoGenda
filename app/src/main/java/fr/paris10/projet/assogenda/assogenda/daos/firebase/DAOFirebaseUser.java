@@ -2,9 +2,17 @@ package fr.paris10.projet.assogenda.assogenda.daos.firebase;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import fr.paris10.projet.assogenda.assogenda.model.Association;
 import fr.paris10.projet.assogenda.assogenda.model.User;
 
 
@@ -71,5 +79,38 @@ public class DAOFirebaseUser {
 
     private boolean validateLastName(String lastName) {
         return lastName != null && !lastName.isEmpty() && lastName.length() >= 3;
+    }
+
+    public String getCurrentUserId() {
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        return mFirebaseUser.getUid();
+    }
+
+    /**
+     * Curent user is not following association or unfolling if he already followed
+     */
+    public void followOrUnfollowAssociation(final Association association) {
+        final DatabaseReference db = FirebaseDatabase.getInstance().getReference("user-follow-asso");
+
+        /*
+         * If user is already following association then unfollowed
+         */
+        db.child(getCurrentUserId()).child(association.id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                    db.child(getCurrentUserId()).child(association.id).removeValue();
+                else {
+                    Map<String, Object> data = new HashMap<>();
+                    data.put(association.id, association.name);
+                    db.child(getCurrentUserId()).updateChildren(data);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
