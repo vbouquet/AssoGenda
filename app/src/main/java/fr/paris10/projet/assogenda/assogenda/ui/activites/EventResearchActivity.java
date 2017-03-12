@@ -1,10 +1,12 @@
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -52,10 +54,8 @@ public class EventResearchActivity extends AppCompatActivity {
         eventResearchSpinner.setAdapter(tmpAdapterEventTypes);
 
         eventDateEditText = (EditText) findViewById(R.id.activity_event_research_start_date);
-
         listView = (ListView) findViewById(R.id.activity_event_research_list_view);
         listView.setAdapter(eventAdapter);
-
 
         eventDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +75,16 @@ public class EventResearchActivity extends AppCompatActivity {
                 loadEventsInBackground(eventType, date);
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), EventInfosActivity.class);
+                Event event = items.get(position);
+                intent.putExtra("eventUID", event.uid);
+                startActivity(intent);
+            }
+        });
     }
 
     public void loadEventsInBackground(final String eventType, final String date) {
@@ -89,6 +99,8 @@ public class EventResearchActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
                 Event event = snapshot.getValue(Event.class);
+                event.uid = snapshot.getKey();
+                event.seat_free = Integer.parseInt(String.valueOf(snapshot.child("seats free").getValue()));
                 Date endDate = new Date();
                 Date pickedDate = new Date();
                 Date startDate = new Date();
