@@ -22,15 +22,6 @@
         android:id="@+id/activity_main_button_association" />
 
     <Button
-        android:text="@string/activity_main_calendar_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/activity_main_button_association"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp"
-        android:id="@+id/activity_main_calendar_button" />
-
-    <Button
         android:text="Liste des événements"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,11 +30,31 @@
         android:id="@+id/main_list_events_button" />
 
     <Button
+        android:text="@string/activity_main_calendar_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:id="@+id/activity_main_calendar_button"
+        android:layout_below="@+id/activity_main_button_association"
+        android:layout_alignStart="@+id/activity_main_button_association"
+        android:layout_alignEnd="@+id/activity_main_button_association" />
+
+    <Button
         android:text="Déconnexion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/main_logout_button"
+        android:layout_marginBottom="73dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/activity_main_calendar_button" />
+
+    <Button
+        android:text="@string/activity_main_event_research_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/activity_main_calendar_button"
-        android:layout_alignStart="@+id/activity_main_button_association"
-        android:layout_marginTop="61dp" />
+        android:layout_alignStart="@+id/activity_main_calendar_button"
+        android:layout_marginTop="38dp"
+        android:id="@+id/activity_main_event_research_button"
+        android:layout_alignEnd="@+id/activity_main_calendar_button" />
 </RelativeLayout>
