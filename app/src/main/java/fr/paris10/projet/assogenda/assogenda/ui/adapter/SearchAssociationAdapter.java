@@ -3,46 +3,54 @@ package fr.paris10.projet.assogenda.assogenda.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import fr.paris10.projet.assogenda.assogenda.R;
+import fr.paris10.projet.assogenda.assogenda.daos.DAOUser;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
-import fr.paris10.projet.assogenda.assogenda.ui.activites.ListAssociationActivity;
 
 /**
- * Adapter used to display associations of a user
+ * Adapter used to display associations and enable user to follow them
  */
 public class SearchAssociationAdapter extends ArrayAdapter<Association> {
     private ArrayList<Association> associationsDisplayed;
     private ArrayList<Association> associationsValues;
+    private DAOUser userDatabase;
 
     public SearchAssociationAdapter(Context context, ArrayList<Association> associations) {
         super(context, 0, associations);
         this.associationsDisplayed = new ArrayList<>();
         this.associationsDisplayed.addAll(associations);
         this.associationsValues = associations;
+        this.userDatabase = DAOUser.getInstance();
     }
 
     private static class ViewHolder {
         private TextView name;
         private TextView university;
         private ImageView logo;
+        private ImageButton followButton;
     }
 
     @Override
@@ -70,7 +78,7 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Association association = this.getItem(position);
+        final Association association = this.getItem(position);
         View view = convertView;
 
         if (convertView == null) {
@@ -78,8 +86,21 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
                     R.layout.item_association_list_association, parent, false);
         }
 
-        ViewHolder viewHolder = new ViewHolder();
+        final ViewHolder viewHolder = new ViewHolder();
 
+        viewHolder.followButton = (ImageButton) view.findViewById(R.id.item_association_list_association_follow);
+        if (association.followed ) {
+            viewHolder.followButton.setImageResource(android.R.drawable.btn_star_big_on);
+        } else {
+            viewHolder.followButton.setImageResource(android.R.drawable.btn_star_big_off);
+        }
+        viewHolder.followButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                followOrUnfollowAssociation(association);
+                notifyDataSetChanged();
+            }
+        });
         viewHolder.name = (TextView) view.findViewById(R.id.item_association_list_association_name);
         viewHolder.university = (TextView) view.findViewById(R.id.item_association_list_association_university);
         viewHolder.logo = (ImageView) view.findViewById(R.id.item_association_list_association_logo);
@@ -102,7 +123,6 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
             viewHolder.logo.setImageResource(R.mipmap.ic_launcher);
         }
 
-        Log.d("GetView", association.toString());
         return view;
     }
 
@@ -112,7 +132,6 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
      * - search by univerty
      */
     public void filter(String text) {
-        Log.d("Filter", "Message : " + text);
         text = text.toLowerCase(Locale.getDefault());
 
         this.associationsDisplayed.clear();
@@ -129,5 +148,34 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
             }
         }
         notifyDataSetChanged();
+    }
+
+
+    /**
+     * Follow or unfollow given association
+     */
+    private void followOrUnfollowAssociation(final Association association) {
+        final DatabaseReference db = FirebaseDatabase.getInstance().getReference("user-follow-asso");
+        final String uid = userDatabase.getCurrentUserId();
+
+        db.child(uid).child(association.id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // check if user is following or not
+                if (dataSnapshot.exists()) {
+                    db.child(uid).child(association.id).removeValue();
+                } else {
+                    Map<String, Object> data = new HashMap<>();
+                    data.put(association.id, association.name);
+                    db.child(uid).updateChildren(data);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        association.followed = !association.followed;
     }
 }

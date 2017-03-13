@@ -1,9 +1,9 @@
 package fr.paris10.projet.assogenda.assogenda.daos;
 
+
 import com.google.firebase.auth.FirebaseAuth;
 
 import fr.paris10.projet.assogenda.assogenda.daos.firebase.DAOFirebaseUser;
-import fr.paris10.projet.assogenda.assogenda.model.Association;
 import fr.paris10.projet.assogenda.assogenda.model.User;
 
 public class DAOUser {
@@ -48,7 +48,7 @@ public class DAOUser {
         return FirebaseAuth.getInstance();
     }
 
-    public void followOrUnfollowAssociation(Association asso) {
-        database.followOrUnfollowAssociation(asso);
+    public String getCurrentUserId() {
+        return database.getCurrentUserId();
     }
 }

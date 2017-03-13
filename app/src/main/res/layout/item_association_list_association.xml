@@ -32,4 +32,10 @@
 
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/item_association_list_association.follow"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
+
 </LinearLayout>
