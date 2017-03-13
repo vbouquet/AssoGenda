@@ -82,6 +82,7 @@ public class EventResearchActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), EventInfosActivity.class);
                 Event event = items.get(position);
                 intent.putExtra("eventUID", event.uid);
+                intent.putExtra("eventName", event.name);
                 startActivity(intent);
             }
         });
@@ -101,18 +102,19 @@ public class EventResearchActivity extends AppCompatActivity {
                 Event event = snapshot.getValue(Event.class);
                 event.uid = snapshot.getKey();
                 event.seat_free = Integer.parseInt(String.valueOf(snapshot.child("seats free").getValue()));
-                Date endDate = new Date();
-                Date pickedDate = new Date();
-                Date startDate = new Date();
 
-                try {
-                    endDate = Event.dateFormatter.parse(event.end);
-                    pickedDate = Event.dateFormatter.parse("00:00 " + date);
-                    startDate = Event.dateFormatter.parse(event.start);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
                 if (!"".equals(date)) {
+                    Date endDate = new Date();
+                    Date pickedDate = new Date();
+                    Date startDate = new Date();
+
+                    try {
+                        endDate = Event.dateFormatter.parse(event.end);
+                        pickedDate = Event.dateFormatter.parse("00:00 " + date);
+                        startDate = Event.dateFormatter.parse(event.start);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     if (pickedDate.before(endDate) && pickedDate.after(startDate)) {
                         items.add(event);
                         eventAdapter.notifyDataSetChanged();

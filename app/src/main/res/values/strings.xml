@@ -38,6 +38,11 @@
     <string name="activity_event_research_start_date">Date de début</string>
     <string name="activity_event_research_start_time">Heure de début</string>
 
+    <!-- Event participation -->
+    <string name="activity_event_infos_participate_button">Participer</string>
+    <string name="activity_event_infos_participate_toast">Vous participez à : </string>
+    <string name="activity_event_infos_nparticipate_toast">Vous ne participez plus à l\'événement </string>
+
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
     <string name="sign_up_button_label">Sign Up</string>

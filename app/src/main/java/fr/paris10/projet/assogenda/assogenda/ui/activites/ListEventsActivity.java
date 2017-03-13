@@ -50,6 +50,7 @@ public class ListEventsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), EventInfosActivity.class);
                 Event event = listeEvenements.get(position);
                 intent.putExtra("eventUID", event.uid);
+                intent.putExtra("eventName", event.name);
                 startActivity(intent);
             }
         });
