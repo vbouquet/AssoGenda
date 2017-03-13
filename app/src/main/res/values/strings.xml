@@ -42,6 +42,7 @@
     <string name="activity_event_infos_participate_button">Participer</string>
     <string name="activity_event_infos_participate_toast">Vous participez à : </string>
     <string name="activity_event_infos_nparticipate_toast">Vous ne participez plus à l\'événement </string>
+    <string name="activity_event_infos_participate_date_passed_toast">L\'événement est terminé !</string>
 
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>

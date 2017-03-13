@@ -17,7 +17,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import fr.paris10.projet.assogenda.assogenda.R;
@@ -32,6 +35,8 @@ public class EventInfosActivity extends AppCompatActivity {
     private String eventUID;
     private TextView nameEvent;
     private String name;
+    private Date eventEndDate;
+    private Date today;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +44,15 @@ public class EventInfosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_infos);
         eventUID = (String) getIntent().getExtras().get("eventUID");
         name = (String) getIntent().getExtras().get("eventName");
+        String eventEnd = (String) getIntent().getExtras().get("eventEndDate");
         nameEvent = (TextView) findViewById(R.id.activity_event_infos_name_event);
         loadEventInfoInBackground();
+
+        try {
+            eventEndDate = Event.dateFormatter.parse(eventEnd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         Button participateButton = (Button) findViewById(R.id.activity_event_infos_participate_button);
         participateButton.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +66,8 @@ public class EventInfosActivity extends AppCompatActivity {
     public void participateEvent() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user-events");
         reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(eventUID).setValue(name);
-        Toast.makeText(getApplicationContext(), getApplicationContext().
-                getResources().getString(R.string.activity_event_infos_participate_toast) + " " + name,
+        Toast.makeText(getApplicationContext(), getApplicationContext()
+                .getResources().getString(R.string.activity_event_infos_participate_toast) + " " + name,
                 Toast.LENGTH_LONG).show();
     }
 
@@ -64,13 +76,28 @@ public class EventInfosActivity extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).hasChild(eventUID)) {
-                    snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(eventUID).getRef().getRef().removeValue();
-                    Toast.makeText(getApplicationContext(), getApplicationContext().
-                                    getResources().getString(R.string.activity_event_infos_nparticipate_toast) + " " + name,
-                            Toast.LENGTH_LONG).show();
+                Calendar c = Calendar.getInstance();
+
+                try {
+                    today = Event.dateFormatter.parse(Event.dateFormatter.format(c.getTime()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                if (!eventEndDate.before(today)) {
+
+                    if (snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).hasChild(eventUID)) {
+                        snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(eventUID).getRef().getRef().removeValue();
+                        Toast.makeText(getApplicationContext(), getApplicationContext()
+                                .getResources().getString(R.string.activity_event_infos_nparticipate_toast)
+                                + " " + name, Toast.LENGTH_LONG).show();
+                    } else {
+                        participateEvent();
+                    }
                 } else {
-                    participateEvent();
+                    Toast.makeText(getApplicationContext(), getApplicationContext()
+                            .getResources().getString(R.string.activity_event_infos_participate_date_passed_toast)
+                            , Toast.LENGTH_LONG).show();
                 }
             }
 

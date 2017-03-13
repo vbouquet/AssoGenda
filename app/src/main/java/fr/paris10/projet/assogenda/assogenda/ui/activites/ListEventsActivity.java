@@ -51,6 +51,7 @@ public class ListEventsActivity extends AppCompatActivity {
                 Event event = listeEvenements.get(position);
                 intent.putExtra("eventUID", event.uid);
                 intent.putExtra("eventName", event.name);
+                intent.putExtra("eventEndDate", event.end);
                 startActivity(intent);
             }
         });
