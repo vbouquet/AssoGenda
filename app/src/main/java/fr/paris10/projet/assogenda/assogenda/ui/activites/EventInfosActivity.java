@@ -21,6 +21,7 @@ import java.util.HashMap;
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
 
+
 public class EventInfosActivity extends AppCompatActivity {
     private ListView listInfos;
     private ArrayList<HashMap<String,Object>> listValues = new ArrayList<>();
