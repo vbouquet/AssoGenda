@@ -54,7 +54,7 @@ public class ListEventsActivity extends AppCompatActivity {
         });
     }
 
-    private Boolean convertToDate(String eventDate) {
+    public Boolean convertToDate(String eventDate) {
         DateFormat dateFormatter = new SimpleDateFormat("kk:mm dd/MM/yyyy");
         Date start;
         Date today;
@@ -72,7 +72,7 @@ public class ListEventsActivity extends AppCompatActivity {
         return false;
     }
 
-    private Boolean compareDate(String event1, String event2) {
+    public Boolean compareDate(String event1, String event2) {
         DateFormat dateFormatter = new SimpleDateFormat("kk:mm dd/MM/yyyy");
         Date myEvent;
         Date eventNext;
