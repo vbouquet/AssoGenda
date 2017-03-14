@@ -28,10 +28,14 @@ public class Event {
     public Association association;
     public int logo;
 
+    public static DateFormat dateFormat =
+            DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+    public static DateFormat dateFormatter = new SimpleDateFormat("kk:mm dd/MM/yyyy");
+
     public Event(){
     }
 
-    public Event(String uid,String name, String start, String end, String type, String description, String location,
+    public Event(String uid, String name, String start, String end, String type, String description, String location,
                  float price, int bail, int seat_number, Association association, int logo){
         this.uid=uid;
         this.name=name;

@@ -75,33 +75,8 @@ public class DAOFirebaseUser {
         return lastName != null && !lastName.isEmpty() && lastName.length() >= 3;
     }
 
-    /*
-    public static boolean isAssoMember(final String uid) {
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot child : dataSnapshot.getChildren()){
-                    if(child.getKey().equals(uid)){
-                        isAssoMember = child.getValue(User.class).isAssoMember;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "onCancelled", databaseError.toException());
-            }
-        });
-        return isAssoMember;
+    public String getCurrentUserId() {
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        return mFirebaseUser.getUid();
     }
-
-    public String getCurrentUserUid() {
-        try{
-            return FirebaseAuth.getInstance().getCurrentUser().getUid();
-        }catch (NullPointerException e){
-            Log.d("NullPointerException", Log.getStackTraceString(e.getCause()));
-        }
-        return "";
-    }
-    */
 }

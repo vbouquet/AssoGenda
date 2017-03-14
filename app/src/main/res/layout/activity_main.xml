@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentStart="true">
 
         <Button
             android:text="@string/event_create"
@@ -30,7 +30,7 @@
             android:id="@+id/activity_main_button_association" />
 
         <Button
-            android:text="Liste des événements"
+            android:text="@string/event_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/main_list_events_button"/>
@@ -43,7 +43,7 @@
 
         <Button
             android:text="@string/activity_main_event_research_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/activity_main_event_research_button"/>
 

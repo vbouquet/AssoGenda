@@ -43,15 +43,9 @@ public class DAOUser {
         database.createUser(uid, email, firstName, lastName);
     }
 
-    /*
-    public boolean isAssoMember(){
-        return DAOFirebaseUser.isAssoMember(getCurrentUserUid());
+    public String getCurrentUserId() {
+        return database.getCurrentUserId();
     }
-
-    public String getCurrentUserUid(){
-        return database.getCurrentUserUid();
-    }
-    */
 
     public FirebaseAuth getAuth() {
         return FirebaseAuth.getInstance();
