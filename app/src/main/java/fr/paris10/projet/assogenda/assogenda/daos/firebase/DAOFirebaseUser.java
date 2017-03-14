@@ -12,9 +12,7 @@ public class DAOFirebaseUser {
     private static DAOFirebaseUser instance;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-    private static DatabaseReference database;
-
-    private static boolean isAssoMember = false;
+    private DatabaseReference database;
 
     private DAOFirebaseUser() {
         mFirebaseAuth = FirebaseAuth.getInstance();
