@@ -51,8 +51,4 @@ public class DAOUser {
     public FirebaseAuth getAuth() {
         return FirebaseAuth.getInstance();
     }
-
-    public String getCurrentUserId() {
-        return database.getCurrentUserId();
-    }
 }
