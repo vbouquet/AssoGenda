@@ -21,18 +21,15 @@ import java.util.HashMap;
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
 
-
 public class EventInfosActivity extends AppCompatActivity {
     private ListView listInfos;
     private ArrayList<HashMap<String,Object>> listValues = new ArrayList<>();
     private SimpleAdapter adapter;
     private String eventUID;
     private Event event;
-    TextView nameEvent;
+    private TextView nameEvent;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +43,7 @@ public class EventInfosActivity extends AppCompatActivity {
     }
 
     public void loadEventInfoInBackground() {
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("events");
         reference.child(eventUID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
