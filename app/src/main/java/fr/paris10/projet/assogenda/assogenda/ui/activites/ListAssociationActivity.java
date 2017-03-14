@@ -25,15 +25,17 @@ public class ListAssociationActivity extends AppCompatActivity {
 
     public ArrayList<Association> associations;
     private SearchAssociationAdapter adapter;
-    private ListView listView;
     private DatabaseReference database;
     private SearchView searchView;
     private DAOUser userDatabase;
+    private Boolean loadFollowed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_association);
+
+        loadFollowed = getIntent().getExtras().getBoolean("followed");
 
         database = FirebaseDatabase.getInstance().getReference("association");
         userDatabase = DAOUser.getInstance();
@@ -41,10 +43,14 @@ public class ListAssociationActivity extends AppCompatActivity {
         associations = new ArrayList<>();
         adapter = new SearchAssociationAdapter(this, associations);
 
-        listView = (ListView) findViewById(R.id.list_association_activity_list_view);
+        ListView listView = (ListView) findViewById(R.id.list_association_activity_list_view);
         listView.setAdapter(adapter);
 
-        loadAssociations();
+        if (loadFollowed) {
+            loadFollowedAssociation();
+        } else {
+            loadAllAssociations();
+        }
 
         searchView = (SearchView) findViewById(R.id.list_association_activity_search);
         loadSearchListener();
@@ -85,7 +91,7 @@ public class ListAssociationActivity extends AppCompatActivity {
     /**
      * Load all association in database and if association is followed or not
      */
-    private void loadAssociations() {
+    private void loadAllAssociations() {
         database.orderByChild("name").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -101,17 +107,14 @@ public class ListAssociationActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
-                                    Log.d("ASSOFOLLOWED", "followed");
                                     association.followed = true;
                                     adapter.notifyDataSetChanged();
-                                } else {
-                                    Log.d("ASSOFOLLOWED", "not followed");
                                 }
                             }
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-
+                                Log.d("onCancelled", databaseError.getMessage());
                             }
                         });
 
@@ -119,23 +122,75 @@ public class ListAssociationActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                Log.d("onChildChanged", dataSnapshot.getKey());
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                //TODO remove association in list
+                Log.d("onChildRemoved", dataSnapshot.getKey());
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                Log.d("onChildMoved", dataSnapshot.getKey());
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("onCancelled", databaseError.getMessage());
             }
         });
+    }
+
+
+    public void loadFollowedAssociation() {
+        FirebaseDatabase.getInstance().getReference("user-follow-asso")
+                .child(userDatabase.getCurrentUserId())
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        final String assoId = dataSnapshot.getKey();
+                        FirebaseDatabase.getInstance().getReference("association")
+                                .child(assoId)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        Association association = dataSnapshot.getValue(Association.class);
+                                        association.id = assoId;
+                                        association.followed = true;
+                                        associations.add(association);
+                                        adapter.add(association);
+                                        adapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        Log.d("onChildChanged", dataSnapshot.getKey());
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        Log.d("onChildRemoved", dataSnapshot.getKey());
+                        adapter.remove(dataSnapshot.getKey());
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                        Log.d("onChildMoved", dataSnapshot.getKey());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d("onCancelled", databaseError.getMessage());
+                    }
+                });
     }
 }

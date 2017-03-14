@@ -3,6 +3,7 @@ package fr.paris10.projet.assogenda.assogenda.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,25 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
         return position;
     }
 
+    /**
+     * Remove association from adapter depending on association id
+     * @param assoId
+     */
+    public void remove(String assoId) {
+        synchronized (associationsValues) {
+            for (Association association : associationsValues) {
+                if (association.id == assoId) {
+                    associationsValues.remove(association);
+                }
+            }
+            synchronized (associationsDisplayed) {
+                associationsDisplayed.clear();
+                associationsDisplayed.addAll(associationsValues);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -89,7 +109,7 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
         final ViewHolder viewHolder = new ViewHolder();
 
         viewHolder.followButton = (ImageButton) view.findViewById(R.id.item_association_list_association_follow);
-        if (association.followed ) {
+        if (association.followed) {
             viewHolder.followButton.setImageResource(android.R.drawable.btn_star_big_on);
         } else {
             viewHolder.followButton.setImageResource(android.R.drawable.btn_star_big_off);
@@ -131,18 +151,18 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
      * - search by association name
      * - search by univerty
      */
-    public void filter(String text) {
-        text = text.toLowerCase(Locale.getDefault());
+    public void filter(String search) {
+        search = search.toLowerCase(Locale.getDefault());
 
         this.associationsDisplayed.clear();
 
-        if (text.length() == 0) {
+        if (search.length() == 0) {
             associationsDisplayed.addAll(associationsValues);
         } else {
             for (Association association : associationsValues) {
-                if (association.name.toLowerCase(Locale.getDefault()).contains(text)) {
+                if (association.name.toLowerCase(Locale.getDefault()).contains(search)) {
                     this.associationsDisplayed.add(association);
-                } else if (association.university.toLowerCase(Locale.getDefault()).contains(text)) {
+                } else if (association.university.toLowerCase(Locale.getDefault()).contains(search)) {
                     this.associationsDisplayed.add(association);
                 }
             }
@@ -173,7 +193,7 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("onCancelled", databaseError.getMessage());
             }
         });
         association.followed = !association.followed;
