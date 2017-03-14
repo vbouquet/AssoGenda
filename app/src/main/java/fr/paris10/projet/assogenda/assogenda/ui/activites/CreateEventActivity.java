@@ -41,15 +41,17 @@ public class CreateEventActivity extends AppCompatActivity {
 
     protected DatabaseReference database = FirebaseDatabase.getInstance().getReference("events");
 
-    /*
+
     protected DatabaseReference dbAssoc = FirebaseDatabase.getInstance().getReference("associations");
-    protected String randomAssoc;
-    */
+    protected String eventAsso;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+        eventAsso = getIntent().getStringExtra("assoID");
+
 
         eventNameEditText = (EditText) findViewById(R.id.activity_create_event_name);
         eventStartTimeEditText = (EditText) findViewById(R.id.activity_create_event_start_time);
@@ -110,8 +112,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 final String eventLocation = eventLocationEditText.getText().toString().trim();
                 final String eventSeatsAvailable = eventSeatsAvailableEditText.getText().toString().trim();
                 final String eventPrice = eventPriceEditText.getText().toString().trim();
-                //getARandomAssociationOfCurrentUser();
-                final String eventAssociation = "placeholder";
+                final String eventAssociation = eventAsso;
 
                 if (eventName.isEmpty() || eventDescription.isEmpty() || eventStart == null || eventEnd == null
                         || eventType.isEmpty() || eventLocation.isEmpty() || eventSeatsAvailable.isEmpty() || eventPrice.isEmpty()) {
@@ -225,25 +226,6 @@ public class CreateEventActivity extends AppCompatActivity {
             return null;
         }
     }
-
-    /*
-    public void getARandomAssociationOfCurrentUser(){
-        dbAssoc.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists() &&
-                        DAOUser.getInstance().getCurrentUserId().equals(dataSnapshot.child("president").getValue(String.class))){
-                    randomAssoc = dataSnapshot.getKey();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-    */
 
     public void loadMain(){
         Intent intent = new Intent(this, MainActivity.class);

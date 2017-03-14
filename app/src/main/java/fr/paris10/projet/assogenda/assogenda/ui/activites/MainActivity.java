@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,19 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), AssociationDashboardActivity.class);
                     startActivity(intent);
-                }
-            });
-
-            Button goToEventCreation = (Button) findViewById(R.id.activity_main_create_event_button);
-            goToEventCreation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isAssoMember.equals(true)) {
-                        loadCreateEventView();
-                    }
-                    else{
-                        Toast.makeText(v.getContext(), "You must be an association member to do so!", Toast.LENGTH_LONG).show();
-                    }
                 }
             });
 

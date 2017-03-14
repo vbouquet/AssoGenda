@@ -63,14 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-        Button temp = (Button) findViewById(R.id.tmp_button);
-        temp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadCreateEventView();
-            }
-        });
     }
 
     public void signIn(final String email, final String password) {
