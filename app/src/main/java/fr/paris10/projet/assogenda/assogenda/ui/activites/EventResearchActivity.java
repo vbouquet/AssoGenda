@@ -37,8 +37,7 @@ public class EventResearchActivity extends AppCompatActivity {
     public ArrayList<Event> items;
     public ListView listView;
     public DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("events");
-
-    protected EditText eventDateEditText;
+    public EditText eventDateEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +67,7 @@ public class EventResearchActivity extends AppCompatActivity {
         buttonResearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String eventType = eventResearchSpinner.getSelectedItem().toString();
                 String date = eventDateEditText.getText().toString();
                 items.clear();
@@ -92,7 +92,6 @@ public class EventResearchActivity extends AppCompatActivity {
     public void loadEventsInBackground(final String eventType, final String date) {
 
         Query query = databaseReference;
-
         if (!"".equals(eventType) && "".equals(date) || !"".equals(eventType) && !"".equals(date)) {
             query = databaseReference.orderByChild("type").equalTo(eventType);
         }

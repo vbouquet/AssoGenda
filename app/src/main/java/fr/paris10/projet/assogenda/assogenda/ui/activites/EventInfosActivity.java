@@ -37,6 +37,7 @@ public class EventInfosActivity extends AppCompatActivity {
     private String name;
     private Date eventEndDate;
     private Date today;
+    private TextView participateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class EventInfosActivity extends AppCompatActivity {
         name = (String) getIntent().getExtras().get("eventName");
         String eventEnd = (String) getIntent().getExtras().get("eventEndDate");
         nameEvent = (TextView) findViewById(R.id.activity_event_infos_name_event);
+        participateButton = (Button) findViewById(R.id.activity_event_infos_participate_button);
         loadEventInfoInBackground();
 
         try {
@@ -63,11 +65,32 @@ public class EventInfosActivity extends AppCompatActivity {
         });
     }
 
+    public void updateParticipate() {
+        FirebaseDatabase.getInstance().getReference("user-events")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(eventUID)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            participateButton.setText(R.string.activity_event_infos_nparticipate_button);
+                        } else {
+                            participateButton.setText(R.string.activity_event_infos_participate_button);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
     public void participateEvent() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user-events");
         reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(eventUID).setValue(name);
         Toast.makeText(getApplicationContext(), getApplicationContext()
-                .getResources().getString(R.string.activity_event_infos_participate_toast) + " " + name,
+                        .getResources().getString(R.string.activity_event_infos_participate_toast) + " " + name,
                 Toast.LENGTH_LONG).show();
     }
 
@@ -87,16 +110,18 @@ public class EventInfosActivity extends AppCompatActivity {
                 if (!eventEndDate.before(today)) {
 
                     if (snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).hasChild(eventUID)) {
+                        participateButton.setText(R.string.activity_event_infos_participate_button);
                         snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(eventUID).getRef().getRef().removeValue();
                         Toast.makeText(getApplicationContext(), getApplicationContext()
                                 .getResources().getString(R.string.activity_event_infos_nparticipate_toast)
                                 + " " + name, Toast.LENGTH_LONG).show();
                     } else {
+                        participateButton.setText(R.string.activity_event_infos_nparticipate_button);
                         participateEvent();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), getApplicationContext()
-                            .getResources().getString(R.string.activity_event_infos_participate_date_passed_toast)
+                                    .getResources().getString(R.string.activity_event_infos_participate_date_passed_toast)
                             , Toast.LENGTH_LONG).show();
                 }
             }
@@ -161,6 +186,8 @@ public class EventInfosActivity extends AppCompatActivity {
                 listInfos = (ListView) findViewById(R.id.activity_event_infos_list);
                 adapter = new SimpleAdapter(EventInfosActivity.this, listValues, R.layout.content_infos_event, from, to);
                 listInfos.setAdapter(adapter);
+
+                updateParticipate();
             }
 
             @Override
