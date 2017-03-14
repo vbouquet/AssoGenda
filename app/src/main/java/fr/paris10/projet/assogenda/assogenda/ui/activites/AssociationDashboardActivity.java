@@ -209,7 +209,6 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                                     transaction
                                             .replace(R.id.activity_association_dashboard_fragment_container,
                                                     associationMainFragment)
-                                            .addToBackStack(null)
                                             .commit();
                                 }
                             }

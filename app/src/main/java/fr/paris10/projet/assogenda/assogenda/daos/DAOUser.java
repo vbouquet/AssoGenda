@@ -43,6 +43,10 @@ public class DAOUser {
         database.createUser(uid, email, firstName, lastName);
     }
 
+    public String getCurrentUserId() {
+        return database.getCurrentUserId();
+    }
+
     public FirebaseAuth getAuth() {
         return FirebaseAuth.getInstance();
     }
