@@ -35,8 +35,8 @@ import fr.paris10.projet.assogenda.assogenda.model.Association;
  * Adapter used to display associations and enable user to follow them
  */
 public class SearchAssociationAdapter extends ArrayAdapter<Association> {
-    private ArrayList<Association> associationsDisplayed;
-    private ArrayList<Association> associationsValues;
+    final private ArrayList<Association> associationsDisplayed;
+    final private ArrayList<Association> associationsValues;
     private DAOUser userDatabase;
 
     public SearchAssociationAdapter(Context context, ArrayList<Association> associations) {
@@ -73,25 +73,6 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
     @Override
     public long getItemId(int position) {
         return position;
-    }
-
-    /**
-     * Remove association from adapter depending on association id
-     * @param assoId
-     */
-    public void remove(String assoId) {
-        synchronized (associationsValues) {
-            for (Association association : associationsValues) {
-                if (association.id == assoId) {
-                    associationsValues.remove(association);
-                }
-            }
-            synchronized (associationsDisplayed) {
-                associationsDisplayed.clear();
-                associationsDisplayed.addAll(associationsValues);
-            }
-        }
-        notifyDataSetChanged();
     }
 
     @NonNull

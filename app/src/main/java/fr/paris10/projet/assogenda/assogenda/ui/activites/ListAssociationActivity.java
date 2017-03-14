@@ -44,13 +44,13 @@ public class ListAssociationActivity extends AppCompatActivity {
         adapter = new SearchAssociationAdapter(this, associations);
 
         ListView listView = (ListView) findViewById(R.id.list_association_activity_list_view);
-        listView.setAdapter(adapter);
+        if (listView != null)
+            listView.setAdapter(adapter);
 
-        if (loadFollowed) {
-            loadFollowedAssociation();
-        } else {
+        if (loadFollowed)
+            loadFollowedAssociations();
+        else
             loadAllAssociations();
-        }
 
         searchView = (SearchView) findViewById(R.id.list_association_activity_search);
         loadSearchListener();
@@ -127,7 +127,6 @@ public class ListAssociationActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                //TODO remove association in list
                 Log.d("onChildRemoved", dataSnapshot.getKey());
             }
 
@@ -143,32 +142,34 @@ public class ListAssociationActivity extends AppCompatActivity {
         });
     }
 
-
-    public void loadFollowedAssociation() {
+    public void loadFollowedAssociations() {
         FirebaseDatabase.getInstance().getReference("user-follow-asso")
-                .child(userDatabase.getCurrentUserId())
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        final String assoId = dataSnapshot.getKey();
-                        FirebaseDatabase.getInstance().getReference("association")
-                                .child(assoId)
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        Association association = dataSnapshot.getValue(Association.class);
-                                        association.id = assoId;
-                                        association.followed = true;
-                                        associations.add(association);
-                                        adapter.add(association);
-                                        adapter.notifyDataSetChanged();
-                                    }
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            final String assoId = data.getKey();
+                            FirebaseDatabase.getInstance().getReference("association")
+                                    .child(assoId)
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                Association association = dataSnapshot.getValue(Association.class);
+                                                association.id = assoId;
+                                                association.followed = true;
+                                                associations.add(association);
+                                                adapter.add(association);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            Log.d("onCancelled", databaseError.getMessage());
+                                        }
+                                    });
+                        }
                     }
 
                     @Override
@@ -178,13 +179,13 @@ public class ListAssociationActivity extends AppCompatActivity {
 
                     @Override
                     public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        //remove association from list
                         Log.d("onChildRemoved", dataSnapshot.getKey());
-                        adapter.remove(dataSnapshot.getKey());
                     }
 
                     @Override
                     public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                        Log.d("onChildMoved", dataSnapshot.getKey());
+                        Log.d("testtest", dataSnapshot.getKey());
                     }
 
                     @Override
