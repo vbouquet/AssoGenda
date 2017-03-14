@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,18 +70,22 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Log.i(this.getClass().getCanonicalName(), " onChildChanged");
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Log.i(this.getClass().getCanonicalName(), " onChildRemoved");
                 }
 
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    Log.i(this.getClass().getCanonicalName(), " onChildMoved");
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    Log.i(this.getClass().getCanonicalName(), " onCancelled");
                 }
             });
         }
