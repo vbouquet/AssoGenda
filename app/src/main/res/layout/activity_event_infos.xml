@@ -13,7 +13,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
         <TextView
             android:text="Nom Event"
@@ -52,8 +53,8 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/activity_event_infos_list" />
+            android:id="@+id/activity_event_infos_list"
+            android:layout_weight="1.15" />
 
     </LinearLayout>
 

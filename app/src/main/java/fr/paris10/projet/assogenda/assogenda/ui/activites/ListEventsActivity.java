@@ -27,14 +27,12 @@ import java.util.List;
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
 
-/**
- * Display incoming events.
- */
 public class ListEventsActivity extends AppCompatActivity {
     private ListView listEvents;
     private ArrayList<HashMap<String, Object>> listValuesEvents = new ArrayList<>();
     private SimpleAdapter adapter;
     private List<Event> listeEvenements = new ArrayList<>();
+    private List<Event> listEventSort = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,8 @@ public class ListEventsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), EventInfosActivity.class);
-                Event event = listeEvenements.get(position);
+                Event event = listEventSort.get(position);
+
                 intent.putExtra("eventUID", event.uid);
                 startActivity(intent);
             }
@@ -95,15 +94,35 @@ public class ListEventsActivity extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int tailleList;
+                int nbEvent;
+                int eventRestant;
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot e : dataSnapshot.getChildren()) {
                         Event event = e.getValue(Event.class);
+                        event.uid = e.getKey();
                         if (convertToDate(event.start) || convertToDate(event.end)) {
-                            event.uid = e.getKey();
                             listeEvenements.add(event);
                         }
                     }
-                    for (Event event : listeEvenements) {
+                    eventRestant = listeEvenements.size();
+                    while (eventRestant > 0) {
+                        tailleList = listeEvenements.size();
+                        for (int i = 0; i < tailleList; i++) {
+                            nbEvent = 1;
+                            for (int j = 0; j < tailleList; j++) {
+                                if (i != j && compareDate(listeEvenements.get(i).start, listeEvenements.get(j).start)) {
+                                    nbEvent++;
+                                }
+                            }
+                            if (nbEvent == eventRestant) {
+                                listEventSort.add(listeEvenements.get(i));
+                                eventRestant--;
+                            }
+                        }
+                    }
+
+                    for (Event event : listEventSort) {
                         HashMap<String, Object> hashMapValuesEvent = new HashMap<>();
                         hashMapValuesEvent.put("nameEvent", event.name);
                         if (event.association == null)
@@ -117,17 +136,13 @@ public class ListEventsActivity extends AppCompatActivity {
                         listValuesEvents.add(hashMapValuesEvent);
                     }
                     String[] from = new String[]{"nameEvent", "association", "dateEventBegin", "dateEventEnd", "locationEvent", "tagsEvent"};
-                    int[] to = new int[]{R.id.content_list_events_name_event,
-                            R.id.content_list_events_name_association,
-                            R.id.content_list_events_date_event_begin,
-                            R.id.content_list_events_date_event_end,
-                            R.id.content_list_events_location_event,
-                            R.id.content_list_events_tags_event};
+                    int[] to = new int[]{R.id.content_list_events_name_event, R.id.content_list_events_name_association, R.id.content_list_events_date_event_begin, R.id.content_list_events_date_event_end, R.id.content_list_events_location_event, R.id.content_list_events_tags_event};
 
                     listEvents = (ListView) findViewById(R.id.activity_list_events_list);
                     adapter = new SimpleAdapter(ListEventsActivity.this, listValuesEvents, R.layout.content_list_events, from, to);
                     listEvents.setAdapter(adapter);
                     launchEventPage();
+
                 }
             }
 
