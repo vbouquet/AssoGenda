@@ -7,7 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Created by wilpiron on 28/02/2017.
+ */
+
 public class Event {
+
     public String id;
     public String name;
     public String start;
@@ -20,7 +25,7 @@ public class Event {
     public int bail;
     public int seat_number;
     public int seat_free;
-    public Association association;
+    public String association;
     public int logo;
 
     public static DateFormat dateFormat =
@@ -30,8 +35,8 @@ public class Event {
     public Event(){
     }
 
-    public Event(String uid,String name, String start, String end, String type, String description, String location,
-                 float price, int bail, int seat_number, Association association, int logo){
+    public Event(String uid, String name, String start, String end, String type, String association,
+                 String description, String location, float price, int bail, int seat_number,  int logo){
         this.uid=uid;
         this.name=name;
         this.start=start;
@@ -47,13 +52,14 @@ public class Event {
         this.association=association;
     }
 
-    public Event(String uid, String name, String start, String end, String type, String location,
-                 float price, int seat_number, String description){
-        this.uid = uid;
+    public Event(String uid, String name, String start, String end, String type, String association,
+                 String location, float price, int seat_number, String description){
+        this.uid=uid;
         this.name=name;
         this.start=start;
         this.end=end;
         this.type=type;
+        this.association=association;
         this.location=location;
         this.price=price;
         this.seat_free=seat_number;
@@ -81,7 +87,7 @@ public class Event {
         result.put("name", name);
         result.put("description", description);
         result.put("type", type);
-        //result.put("association", association.name);
+        result.put("association", association);
         result.put("location", location);
         result.put("price", price);
         result.put("seats number", seat_number);

@@ -72,4 +72,9 @@ public class DAOFirebaseUser {
     private boolean validateLastName(String lastName) {
         return lastName != null && !lastName.isEmpty() && lastName.length() >= 3;
     }
+
+    public String getCurrentUserId() {
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        return mFirebaseUser.getUid();
+    }
 }

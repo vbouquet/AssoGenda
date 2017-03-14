@@ -19,10 +19,11 @@
         <activity android:name=".ui.activites.LoginActivity" />
         <activity android:name=".ui.activites.AssociationDashboardActivity" />
         <activity android:name=".ui.activites.AgendaGeneratorActivity" />
-        <activity android:name=".ui.activites.AgendaActivity"></activity>
+        <activity android:name=".ui.activites.AgendaActivity"/>
         <activity android:name=".ui.activites.ListEventsActivity" />
-        <activity android:name=".ui.activites.EventInfosActivity"></activity>
-        <activity android:name=".ui.activites.EventResearchActivity"></activity>
+        <activity android:name=".ui.activites.EventInfosActivity"/>
+        <activity android:name=".ui.activites.CreateEventActivity"/>
+        <activity android:name=".ui.activites.EventResearchActivity"/>
     </application>
 
 </manifest>

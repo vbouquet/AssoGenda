@@ -36,11 +36,11 @@ public class SignUpActivity extends AppCompatActivity {
         daoUser         = DAOUser.getInstance();
         mFirebaseAuth   = FirebaseAuth.getInstance();
 
-        passwordEditText    = (EditText) findViewById(R.id.signup_password);
-        emailEditText       = (EditText) findViewById(R.id.signup_email);
-        firstNameEditText   = (EditText) findViewById(R.id.first_name);
-        lastNameEditText    = (EditText) findViewById(R.id.last_name);
-        signUpButton        = (Button) findViewById(R.id.signup_validate);
+        passwordEditText    = (EditText) findViewById(R.id.activity_sign_up_password);
+        emailEditText       = (EditText) findViewById(R.id.activity_sign_up_email);
+        firstNameEditText   = (EditText) findViewById(R.id.activity_sign_up_first_name);
+        lastNameEditText    = (EditText) findViewById(R.id.activity_sign_up_last_name);
+        signUpButton        = (Button) findViewById(R.id.activity_sign_up_validate);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override

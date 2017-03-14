@@ -11,7 +11,7 @@
     tools:context="fr.paris10.projet.assogenda.assogenda.ui.activites.LoginActivity">
 
     <EditText
-        android:id="@+id/login_email"
+        android:id="@+id/activity_login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -24,28 +24,28 @@
     </EditText>
 
     <EditText
-        android:id="@+id/login_password"
+        android:id="@+id/activity_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/login_email"
-        android:layout_below="@+id/login_email"
+        android:layout_alignLeft="@+id/activity_login_email"
+        android:layout_below="@+id/activity_login_email"
         android:ems="10"
         android:hint="@string/password_hint"
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/login_validate"
+        android:id="@+id/activity_login_validate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/login_password"
-        android:layout_below="@+id/login_password"
+        android:layout_alignLeft="@+id/activity_login_password"
+        android:layout_below="@+id/activity_login_password"
         android:text="@string/login_button_label" />
 
     <TextView
-        android:id="@+id/signUpText"
+        android:id="@+id/activity_login_to_activity_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_validate"
+        android:layout_below="@+id/activity_login_validate"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="69dp"
         android:text="@string/sign_up_text" />
