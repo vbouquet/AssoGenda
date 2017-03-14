@@ -37,8 +37,7 @@ public class EventResearchActivity extends AppCompatActivity {
     public ArrayList<Event> items;
     public ListView listView;
     public DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("events");
-
-    protected EditText eventDateEditText;
+    public EditText eventDateEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +67,7 @@ public class EventResearchActivity extends AppCompatActivity {
         buttonResearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String eventType = eventResearchSpinner.getSelectedItem().toString();
                 String date = eventDateEditText.getText().toString();
                 items.clear();
@@ -82,6 +82,8 @@ public class EventResearchActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), EventInfosActivity.class);
                 Event event = items.get(position);
                 intent.putExtra("eventUID", event.uid);
+                intent.putExtra("eventName", event.name);
+                intent.putExtra("eventEndDate", event.end);
                 startActivity(intent);
             }
         });
@@ -90,7 +92,6 @@ public class EventResearchActivity extends AppCompatActivity {
     public void loadEventsInBackground(final String eventType, final String date) {
 
         Query query = databaseReference;
-
         if (!"".equals(eventType) && "".equals(date) || !"".equals(eventType) && !"".equals(date)) {
             query = databaseReference.orderByChild("type").equalTo(eventType);
         }
@@ -101,18 +102,19 @@ public class EventResearchActivity extends AppCompatActivity {
                 Event event = snapshot.getValue(Event.class);
                 event.uid = snapshot.getKey();
                 event.seat_free = Integer.parseInt(String.valueOf(snapshot.child("seats free").getValue()));
-                Date endDate = new Date();
-                Date pickedDate = new Date();
-                Date startDate = new Date();
 
-                try {
-                    endDate = Event.dateFormatter.parse(event.end);
-                    pickedDate = Event.dateFormatter.parse("00:00 " + date);
-                    startDate = Event.dateFormatter.parse(event.start);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
                 if (!"".equals(date)) {
+                    Date endDate = new Date();
+                    Date pickedDate = new Date();
+                    Date startDate = new Date();
+
+                    try {
+                        endDate = Event.dateFormatter.parse(event.end);
+                        pickedDate = Event.dateFormatter.parse("00:00 " + date);
+                        startDate = Event.dateFormatter.parse(event.start);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     if (pickedDate.before(endDate) && pickedDate.after(startDate)) {
                         items.add(event);
                         eventAdapter.notifyDataSetChanged();
