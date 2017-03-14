@@ -57,6 +57,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button listEventButton = (Button) findViewById(R.id.main_list_events_button);
+        listEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),ListEventsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button searchEventButton = (Button) findViewById(R.id.activity_main_event_research_button);
+        searchEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), EventResearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
