@@ -24,6 +24,7 @@
         <activity android:name=".ui.activites.EventInfosActivity"/>
         <activity android:name=".ui.activites.CreateEventActivity"/>
         <activity android:name=".ui.activites.EventResearchActivity"/>
+        <activity android:name=".ui.activites.ListAssociationActivity"></activity>
     </application>
 
 </manifest>

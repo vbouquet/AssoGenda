@@ -3,6 +3,7 @@ package fr.paris10.projet.assogenda.assogenda.ui.activites;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -78,6 +79,26 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), EventResearchActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            Button listAssociationsButton = (Button) findViewById(R.id.main_activity_list_asso_button);
+            listAssociationsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ListAssociationActivity.class);
+                    intent.putExtra("followed", false);
+                    startActivity(intent);
+                }
+            });
+
+            Button followedAssoButton = (Button) findViewById(R.id.main_activity_followed_asso_button);
+            followedAssoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ListAssociationActivity.class);
+                    intent.putExtra("followed", true);
                     startActivity(intent);
                 }
             });

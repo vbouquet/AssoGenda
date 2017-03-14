@@ -41,7 +41,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/activity_main_event_research_button"/>
+        <Button
+            android:text="liste des associations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_activity.list_asso_button"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
+        <Button
+            android:id="@+id/main_activity_followed_asso_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_activity.list_asso_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="39dp"
+            android:text="Followed associations " />
         <Button
             android:text="@string/action_logout"
             android:layout_width="match_parent"
