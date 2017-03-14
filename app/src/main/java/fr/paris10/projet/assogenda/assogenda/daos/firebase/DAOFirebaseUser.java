@@ -1,5 +1,6 @@
 package fr.paris10.projet.assogenda.assogenda.daos.firebase;
 
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -71,5 +72,10 @@ public class DAOFirebaseUser {
 
     private boolean validateLastName(String lastName) {
         return lastName != null && !lastName.isEmpty() && lastName.length() >= 3;
+    }
+
+    public String getCurrentUserId() {
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        return mFirebaseUser.getUid();
     }
 }

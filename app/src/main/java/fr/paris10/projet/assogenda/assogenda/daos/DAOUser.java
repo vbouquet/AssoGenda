@@ -1,5 +1,6 @@
 package fr.paris10.projet.assogenda.assogenda.daos;
 
+
 import com.google.firebase.auth.FirebaseAuth;
 
 import fr.paris10.projet.assogenda.assogenda.daos.firebase.DAOFirebaseUser;
@@ -41,6 +42,10 @@ public class DAOUser {
 
     public void createUser(String uid, String email, String firstName, String lastName) {
         database.createUser(uid, email, firstName, lastName);
+    }
+
+    public String getCurrentUserId() {
+        return database.getCurrentUserId();
     }
 
     public FirebaseAuth getAuth() {

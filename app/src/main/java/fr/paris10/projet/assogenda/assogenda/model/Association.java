@@ -15,6 +15,7 @@ public class Association {
     public Date startSubscription;
     public Date endSubscription;
     public String president;
+    public Boolean followed = false;
 
     public Association() {
     }

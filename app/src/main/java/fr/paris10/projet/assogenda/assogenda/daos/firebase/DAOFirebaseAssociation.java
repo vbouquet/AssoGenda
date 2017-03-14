@@ -5,6 +5,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import fr.paris10.projet.assogenda.assogenda.model.Association;
 
 public class DAOFirebaseAssociation {
@@ -31,6 +34,12 @@ public class DAOFirebaseAssociation {
         if(mFirebaseAuth.getCurrentUser() != null) {
             Association association = new Association(associationName, associationUniversity, associationDescription, mFirebaseUser.getUid(), logo);
             database.push().setValue(association);
+
+            final DatabaseReference tmp = FirebaseDatabase.getInstance().getReference("users");
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/"+mFirebaseUser.getUid()+"/isAssoMember/", true);
+            tmp.updateChildren(childUpdates);
+
         }
     }
 

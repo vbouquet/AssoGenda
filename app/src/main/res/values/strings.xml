@@ -2,35 +2,48 @@
     <string name="app_name">AssoGenda</string>
 
     <!-- Association -->
-    <string name="fragment_association_main_title">Gérer association</string>
+    <string name="fragment_association_main_title">Manage association</string>
     <string name="activity_main_button_association">Association</string>
-    <string name="fragment_association_main_button_create_association">Créer association</string>
+    <string name="fragment_association_main_button_create_association">Create association</string>
 
     <!-- Association form -->
-    <string name="fragment_create_association_name_title">Nom de l\'association</string>
-    <string name="fragment_create_association_name">Nom</string>
-    <string name="fragment_create_association_university_title">Université</string>
-    <string name="fragment_create_association_university">Nom de l\'université</string>
-    <string name="fragment_create_association_description_title">Description de l\'association</string>
+    <string name="fragment_create_association_name_title">Association name</string>
+    <string name="fragment_create_association_name">Name</string>
+    <string name="fragment_create_association_university_title">University</string>
+    <string name="fragment_create_association_university">University name</string>
+    <string name="fragment_create_association_description_title">Association description</string>
     <string name="fragment_create_association_description">Description</string>
-    <string name="fragment_create_association_logo_title">Logo de l\'association</string>
-    <string name="fragment_create_association_button_logo">Ajouter une image</string>
-    <string name="fragment_create_association_button_validate">Valider</string>
-    <string name="fragment_create_association_form_validation_name">Nom requis !</string>
-    <string name="fragment_create_association_form_validation_universite">Université requise !</string>
-    <string name="fragment_create_association_form_validation_description">Description requise !</string>
-    <string name="fragment_create_association_form_validation_title">Sûr de créer cette assoc frère ?</string>
-    <string name="fragment_create_association_form_validation_ok">Oui</string>
-    <string name="fragment_create_association_form_validation_cancel">Non</string>
+    <string name="fragment_create_association_logo_title">Association logo</string>
+    <string name="fragment_create_association_button_logo">Add a picture</string>
+    <string name="fragment_create_association_button_validate">Validate</string>
+    <string name="fragment_create_association_form_validation_name">Name required!</string>
+    <string name="fragment_create_association_form_validation_universite">University required!</string>
+    <string name="fragment_create_association_form_validation_description">Description required!</string>
+    <string name="fragment_create_association_form_validation_title">Validate creation?</string>
+    <string name="fragment_create_association_form_validation_ok">Yes</string>
+    <string name="fragment_create_association_form_validation_cancel">No</string>
 
     <!-- Dashboard activity -->
     <string name="AssociationDashboardActivity_upload_logo">Uploading</string>
-    <string name="AssociationDashboardActivity_association_creation_success">Association créée !</string>
-    <string name="AssociationDashboardActivity_association_image_load_error">Impossible de charger l\'image !</string>
+    <string name="AssociationDashboardActivity_association_creation_success">Association created!</string>
+    <string name="AssociationDashboardActivity_association_image_load_error">Cannot load picture!</string>
 
     <!-- Calendar -->
     <string name="activity_main_calendar_button">Agenda</string>
 
+    <!-- Event research -->
+    <string name="activity_event_research_title_info">Event search</string>
+    <string name="activity_main_event_research_button">Event search</string>
+    <string name="activity_event_research_button">Search</string>
+    <string name="activity_event_research_start_date">Start date</string>
+    <string name="activity_event_research_start_time">HStart time</string>
+
+    <!-- Event participation -->
+    <string name="activity_event_infos_participate_button">Participer</string>
+    <string name="activity_event_infos_nparticipate_button">Ne plus participer</string>
+    <string name="activity_event_infos_participate_toast">Vous participez à : </string>
+    <string name="activity_event_infos_nparticipate_toast">Vous ne participez plus à l\'événement </string>
+    <string name="activity_event_infos_participate_date_passed_toast">L\'événement est terminé !</string>
 
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
@@ -47,4 +60,28 @@
     <string name="action_logout">Logout</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="event_create_name">Name</string>
+    <string name="event_create">Create event</string>
+    <string name="event_create_submit_error_message">Please make sure to fill all fields</string>
+    <string name="event_create_submit_error_title">Error !</string>
+    <string name="event_create_start_time">Start time</string>
+    <string name="event_create_start_date">Start date</string>
+    <string name="event_create_end_time">End time</string>
+    <string name="event_create_end_date">End date</string>
+    <string name="event_create_description">Description</string>
+    <string name="event_create_location">Location</string>
+    <string name="event_create_price">Price</string>
+    <string name="event_create_seats_available">Seats available</string>
+    <string name="event_create_submit_date_error_message">The end date cannot be anterior to the start !</string>
+    <string name="event_create_submit_seats_error_message">You need at least five seats available to your event !</string>
+    <string name="event_create_submit_price_error_message">The price cannot be negative !</string>
+    <string name="event_list">Event list</string>
+
+
+    <string-array name="event_create_event_types">
+        <item>Sport</item>
+        <item>Party</item>
+        <item>Training</item>
+        <item> </item>
+    </string-array>
 </resources>
