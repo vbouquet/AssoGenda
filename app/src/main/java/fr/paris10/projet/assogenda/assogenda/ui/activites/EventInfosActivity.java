@@ -36,7 +36,6 @@ public class EventInfosActivity extends AppCompatActivity {
     private TextView nameEvent;
     private String name;
     private Date eventEndDate;
-    private Date today;
     private TextView participateButton;
 
     @Override
@@ -81,7 +80,7 @@ public class EventInfosActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        Log.e("Error : ", "onCancelled", databaseError.toException());
                     }
                 });
     }
@@ -100,6 +99,7 @@ public class EventInfosActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Calendar c = Calendar.getInstance();
+                Date today = new Date();
 
                 try {
                     today = Event.dateFormatter.parse(Event.dateFormatter.format(c.getTime()));
