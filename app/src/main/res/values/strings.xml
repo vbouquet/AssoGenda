@@ -31,6 +31,12 @@
     <!-- Calendar -->
     <string name="activity_main_calendar_button">Agenda</string>
 
+    <!-- Event research -->
+    <string name="activity_event_research_title_info">Rechercher un évènement</string>
+    <string name="activity_main_event_research_button">Rechercher un évènement</string>
+    <string name="activity_event_research_button">Rechercher</string>
+    <string name="activity_event_research_start_date">Date de début</string>
+    <string name="activity_event_research_start_time">Heure de début</string>
 
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
@@ -47,4 +53,11 @@
     <string name="action_logout">Logout</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+
+    <string-array name="event_create_event_types">
+        <item>Sport</item>
+        <item>Party</item>
+        <item>Training</item>
+        <item></item>
+    </string-array>
 </resources>
