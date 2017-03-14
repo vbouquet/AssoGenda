@@ -2,12 +2,14 @@ package fr.paris10.projet.assogenda.assogenda.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -23,6 +25,8 @@ import java.util.ArrayList;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
+import fr.paris10.projet.assogenda.assogenda.ui.activites.EventInfosActivity;
+import fr.paris10.projet.assogenda.assogenda.ui.activites.ShowAssociationActivity;
 import fr.paris10.projet.assogenda.assogenda.ui.adapter.CustomAssociationAdapter;
 
 /**
@@ -64,6 +68,7 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
                 @Override
                 public void onChildAdded(DataSnapshot snapshot, String previousChild) {
                     Association association = snapshot.getValue(Association.class);
+                    association.id=snapshot.getKey();
                     items.add(association);
                     associationAdapter.notifyDataSetChanged();
                 }
@@ -97,6 +102,15 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
         View v = inflater.inflate(R.layout.fragment_association_main, container, false);
         listView = (ListView) v.findViewById(R.id.fragment_association_main_listView);
         listView.setAdapter(associationAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(view.getContext(), ShowAssociationActivity.class);
+                Association association = items.get(position);
+                intent.putExtra("associationID", association.id);
+                startActivity(intent);
+            }
+        });
         Button createAssociationButton =
                 (Button) v.findViewById(R.id.fragment_association_main_button_create_association);
         createAssociationButton.setOnClickListener(this);
