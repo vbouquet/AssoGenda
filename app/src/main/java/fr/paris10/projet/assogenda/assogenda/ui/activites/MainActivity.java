@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     protected void userIsAnAssociationMember(){
         isAssoMember = false;
 
-        database.child(daoUser.getCurrentUserId()).child("isAssoMember").addListenerForSingleValueEvent(new ValueEventListener() {
+        database.child(daoUser.getCurrentUserId()).child("isAssoMember").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){

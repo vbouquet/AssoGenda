@@ -24,7 +24,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import fr.paris10.projet.assogenda.assogenda.R;
-import fr.paris10.projet.assogenda.assogenda.daos.DAOUser;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
 
 public class CreateEventActivity extends AppCompatActivity {
@@ -41,6 +40,11 @@ public class CreateEventActivity extends AppCompatActivity {
     protected EditText eventPriceEditText;
 
     protected DatabaseReference database = FirebaseDatabase.getInstance().getReference("events");
+
+    /*
+    protected DatabaseReference dbAssoc = FirebaseDatabase.getInstance().getReference("associations");
+    protected String randomAssoc;
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +110,8 @@ public class CreateEventActivity extends AppCompatActivity {
                 final String eventLocation = eventLocationEditText.getText().toString().trim();
                 final String eventSeatsAvailable = eventSeatsAvailableEditText.getText().toString().trim();
                 final String eventPrice = eventPriceEditText.getText().toString().trim();
-                
-                final String eventUserId = DAOUser.getInstance().getCurrentUserId();
+                //getARandomAssociationOfCurrentUser();
+                final String eventAssociation = "placeholder";
 
                 if (eventName.isEmpty() || eventDescription.isEmpty() || eventStart == null || eventEnd == null
                         || eventType.isEmpty() || eventLocation.isEmpty() || eventSeatsAvailable.isEmpty() || eventPrice.isEmpty()) {
@@ -144,7 +148,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
                 else{
                     database.push()
-                            .setValue(new Event( eventUserId, eventName, eventStart, eventEnd, eventType, eventLocation,
+                            .setValue(new Event( "", eventName, eventStart, eventEnd, eventType, eventAssociation, eventLocation,
                                     Float.parseFloat(eventPrice), Integer.parseInt(eventSeatsAvailable), eventDescription)
                             .toMap());
                     loadMain();
@@ -221,6 +225,25 @@ public class CreateEventActivity extends AppCompatActivity {
             return null;
         }
     }
+
+    /*
+    public void getARandomAssociationOfCurrentUser(){
+        dbAssoc.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists() &&
+                        DAOUser.getInstance().getCurrentUserId().equals(dataSnapshot.child("president").getValue(String.class))){
+                    randomAssoc = dataSnapshot.getKey();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    */
 
     public void loadMain(){
         Intent intent = new Intent(this, MainActivity.class);
