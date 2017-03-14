@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import fr.paris10.projet.assogenda.assogenda.R;
+import fr.paris10.projet.assogenda.assogenda.model.Association;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
 
 
@@ -29,6 +30,7 @@ public class EventInfosActivity extends AppCompatActivity {
     private String eventUID;
     private Event event;
     private TextView nameEvent;
+    private TextView nameAsso;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
 
@@ -40,6 +42,8 @@ public class EventInfosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_infos);
         eventUID = (String) getIntent().getExtras().get("eventUID");
         nameEvent = (TextView) findViewById(R.id.activity_event_infos_name_event);
+        nameAsso = (TextView) findViewById(R.id.activity_event_infos_name_asso);
+
         loadEventInfoInBackground();
     }
 
@@ -53,6 +57,22 @@ public class EventInfosActivity extends AppCompatActivity {
                     event = dataSnapshot.getValue(Event.class);
                     event.uid=eventUID;
                     nameEvent.setText(event.name);
+                    nameAsso.setText(" ");
+                    DatabaseReference references = FirebaseDatabase.getInstance().getReference("association");
+                    references.child(event.association).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataS) {
+                            if (dataS.exists()) {
+                                Association a = dataS.getValue(Association.class);
+                                nameAsso.setText(a.name);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                     HashMap<String,Object> hashMapValueDateBegin = new HashMap<>();
                     hashMapValueDateBegin.put("title_info","Date de début : ");
                     hashMapValueDateBegin.put("content_info",event.start);

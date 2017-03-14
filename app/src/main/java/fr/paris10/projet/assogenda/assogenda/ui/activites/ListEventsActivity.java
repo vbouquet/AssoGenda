@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import fr.paris10.projet.assogenda.assogenda.R;
+import fr.paris10.projet.assogenda.assogenda.model.Association;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
 
 public class ListEventsActivity extends AppCompatActivity {
@@ -33,7 +34,9 @@ public class ListEventsActivity extends AppCompatActivity {
     private SimpleAdapter adapter;
     private List<Event> listeEvenements = new ArrayList<>();
     private List<Event> listEventSort = new ArrayList<>();
+    private List<Association> listAssociation = new ArrayList<>();
 
+    private Association association;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +93,7 @@ public class ListEventsActivity extends AppCompatActivity {
     }
 
     public void loadEventInBackground() {
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("events");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -124,11 +128,9 @@ public class ListEventsActivity extends AppCompatActivity {
 
                     for (Event event : listEventSort) {
                         HashMap<String, Object> hashMapValuesEvent = new HashMap<>();
+
                         hashMapValuesEvent.put("nameEvent", event.name);
-                        if (event.association == null)
-                            hashMapValuesEvent.put("association", "Nom asso");
-                        else
-                            hashMapValuesEvent.put("association", event.association);
+                        hashMapValuesEvent.put("association", " ");
                         hashMapValuesEvent.put("dateEventBegin", event.start);
                         hashMapValuesEvent.put("dateEventEnd", event.end);
                         hashMapValuesEvent.put("locationEvent", event.location);

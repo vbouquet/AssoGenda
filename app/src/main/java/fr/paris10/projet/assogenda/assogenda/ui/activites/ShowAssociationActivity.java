@@ -1,7 +1,10 @@
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +25,7 @@ public class ShowAssociationActivity extends AppCompatActivity {
     private TextView nameAsso;
     private TextView descAsso;
     private TextView namePrez;
+    private Button createEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class ShowAssociationActivity extends AppCompatActivity {
         nameAsso = (TextView) findViewById(R.id.activity_show_association_name_asso);
         descAsso = (TextView) findViewById(R.id.activity_show_association_description_asso);
         namePrez = (TextView) findViewById(R.id.activity_show_association_name_president);
+        createEvent = (Button) findViewById(R.id.activity_show_association_create_event);
         associationID = (String) getIntent().getExtras().get("associationID");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("association");
         reference.child(associationID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -63,6 +68,16 @@ public class ShowAssociationActivity extends AppCompatActivity {
 
             }
         });
+
+        createEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /* Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
+                intent.putExtra("assoID", associationID);
+                startActivity(intent);*/
+            }
+        });
+
 
 
 

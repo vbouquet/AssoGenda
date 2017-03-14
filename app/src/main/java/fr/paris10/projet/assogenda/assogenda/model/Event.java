@@ -20,7 +20,7 @@ public class Event {
     public int bail;
     public int seat_number;
     public int seat_free;
-    public Association association;
+    public String association;
     public int logo;
 
     public static DateFormat dateFormat =
@@ -31,7 +31,7 @@ public class Event {
     }
 
     public Event(String uid,String name, String start, String end, String type, String description, String location,
-                 float price, int bail, int seat_number, Association association, int logo){
+                 float price, int bail, int seat_number, String association, int logo){
         this.uid=uid;
         this.name=name;
         this.start=start;
