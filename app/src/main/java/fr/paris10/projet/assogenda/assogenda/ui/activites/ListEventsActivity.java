@@ -34,9 +34,8 @@ public class ListEventsActivity extends AppCompatActivity {
     private SimpleAdapter adapter;
     private List<Event> listeEvenements = new ArrayList<>();
     private List<Event> listEventSort = new ArrayList<>();
-    private List<Association> listAssociation = new ArrayList<>();
+    private HashMap<String, String> listAssociation= new HashMap<>();
 
-    private Association association;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +94,25 @@ public class ListEventsActivity extends AppCompatActivity {
     }
 
     public void loadEventInBackground() {
+        DatabaseReference references = FirebaseDatabase.getInstance().getReference("association");
+        references.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataS) {
+                if (dataS.exists()) {
+                    for (DataSnapshot e : dataS.getChildren()) {
+                        Association a = e.getValue(Association.class);
+                        a.id = e.getKey();
+                        if (listAssociation.get(a.id) == null)
+                            listAssociation.put(a.id, a.name);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("events");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -103,6 +121,7 @@ public class ListEventsActivity extends AppCompatActivity {
                 int tailleList;
                 int nbEvent;
                 int eventRestant;
+
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot e : dataSnapshot.getChildren()) {
                         Event event = e.getValue(Event.class);
@@ -128,11 +147,12 @@ public class ListEventsActivity extends AppCompatActivity {
                         }
                     }
 
+
+
                     for (Event event : listEventSort) {
                         HashMap<String, Object> hashMapValuesEvent = new HashMap<>();
-
                         hashMapValuesEvent.put("nameEvent", event.name);
-                        hashMapValuesEvent.put("association", " ");
+                        hashMapValuesEvent.put("association", listAssociation.get(event.association));
                         hashMapValuesEvent.put("dateEventBegin", event.start);
                         hashMapValuesEvent.put("dateEventEnd", event.end);
                         hashMapValuesEvent.put("locationEvent", event.location);

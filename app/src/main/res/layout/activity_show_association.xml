@@ -41,7 +41,7 @@
             android:id="@+id/activity_show_association_description_asso" />
 
         <Button
-            android:text="Button"
+            android:text="Create event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/activity_show_association_create_event" />

@@ -210,9 +210,7 @@ public class EventInfosActivity extends AppCompatActivity {
                     adapter = new SimpleAdapter(EventInfosActivity.this,listValues,R.layout.content_infos_event,from,to);
                     listInfos.setAdapter(adapter);
                 }
-                listInfos = (ListView) findViewById(R.id.activity_event_infos_list);
-                adapter = new SimpleAdapter(EventInfosActivity.this, listValues, R.layout.content_infos_event, from, to);
-                listInfos.setAdapter(adapter);
+
 
                 updateParticipate();
             }
