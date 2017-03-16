@@ -20,9 +20,8 @@
         <TextView
             android:text="@string/activity_event_research_title_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/activity_event_research_title_info"
-            android:layout_weight="0.05" />
+            android:layout_height="21dp"
+            android:id="@+id/activity_event_research_title_info" />
 
         <LinearLayout
             android:orientation="horizontal"

@@ -11,50 +11,59 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fr.paris10.projet.assogenda.assogenda.ui.activites.MainActivity">
 
-
-    <Button
-        android:text="@string/activity_main_button_association"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="93dp"
-        android:id="@+id/activity_main_button_association" />
-
-    <Button
-        android:text="Liste des événements"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/main_list_events_button" />
+        android:layout_alignParentStart="true">
 
-    <Button
-        android:text="@string/activity_main_calendar_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
-        android:id="@+id/activity_main_calendar_button"
-        android:layout_below="@+id/activity_main_button_association"
-        android:layout_alignStart="@+id/activity_main_button_association"
-        android:layout_alignEnd="@+id/activity_main_button_association" />
+        <Button
+            android:text="@string/activity_main_button_association"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_main_button_association" />
 
-    <Button
-        android:text="Déconnexion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_logout_button"
-        android:layout_marginBottom="73dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/activity_main_calendar_button" />
+        <Button
+            android:text="@string/event_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_list_events_button"/>
 
-    <Button
-        android:text="@string/activity_main_event_research_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/activity_main_calendar_button"
-        android:layout_alignStart="@+id/activity_main_calendar_button"
-        android:layout_marginTop="38dp"
-        android:id="@+id/activity_main_event_research_button"
-        android:layout_alignEnd="@+id/activity_main_calendar_button" />
+        <Button
+            android:text="@string/activity_main_calendar_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_main_calendar_button" />
+
+        <Button
+            android:text="@string/activity_main_event_research_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_main_event_research_button"/>
+
+        <Button
+            android:id="@+id/main_activity.list_asso_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="liste des associations" />
+
+        <Button
+            android:id="@+id/main_activity_followed_asso_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_activity.list_asso_button"
+            android:layout_centerHorizontal="true"
+            android:text="Followed associations " />
+
+        <Button
+            android:text="@string/action_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:id="@+id/activity_main_logout_button" />
+    </LinearLayout>
+
 </RelativeLayout>

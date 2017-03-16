@@ -47,13 +47,14 @@ public class Event {
         this.association=association;
     }
 
-    public Event(String uid, String name, String start, String end, String type, String location,
-                 float price, int seat_number, String description){
-        this.uid = uid;
+    public Event(String uid, String name, String start, String end, String type, String association,
+                 String location, float price, int seat_number, String description){
+        this.uid=uid;
         this.name=name;
         this.start=start;
         this.end=end;
         this.type=type;
+        this.association=association;
         this.location=location;
         this.price=price;
         this.seat_free=seat_number;
@@ -81,7 +82,7 @@ public class Event {
         result.put("name", name);
         result.put("description", description);
         result.put("type", type);
-        //result.put("association", association.name);
+        result.put("association", association);
         result.put("location", location);
         result.put("price", price);
         result.put("seats number", seat_number);
