@@ -53,16 +53,7 @@
     <string name="sign_up_text">Sign Up!</string>
     <string name="signup_toast_connected">successfully connected !</string>
 
-    <string name="password_hint">Password</string>
-    <string name="email_hint">Email</string>
-    <string name="login_error_message">Please make sure you enter an email address and password!</string>
-    <string name="login_error_title">Error!</string>
-    <string name="login_button_label">Login</string>
-    <string name="title_activity_login">Sign in</string>
-    <string name="add_item">Add New Item</string>
-    <string name="action_logout">Logout</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
+    <!-- Event creation -->
     <string name="event_create_name">Name</string>
     <string name="event_create">Create event</string>
     <string name="event_create_submit_error_message">Please make sure to fill all fields</string>
@@ -78,6 +69,18 @@
     <string name="event_create_submit_date_error_message">The end date cannot be anterior to the start !</string>
     <string name="event_create_submit_seats_error_message">You need at least five seats available to your event !</string>
     <string name="event_create_submit_price_error_message">The price cannot be negative !</string>
+
+    <!-- Login -->
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
+    <string name="login_error_message">Please make sure you enter an email address and password!</string>
+    <string name="login_error_title">Error!</string>
+    <string name="login_button_label">Login</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="add_item">Add New Item</string>
+    <string name="action_logout">Logout</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
     <string name="event_list">Event list</string>
 
 
