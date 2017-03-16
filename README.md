@@ -10,12 +10,16 @@ Master | Develop
 
 Asso’Genda est une application android de gestion et de partage d’événements associatifs ayant deux objectifs principaux :  
 
-  - Permettre aux étudiants de différentes universités de générer un agenda des événements associatifs étudiants qui leur sont    accessible au sein de leur université et en fonction de leurs préférences. Une bonne opportunité pour découvrir des associations et les suivre.
+  - Permettre aux étudiants de différentes universités de générer un agenda des événements associatifs étudiants qui leur sont accessible au sein de leur université et en fonction de leurs préférences. Une bonne opportunité pour découvrir des associations et les suivre.
   - Centraliser les événements associatifs par université. Une association peut gérer ses informations et ses membres. Elle peut créer et mettre en avant ses événements et avoir plus de visibilité.
+  
+ Vous pouvez voir [AssoGenda website](https://bouquet2.github.io/AssoGenda/) pour plus d'informations.
 
 ### Installation ###
-AssoGenda utilise android sdk version 23.0.2.
-Vérifiez qu'il est installé et que la variable d'environnement ANDROID_HOME est présente dans votre PATH.
+AssoGenda utilise android sdk version 23.0.2. 
+Gradle télécharge automatiquement le sdk si vous avez déjà accepté les licences avec le SDK manager (cf: https://goo.gl/mxlqC5) et que soit votre variable d'environnement ANDROID_HOME est présente ou qu'un fichier local.properties est présent avec le chemin vers votre sdk local.
+
+Sinon vous pouvez télécharger le sdk grâce au sdk manager disponible ici : https://goo.gl/z45c8g ensuite ajoutez la variable d'environnement ANDROID_HOME={path-to-sdk}/android-sdk-{os-version} ou créez un fichier local.properties dans le répertoire du projet avec la ligne "sdk.dir={path-to-sdk}/android-sdk-{os-version}"
 
 ### Use Case ###
 

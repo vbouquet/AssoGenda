@@ -45,6 +45,9 @@
     <string name="activity_event_infos_nparticipate_toast">You disengaged from the event </string>
     <string name="activity_event_infos_participate_date_passed_toast">The event is over !</string>
 
+    <!-- Association research -->
+    <string name="list_association_activity_search_hint">association, university…</string>
+
 
 
     <string name="log_in_text">Log in to AssoGenda</string>
