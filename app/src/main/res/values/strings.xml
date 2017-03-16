@@ -45,6 +45,9 @@
     <string name="activity_event_infos_nparticipate_toast">Vous ne participez plus à l\'événement </string>
     <string name="activity_event_infos_participate_date_passed_toast">L\'événement est terminé !</string>
 
+    <!-- Association research -->
+    <string name="list_association_activity_search_hint">association, university…</string>
+
     <!-- Signup -->
     <string name="sign_up_button_label">Sign Up</string>
     <string name="signup_error_message">Please make sure you enter an email address and password!</string>
