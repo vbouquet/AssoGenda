@@ -177,7 +177,7 @@ public class EventInfosActivity extends AppCompatActivity {
                     hashMapValueDateEnd.put("content_info",event.end);
                     HashMap<String,Object> hashMapValuePrice = new HashMap<>();
                     hashMapValuePrice.put("title_info","Prix : ");
-                    hashMapValuePrice.put("content_info",event.price);
+                    hashMapValuePrice.put("content_info",event.price+" €");
                     HashMap<String,Object> hashMapValueSpace = new HashMap<>();
                     hashMapValueSpace.put("title_info","Places disponible : ");
                     hashMapValueSpace.put("content_info",event.seat_free);
