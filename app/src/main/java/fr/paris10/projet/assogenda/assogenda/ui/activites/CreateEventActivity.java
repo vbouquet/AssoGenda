@@ -76,7 +76,7 @@ public class CreateEventActivity extends AppCompatActivity {
         eventDescriptionEditText.setVisibility(View.GONE);
 
         //Default value (date and time)
-        eventStartDateEditText.setText(new SimpleDateFormat("dd/MM/yyyy").format(c.getTime()));
+        eventStartDateEditText.setText(new SimpleDateFormat("dd/MM/yyyy").format(c.getTime())); 
         eventStartTimeEditText.setText(new SimpleDateFormat("kk:mm").format(c.getTime()));
         eventEndDateEditText.setText(new SimpleDateFormat("dd/MM/yyyy").format(c.getTime()));
         c.setTime(c.getTime());
