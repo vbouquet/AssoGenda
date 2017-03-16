@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="liste des associations" />
+            android:text="@string/association_list" />
 
         <Button
             android:id="@+id/main_activity_followed_asso_button"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/main_activity.list_asso_button"
             android:layout_centerHorizontal="true"
-            android:text="Followed associations " />
+            android:text="@string/association_followed" />
 
         <Button
             android:text="@string/action_logout"
