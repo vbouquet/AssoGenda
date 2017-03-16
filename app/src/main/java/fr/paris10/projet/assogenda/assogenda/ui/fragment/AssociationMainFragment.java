@@ -25,6 +25,8 @@ import java.util.ArrayList;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
+import fr.paris10.projet.assogenda.assogenda.ui.activites.EventInfosActivity;
+import fr.paris10.projet.assogenda.assogenda.ui.activites.ShowAssociationActivity;
 import fr.paris10.projet.assogenda.assogenda.ui.activites.CreateEventActivity;
 import fr.paris10.projet.assogenda.assogenda.ui.adapter.CustomAssociationAdapter;
 
@@ -67,7 +69,7 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
                 @Override
                 public void onChildAdded(DataSnapshot snapshot, String previousChild) {
                     Association association = snapshot.getValue(Association.class);
-                    association.id = snapshot.getKey();
+                    association.id=snapshot.getKey();
                     items.add(association);
                     associationAdapter.notifyDataSetChanged();
                 }
@@ -104,8 +106,9 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(view.getContext(), CreateEventActivity.class);
-                intent.putExtra("assoID", items.get(position).id);
+                Intent intent = new Intent(view.getContext(), ShowAssociationActivity.class);
+                Association association = items.get(position);
+                intent.putExtra("associationID", association.id);
                 startActivity(intent);
             }
         });
