@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -82,6 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             daoUser.createUser(task.getResult().getUser().getUid(), email, firstName, lastName);
                             startActivity(intent);
+                            Toast.makeText(getApplicationContext(), getString(R.string.signup_toast_connected), Toast.LENGTH_LONG).show();
                         } else {
                             showAlertDialogError(R.string.signup_error_title, task.getException().getMessage());
                         }
