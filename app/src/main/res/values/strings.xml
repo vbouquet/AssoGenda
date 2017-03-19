@@ -32,7 +32,7 @@
     <string name="activity_main_calendar_button">Agenda</string>
 
     <!-- Event research -->
-    <string name="activity_event_research_title_info">Event search</string>
+    <string name="activity_event_research_title_info">Search events</string>
     <string name="activity_main_event_research_button">Event search</string>
     <string name="activity_event_research_button">Search</string>
     <string name="activity_event_research_start_date">Start date</string>

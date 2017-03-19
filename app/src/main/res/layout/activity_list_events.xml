@@ -17,10 +17,12 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:text="Listes des événements"
+            android:id="@+id/activity_list_events_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/activity_list_events_title" />
+            android:text="Events"
+            android:textAlignment="center"
+            android:textSize="30sp" />
 
         <ListView
             android:layout_width="match_parent"

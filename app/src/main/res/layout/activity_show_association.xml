@@ -45,7 +45,7 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/accent"
+            android:background="@color/event_color_03"
             android:elevation="0dp"
             android:text="Create event" />
     </LinearLayout>

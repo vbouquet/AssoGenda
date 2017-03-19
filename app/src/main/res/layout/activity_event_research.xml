@@ -18,10 +18,12 @@
         android:weightSum="1">
 
         <TextView
-            android:text="@string/activity_event_research_title_info"
+            android:id="@+id/activity_event_research_title_info"
             android:layout_width="match_parent"
-            android:layout_height="21dp"
-            android:id="@+id/activity_event_research_title_info" />
+            android:layout_height="51dp"
+            android:text="@string/activity_event_research_title_info"
+            android:textAlignment="center"
+            android:textSize="30sp" />
 
         <LinearLayout
             android:orientation="horizontal"
