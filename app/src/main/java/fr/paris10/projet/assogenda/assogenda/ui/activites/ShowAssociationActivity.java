@@ -25,7 +25,6 @@ public class ShowAssociationActivity extends AppCompatActivity {
     private User president;
     private TextView nameAsso;
     private TextView descAsso;
-    private TextView namePrez;
     private Button createEvent;
     private ImageView image;
 
@@ -38,7 +37,6 @@ public class ShowAssociationActivity extends AppCompatActivity {
         image.setImageResource(R.drawable.association_default_icon);
         nameAsso = (TextView) findViewById(R.id.activity_show_association_name_asso);
         descAsso = (TextView) findViewById(R.id.activity_show_association_description_asso);
-        namePrez = (TextView) findViewById(R.id.activity_show_association_name_president);
         createEvent = (Button) findViewById(R.id.activity_show_association_create_event);
         associationID = (String) getIntent().getExtras().get("associationID");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("association");
@@ -49,14 +47,12 @@ public class ShowAssociationActivity extends AppCompatActivity {
                     association = dataSnapshot.getValue(Association.class);
                     nameAsso.setText(association.name);
                     descAsso.setText(association.description);
-                    namePrez.setText(" ");
                     DatabaseReference references = FirebaseDatabase.getInstance().getReference("users");
                     references.child(association.president).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
                                 president = dataSnapshot.getValue(User.class);
-                                namePrez.setText(president.firstName+" "+president.lastName);
                             }
                         }
 

@@ -33,13 +33,6 @@
             android:layout_weight="0.15" />
 
         <TextView
-            android:id="@+id/activity_show_association_name_president"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="18sp" />
-
-        <TextView
             android:id="@+id/activity_show_association_description_asso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

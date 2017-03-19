@@ -2,7 +2,7 @@
     <string name="app_name">AssoGenda</string>
 
     <!-- Association -->
-    <string name="fragment_association_main_title">Manage association</string>
+    <string name="fragment_association_main_title">Mes associations</string>
     <string name="activity_main_button_association">Association management</string>
     <string name="fragment_association_main_button_create_association">Create association</string>
 
