@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,11 +27,15 @@ public class ShowAssociationActivity extends AppCompatActivity {
     private TextView descAsso;
     private TextView namePrez;
     private Button createEvent;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_association);
+
+        image = (ImageView) findViewById(R.id.activity_show_association_logo_asso);
+        image.setImageResource(R.drawable.association_default_icon);
         nameAsso = (TextView) findViewById(R.id.activity_show_association_name_asso);
         descAsso = (TextView) findViewById(R.id.activity_show_association_description_asso);
         namePrez = (TextView) findViewById(R.id.activity_show_association_name_president);
