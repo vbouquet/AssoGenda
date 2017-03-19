@@ -3,7 +3,7 @@
 
     <!-- Association -->
     <string name="fragment_association_main_title">Manage association</string>
-    <string name="activity_main_button_association">Association</string>
+    <string name="activity_main_button_association">Association management</string>
     <string name="fragment_association_main_button_create_association">Create association</string>
 
     <!-- Association form -->
@@ -39,11 +39,11 @@
     <string name="activity_event_research_start_time">HStart time</string>
 
     <!-- Event participation -->
-    <string name="activity_event_infos_participate_button">Participer</string>
-    <string name="activity_event_infos_nparticipate_button">Ne plus participer</string>
-    <string name="activity_event_infos_participate_toast">Vous participez à : </string>
-    <string name="activity_event_infos_nparticipate_toast">Vous ne participez plus à l\'événement </string>
-    <string name="activity_event_infos_participate_date_passed_toast">L\'événement est terminé !</string>
+    <string name="activity_event_infos_participate_button">Participate</string>
+    <string name="activity_event_infos_nparticipate_button">Disengagement</string>
+    <string name="activity_event_infos_participate_toast">You participate to : </string>
+    <string name="activity_event_infos_nparticipate_toast">You disengaged from the event </string>
+    <string name="activity_event_infos_participate_date_passed_toast">The event is over !</string>
 
     <!-- Association research -->
     <string name="list_association_activity_search_hint">association, university…</string>
@@ -59,7 +59,8 @@
     <!-- Event creation -->
     <string name="event_create_name">Name</string>
     <string name="event_create">Create event</string>
-    <string name="event_create_submit_error_message">Please make sure to fill all fields</string>
+    <string name="event_create_submit_error_message">Please make sure to fill all obligatory fields</string>
+    <string name="event_create_advanced_show">Advanced options</string>
     <string name="event_create_submit_error_title">Error !</string>
     <string name="event_create_start_time">Start time</string>
     <string name="event_create_start_date">Start date</string>
@@ -67,13 +68,14 @@
     <string name="event_create_end_date">End date</string>
     <string name="event_create_description">Description</string>
     <string name="event_create_location">Location</string>
-    <string name="event_create_price">Price</string>
+    <string name="event_create_price">Price (€)</string>
     <string name="event_create_seats_available">Seats available</string>
     <string name="event_create_submit_date_error_message">The end date cannot be anterior to the start !</string>
     <string name="event_create_submit_seats_error_message">You need at least five seats available to your event !</string>
     <string name="event_create_submit_price_error_message">The price cannot be negative !</string>
 
     <!-- Login -->
+    <string name="log_in_text">Log in to AssoGenda</string>
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
     <string name="login_error_message">Please make sure you enter an email address and password!</string>
@@ -84,13 +86,15 @@
     <string name="action_logout">Logout</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
-    <string name="event_list">Event list</string>
+    <string name="event_list">Events list</string>
+    <string name="association_followed">Followed associations </string>
+    <string name="association_list">Associations list</string>
 
 
     <string-array name="event_create_event_types">
         <item>Sport</item>
         <item>Party</item>
         <item>Training</item>
-        <item> </item>
+        <item>Other</item>
     </string-array>
 </resources>

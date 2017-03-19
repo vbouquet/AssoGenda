@@ -1,3 +1,4 @@
+
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
 import android.app.AlertDialog;
@@ -38,12 +39,15 @@ public class CreateEventActivity extends AppCompatActivity {
     protected EditText eventLocationEditText;
     protected EditText eventSeatsAvailableEditText;
     protected EditText eventPriceEditText;
+    protected Button eventAdvancedButton;
 
     protected DatabaseReference database = FirebaseDatabase.getInstance().getReference("events");
 
 
     protected DatabaseReference dbAssoc = FirebaseDatabase.getInstance().getReference("associations");
     protected String eventAsso;
+
+    protected Calendar c;
 
 
     @Override
@@ -52,7 +56,8 @@ public class CreateEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
         eventAsso = getIntent().getStringExtra("assoID");
 
-
+        //Initialization
+        c = Calendar.getInstance();
         eventNameEditText = (EditText) findViewById(R.id.activity_create_event_name);
         eventStartTimeEditText = (EditText) findViewById(R.id.activity_create_event_start_time);
         eventStartDateEditText = (EditText) findViewById(R.id.activity_create_event_start_date);
@@ -64,6 +69,20 @@ public class CreateEventActivity extends AppCompatActivity {
         eventLocationEditText = (EditText) findViewById(R.id.activity_create_event_location);
         eventSeatsAvailableEditText = (EditText) findViewById(R.id.activity_create_event_seats_available);
         eventPriceEditText = (EditText) findViewById(R.id.activity_create_event_price);
+        eventAdvancedButton = (Button) findViewById(R.id.activity_create_event_advanced_button);
+
+        //Hide advanced options
+        eventPriceEditText.setVisibility(View.GONE);
+        eventSeatsAvailableEditText.setVisibility(View.GONE);
+        eventDescriptionEditText.setVisibility(View.GONE);
+
+        //Default value (date and time)
+        eventStartDateEditText.setText(new SimpleDateFormat("dd/MM/yyyy").format(c.getTime()));
+        eventStartTimeEditText.setText(new SimpleDateFormat("kk:mm").format(c.getTime()));
+        eventEndDateEditText.setText(new SimpleDateFormat("dd/MM/yyyy").format(c.getTime()));
+        c.setTime(c.getTime());
+        c.add(Calendar.HOUR, 1);
+        eventEndTimeEditText.setText(new SimpleDateFormat("kk:mm").format(c.getTime()));
 
         //Sets the spinner's content
         ArrayAdapter<CharSequence> tmpAdapterEventTypes = ArrayAdapter.createFromResource(this,R.array.event_create_event_types, android.R.layout.simple_spinner_item);
@@ -98,6 +117,21 @@ public class CreateEventActivity extends AppCompatActivity {
             }
         });
 
+        eventAdvancedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (eventPriceEditText.getVisibility() == View.GONE){
+                    eventPriceEditText.setVisibility(View.VISIBLE);
+                    eventSeatsAvailableEditText.setVisibility(View.VISIBLE);
+                    eventDescriptionEditText.setVisibility(View.VISIBLE);
+                }
+                else{
+                    eventPriceEditText.setVisibility(View.GONE);
+                    eventSeatsAvailableEditText.setVisibility(View.GONE);
+                    eventDescriptionEditText.setVisibility(View.GONE);
+                }
+            }
+        });
 
 
 
@@ -108,32 +142,30 @@ public class CreateEventActivity extends AppCompatActivity {
                 final String eventStart = eventDatesConverter(eventStartTimeEditText, eventStartDateEditText);
                 final String eventEnd = eventDatesConverter(eventEndTimeEditText, eventEndDateEditText);
                 final String eventType = eventTypeSpinner.getItemAtPosition(eventTypeSpinner.getSelectedItemPosition()).toString().trim();
-                final String eventDescription = eventDescriptionEditText.getText().toString().trim();
+                String eventDescription = eventDescriptionEditText.getText().toString().trim();
                 final String eventLocation = eventLocationEditText.getText().toString().trim();
-                final String eventSeatsAvailable = eventSeatsAvailableEditText.getText().toString().trim();
-                final String eventPrice = eventPriceEditText.getText().toString().trim();
+                String eventSeatsAvailable = eventSeatsAvailableEditText.getText().toString().trim();
+                String eventPrice = eventPriceEditText.getText().toString().trim();
                 final String eventAssociation = eventAsso;
 
-                if (eventName.isEmpty() || eventDescription.isEmpty() || eventStart == null || eventEnd == null
-                        || eventType.isEmpty() || eventLocation.isEmpty() || eventSeatsAvailable.isEmpty() || eventPrice.isEmpty()) {
+                //Checking value of optional fields
+                if (eventDescription.isEmpty()){
+                    eventDescription = "";
+                }
+                //Value to -1 means there are no seats limit
+                if (eventSeatsAvailable.isEmpty()){
+                    eventSeatsAvailable = "-1";
+                }
+                //Value to -1 means there are no price, it's free
+                if (eventPrice.isEmpty()){
+                    eventPrice = "-1.0";
+                }
+
+                // NOTE : SEATS / PRICE / DESCRIPTION  =>  OPTIONAL
+
+                if (eventName.isEmpty() || eventStart == null || eventEnd == null || eventType.isEmpty() || eventLocation.isEmpty() ) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
                     builder.setMessage(R.string.event_create_submit_error_message)
-                            .setTitle(R.string.event_create_submit_error_title)
-                            .setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-                else if (Integer.parseInt(eventSeatsAvailable) < 5){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
-                    builder.setMessage(R.string.event_create_submit_seats_error_message)
-                            .setTitle(R.string.event_create_submit_error_title)
-                            .setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-                else if(Float.parseFloat(eventPrice) < 0.0){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
-                    builder.setMessage(R.string.event_create_submit_price_error_message)
                             .setTitle(R.string.event_create_submit_error_title)
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
@@ -151,7 +183,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     database.push()
                             .setValue(new Event( "", eventName, eventStart, eventEnd, eventType, eventAssociation, eventLocation,
                                     Float.parseFloat(eventPrice), Integer.parseInt(eventSeatsAvailable), eventDescription)
-                            .toMap());
+                                    .toMap());
                     loadMain();
                 }
             }

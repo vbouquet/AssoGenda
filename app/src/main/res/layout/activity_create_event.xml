@@ -113,6 +113,12 @@
             android:id="@+id/activity_create_event_location"
             android:hint="@string/event_create_location" />
 
+        <Button
+                    android:text="@string/event_create_advanced_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/activity_create_event_advanced_button" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

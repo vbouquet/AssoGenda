@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
@@ -9,6 +10,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fr.paris10.projet.assogenda.assogenda.ui.activites.LoginActivity">
+
+    <TextView
+                android:text="@string/log_in_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:id="@+id/activity_login_textview"
+                android:textSize="28sp"
+                android:layout_marginBottom="30dp"
+                android:textAlignment="center" />
 
     <EditText
         android:id="@+id/activity_login_email"
@@ -43,11 +53,12 @@
 
     <TextView
         android:id="@+id/activity_login_to_activity_sign_up"
-        android:layout_width="wrap_content"
+        android:layout_width="351dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_login_validate"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="69dp"
-        android:text="@string/sign_up_text" />
+        android:text="@string/sign_up_text"
+        android:textAlignment="center" />
 
-</RelativeLayout>
+</LinearLayout>
