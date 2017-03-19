@@ -7,12 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by wilpiron on 28/02/2017.
- */
-
 public class Event {
-
     public String id;
     public String name;
     public String start;
@@ -35,8 +30,8 @@ public class Event {
     public Event(){
     }
 
-    public Event(String uid, String name, String start, String end, String type, String association,
-                 String description, String location, float price, int bail, int seat_number,  int logo){
+    public Event(String uid,String name, String start, String end, String type, String description, String location,
+                 float price, int bail, int seat_number, String association, int logo){
         this.uid=uid;
         this.name=name;
         this.start=start;

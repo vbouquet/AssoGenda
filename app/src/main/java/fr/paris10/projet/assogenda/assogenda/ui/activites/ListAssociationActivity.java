@@ -53,6 +53,7 @@ public class ListAssociationActivity extends AppCompatActivity {
             loadAllAssociations();
 
         searchView = (SearchView) findViewById(R.id.list_association_activity_search);
+        searchView.setQueryHint(getString(R.string.list_association_activity_search_hint));
         loadSearchListener();
     }
 

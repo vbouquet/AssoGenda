@@ -35,10 +35,28 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
 
-            //Sets isAssoMember to true or false
-            userIsAnAssociationMember();
+            Button associationBtn = (Button) findViewById(R.id.activity_main_association_btn);
+            associationBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(),  MainAssociationActivity.class);
+                    startActivity(intent);
+                }
+            });
+            Button eventBtn = (Button) findViewById(R.id.activity_main_events_btn);
+            eventBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(),  MainEventActivity.class);
+                    startActivity(intent);
+                }
+            });
 
-            Button logoutButton = (Button) findViewById(R.id.activity_main_logout_button);
+
+            //Sets isAssoMember to true or false
+            //userIsAnAssociationMember();
+
+            /*Button logoutButton = (Button) findViewById(R.id.activity_main_logout_button);
             logoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -60,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             agendaButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), AgendaActivity.class);
+                    Intent intent = new Intent(view.getContext(), AgendaGeneratorActivity.class);
                     startActivity(intent);
                 }
             });
@@ -101,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("followed", true);
                     startActivity(intent);
                 }
-            });
+            });*/
 
 
         }
@@ -114,9 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onResume(){
-        /*Intent intent = new Intent(this, MainActivity.class);
-        finish();
-        startActivity(intent);*/
         super.onResume();
     }
 
@@ -137,31 +152,5 @@ public class MainActivity extends AppCompatActivity {
         daoUser.signOut();
         finish();
         startActivity(getIntent());
-    }
-
-    protected void loadCreateEventView(){
-        Intent intent = new Intent(this, CreateEventActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    //Updates isAssoMember variable according to association appatenance of the current user
-    protected void userIsAnAssociationMember(){
-        isAssoMember = false;
-
-        database.child(daoUser.getCurrentUserId()).child("isAssoMember").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    isAssoMember = dataSnapshot.getValue(Boolean.class);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 }

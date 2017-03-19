@@ -18,10 +18,12 @@
         android:weightSum="1">
 
         <TextView
-            android:text="Nom Event"
+            android:id="@+id/activity_event_infos_name_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/activity_event_infos_name_event" />
+            android:text="Nom Event"
+            android:textAlignment="center"
+            android:textSize="30sp" />
 
 
         <ImageView
@@ -58,9 +60,12 @@
             android:layout_weight="1.15" />
 
         <Button
+            android:id="@+id/activity_event_infos_participate_button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="61dp"
-            android:id="@+id/activity_event_infos_participate_button" />
+            android:background="@color/event_color_03"
+            android:text="Participate" />
 
     </LinearLayout>
 

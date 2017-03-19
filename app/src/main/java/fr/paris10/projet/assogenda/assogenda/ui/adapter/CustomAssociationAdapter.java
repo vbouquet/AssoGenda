@@ -66,7 +66,7 @@ public class CustomAssociationAdapter extends ArrayAdapter<Association> {
         } else {
 
             //If association has no logo registered, set default android image
-            viewHolder.imageAssociationLogo.setImageResource(R.mipmap.ic_launcher);
+            viewHolder.imageAssociationLogo.setImageResource(R.drawable.association_default_icon);
         }
 
         return view;
