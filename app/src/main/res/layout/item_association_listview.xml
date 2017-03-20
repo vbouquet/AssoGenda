@@ -12,6 +12,8 @@
     <TextView android:id="@+id/item_association_listview_association_name"
         android:layout_height="fill_parent"
         android:layout_width="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:width="100dip"
         android:layout_weight="0.23" />
 

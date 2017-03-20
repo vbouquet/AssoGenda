@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             //Sets isAssoMember to true or false
             //userIsAnAssociationMember();
 
-            /*Button logoutButton = (Button) findViewById(R.id.activity_main_logout_button);
+            Button logoutButton = (Button) findViewById(R.id.activity_main_logout_button);
             logoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            Button associationButton = (Button) findViewById(R.id.activity_main_button_association);
+            /*Button associationButton = (Button) findViewById(R.id.activity_main_button_association);
             associationButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

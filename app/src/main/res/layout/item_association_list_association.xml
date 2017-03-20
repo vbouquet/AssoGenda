@@ -22,12 +22,16 @@
             android:text="Nom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/item_association_list_association.name" />
 
         <TextView
             android:text="Université"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/item_association_list_association.university" />
 
     </LinearLayout>
