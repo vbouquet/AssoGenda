@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -11,8 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,8 +37,6 @@ public class EventInfosActivity extends AppCompatActivity {
     private Event event;
     private TextView nameEvent;
     private TextView nameAsso;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
     private String name;
     private Date eventEndDate;
     private TextView participateButton;
@@ -47,8 +44,6 @@ public class EventInfosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         setContentView(R.layout.activity_event_infos);
         eventUID = (String) getIntent().getExtras().get("eventUID");
         name = (String) getIntent().getExtras().get("eventName");
@@ -153,14 +148,29 @@ public class EventInfosActivity extends AppCompatActivity {
                     event = dataSnapshot.getValue(Event.class);
                     event.uid=eventUID;
                     nameEvent.setText(event.name);
+
+                    nameEvent.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(getApplicationContext(), event.name, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     nameAsso.setText(" ");
                     DatabaseReference references = FirebaseDatabase.getInstance().getReference("association");
                     references.child(event.association).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataS) {
                             if (dataS.exists()) {
-                                Association a = dataS.getValue(Association.class);
+                                final Association a = dataS.getValue(Association.class);
                                 nameAsso.setText(a.name);
+
+                                nameAsso.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Toast.makeText(getApplicationContext(), a.name, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         }
 
@@ -209,8 +219,18 @@ public class EventInfosActivity extends AppCompatActivity {
                     listInfos = (ListView) findViewById(R.id.activity_event_infos_list);
                     adapter = new SimpleAdapter(EventInfosActivity.this,listValues,R.layout.content_infos_event,from,to);
                     listInfos.setAdapter(adapter);
-                }
 
+                    listInfos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                            if(position == 5) {
+                                Toast.makeText(getApplicationContext(), event.location, Toast.LENGTH_LONG).show();
+                            } else if (position == 6) {
+                                Toast.makeText(getApplicationContext(), event.description, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
 
                 updateParticipate();
             }
