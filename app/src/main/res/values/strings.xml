@@ -19,7 +19,7 @@
     <string name="fragment_create_association_form_validation_name">Name required!</string>
     <string name="fragment_create_association_form_validation_universite">University required!</string>
     <string name="fragment_create_association_form_validation_description">Description required!</string>
-    <string name="fragment_create_association_form_validation_title">Validate creation?</string>
+    <string name="fragment_create_association_form_validation_title">Create association %1$s ?</string>
     <string name="fragment_create_association_form_validation_ok">Yes</string>
     <string name="fragment_create_association_form_validation_cancel">No</string>
 
