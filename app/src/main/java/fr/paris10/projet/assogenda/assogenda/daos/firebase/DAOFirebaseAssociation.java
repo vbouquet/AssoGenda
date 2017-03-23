@@ -33,7 +33,7 @@ public class DAOFirebaseAssociation {
     public void createAssociation(String associationName, String associationUniversity, String associationDescription, String logo) {
         if(mFirebaseAuth.getCurrentUser() != null) {
             Association association = new Association(associationName, associationUniversity, associationDescription, mFirebaseUser.getUid(), logo);
-            database.push().setValue(association);
+            database.push().setValue(association.toMap());
 
             final DatabaseReference tmp = FirebaseDatabase.getInstance().getReference("users");
             Map<String, Object> childUpdates = new HashMap<>();
@@ -43,7 +43,7 @@ public class DAOFirebaseAssociation {
         }
     }
 
-    public boolean validateAssociationName(String associationName) {
+    public boolean validateAssociationName(final String associationName) {
         return associationName != null && !associationName.isEmpty() && associationName.length() >= 3;
     }
 
