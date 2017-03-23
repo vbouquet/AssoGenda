@@ -130,7 +130,8 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                     getString(R.string.fragment_create_association_form_validation_description));
         }
 
-        if (daoAssociation.validateAssociation(associationName, associationUniversity, associationDescription)) {
+        if (daoAssociation.validateAssociation(associationName, associationUniversity, associationDescription)
+                && associationNameEdit.getError() == null ) {
             Dialog formValidation = onCreateDialog();
             formValidation.show();
         }
