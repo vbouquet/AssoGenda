@@ -63,10 +63,6 @@ public class CustomAssociationAdapter extends ArrayAdapter<Association> {
                     .using(new FirebaseImageLoader())
                     .load(imagePath)
                     .into(viewHolder.imageAssociationLogo);
-        } else {
-
-            //If association has no logo registered, set default android image
-            viewHolder.imageAssociationLogo.setImageResource(R.drawable.association_default_icon);
         }
 
         return view;
