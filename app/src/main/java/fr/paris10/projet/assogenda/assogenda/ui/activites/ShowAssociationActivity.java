@@ -36,7 +36,6 @@ public class ShowAssociationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_association);
 
         image = (ImageView) findViewById(R.id.activity_show_association_logo_asso);
-        image.setImageResource(R.drawable.association_default_icon);
         nameAsso = (TextView) findViewById(R.id.activity_show_association_name_asso);
         descAsso = (TextView) findViewById(R.id.activity_show_association_description_asso);
         createEvent = (Button) findViewById(R.id.activity_show_association_create_event);

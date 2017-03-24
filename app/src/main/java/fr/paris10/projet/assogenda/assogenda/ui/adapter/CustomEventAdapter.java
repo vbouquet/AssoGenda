@@ -45,8 +45,6 @@ public class CustomEventAdapter extends ArrayAdapter<Event> {
 
         viewHolder.eventName.setText(event.name);
 
-        viewHolder.eventPicture.setImageResource(R.mipmap.ic_launcher);
-
         return view;
     }
 }

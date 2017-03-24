@@ -32,8 +32,8 @@
         <ImageView
             android:id="@+id/activity_event_infos_image_event"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_launcher" />
+            android:layout_height="52dp"
+            app:srcCompat="@drawable/association_default_icon" />
 
         <LinearLayout
             android:layout_width="match_parent"
