@@ -1,9 +1,6 @@
 # AssoGenda
 
-# Download 1.0.0
-
-## Download beta
-## Download alpha
+### <a href="https://github.com/Bouquet2/AssoGenda/releases/download/1.0.0-beta.1/assogenda-1.0.0-beta.1.apk">Download Asso'Genda</a>
 
 ![](/diagrams/flyer.png)
 
