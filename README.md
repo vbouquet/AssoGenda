@@ -1,10 +1,11 @@
 # AssoGenda
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![GitHub version](https://badge.fury.io/gh/bouquet2%2Fassogenda.svg)](http://badge.fury.io/gh/bouquet2%2Fassogenda)
-[![Build Status](https://travis-ci.org/Bouquet2/AssoGenda.svg?branch=master)](https://travis-ci.org/Bouquet2/AssoGenda)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/726fc6a1a7514acc91f321082a3d2b51?branch=master)](https://www.codacy.com/app/Bouquet2/AssoGenda?utm_source=github.com&utm_medium=referral&utm_content=Bouquet2/AssoGenda&utm_campaign=badger)
+# Download 1.0.0
 
-**Attention: ce projet est actuellement en alpha** 
+## Download beta
+## Download alpha
+
+![](/diagrams/flyer.png)
 
 Asso’Genda est une application android de gestion et de partage d’événements associatifs ayant deux objectifs principaux :  
 
