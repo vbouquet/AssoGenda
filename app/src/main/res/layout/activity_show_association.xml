@@ -12,33 +12,35 @@
     tools:context="fr.paris10.projet.assogenda.assogenda.ui.activites.ShowAssociationActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:weightSum="1">
 
         <TextView
             android:id="@+id/activity_show_association_name_asso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAlignment="center"
             android:textSize="36sp" />
 
         <ImageView
+            android:id="@+id/activity_show_association_logo_asso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_launcher"
-            android:id="@+id/activity_show_association_logo_asso"
-            android:layout_weight="0.15" />
+            android:layout_weight="0.15"
+            app:srcCompat="@drawable/association_default_icon" />
 
         <TextView
             android:id="@+id/activity_show_association_description_asso"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="18sp"
-            android:layout_weight="0.85" />
+            android:layout_height="85dp"
+            android:layout_weight="0.85"
+            android:scrollbars="vertical"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/activity_show_association_create_event"

@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,8 +49,11 @@ public class ListAssociationActivity extends AppCompatActivity {
         if (listView != null)
             listView.setAdapter(adapter);
 
-        if (loadFollowed)
+        if (loadFollowed) {
             loadFollowedAssociations();
+            TextView title = (TextView) findViewById(R.id.list_association_activity_title);
+            title.setText("Following");
+        }
         else
             loadAllAssociations();
 
@@ -148,29 +153,31 @@ public class ListAssociationActivity extends AppCompatActivity {
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            final String assoId = data.getKey();
-                            FirebaseDatabase.getInstance().getReference("association")
-                                    .child(assoId)
-                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            if (dataSnapshot.exists()) {
-                                                Association association = dataSnapshot.getValue(Association.class);
-                                                association.id = assoId;
-                                                association.followed = true;
-                                                associations.add(association);
-                                                adapter.add(association);
-                                                adapter.notifyDataSetChanged();
-                                            }
-                                        }
+                       if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals(dataSnapshot.getKey())) {
+                           for (DataSnapshot data : dataSnapshot.getChildren()) {
+                               final String assoId = data.getKey();
+                               FirebaseDatabase.getInstance().getReference("association")
+                                       .child(assoId)
+                                       .addListenerForSingleValueEvent(new ValueEventListener() {
+                                           @Override
+                                           public void onDataChange(DataSnapshot dataSnapshot) {
+                                               if (dataSnapshot.exists()) {
+                                                   Association association = dataSnapshot.getValue(Association.class);
+                                                   association.id = assoId;
+                                                   association.followed = true;
+                                                   associations.add(association);
+                                                   adapter.add(association);
+                                                   adapter.notifyDataSetChanged();
+                                               }
+                                           }
 
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                            Log.d("onCancelled", databaseError.getMessage());
-                                        }
-                                    });
-                        }
+                                           @Override
+                                           public void onCancelled(DatabaseError databaseError) {
+                                               Log.d("onCancelled", databaseError.getMessage());
+                                           }
+                                       });
+                           }
+                       }
                     }
 
                     @Override

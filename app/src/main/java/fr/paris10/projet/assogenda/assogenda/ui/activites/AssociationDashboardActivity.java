@@ -130,7 +130,8 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
                     getString(R.string.fragment_create_association_form_validation_description));
         }
 
-        if (daoAssociation.validateAssociation(associationName, associationUniversity, associationDescription)) {
+        if (daoAssociation.validateAssociation(associationName, associationUniversity, associationDescription)
+                && associationNameEdit.getError() == null ) {
             Dialog formValidation = onCreateDialog();
             formValidation.show();
         }
@@ -185,8 +186,11 @@ public class AssociationDashboardActivity extends AppCompatActivity implements
      */
     public Dialog onCreateDialog() {
 
+        String assoCreateFormat = getResources().getString(R.string.fragment_create_association_form_validation_title);
+        String assoCreate = String.format(assoCreateFormat, associationName);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.fragment_create_association_form_validation_title)
+        builder.setMessage(assoCreate)
                 .setPositiveButton(R.string.fragment_create_association_form_validation_ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {

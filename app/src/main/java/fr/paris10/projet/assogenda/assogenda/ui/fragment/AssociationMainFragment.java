@@ -25,9 +25,7 @@ import java.util.ArrayList;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
-import fr.paris10.projet.assogenda.assogenda.ui.activites.EventInfosActivity;
 import fr.paris10.projet.assogenda.assogenda.ui.activites.ShowAssociationActivity;
-import fr.paris10.projet.assogenda.assogenda.ui.activites.CreateEventActivity;
 import fr.paris10.projet.assogenda.assogenda.ui.adapter.CustomAssociationAdapter;
 
 /**
@@ -109,6 +107,7 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
                 Intent intent = new Intent(view.getContext(), ShowAssociationActivity.class);
                 Association association = items.get(position);
                 intent.putExtra("associationID", association.id);
+                intent.putExtra("master", true);
                 startActivity(intent);
             }
         });

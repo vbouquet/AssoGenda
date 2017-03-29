@@ -35,6 +35,7 @@ public class Association {
     public Map<String, Object> toMap() {
         Map<String, Object> result = new HashMap<>();
         result.put("name", name);
+        result.put("clear_name", name.trim().toLowerCase().replaceAll(" ", ""));
         result.put("university", university);
         result.put("description", description);
         result.put("logo", logo);

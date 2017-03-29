@@ -4,10 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 
@@ -45,6 +54,9 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
         Button buttonValidate = (Button)
                 v.findViewById(R.id.fragment_create_association_button_validate);
         buttonValidate.setOnClickListener(this);
+
+        listenerAssociationNameInput(v);
+
         return v;
     }
 
@@ -97,6 +109,44 @@ public class CreateAssociationFragment extends Fragment implements View.OnClickL
             default:
                 break;
         }
+    }
+
+    /**
+     * Notify user if association name is already taken
+     */
+    private void listenerAssociationNameInput(View v) {
+        final EditText input = (EditText) v.findViewById(R.id.fragment_create_association_name);
+        input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d("afterTextChanged", "before text changed : " + charSequence.toString());
+            }
+
+            @Override
+            public void onTextChanged(final CharSequence charSequence, int i, int i1, int i2) {
+                FirebaseDatabase.getInstance().getReference("association")
+                        .orderByChild("clear_name")
+                        .equalTo(charSequence.toString().toLowerCase().trim().replaceAll(" ", ""))
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    input.setError(String.format("%s is already taken", charSequence.toString()));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.d("onCancelled", "validateAssocationName : " + databaseError.getMessage());
+                            }
+                        });
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d("afterTextChanged", "After text changed : " + editable.toString());
+            }
+        });
     }
 
     /**

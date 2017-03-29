@@ -1,61 +1,76 @@
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Locale;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
 import fr.paris10.projet.assogenda.assogenda.model.Event;
 
-
 public class EventInfosActivity extends AppCompatActivity {
-    private ListView listInfos;
-    private ArrayList<HashMap<String,Object>> listValues = new ArrayList<>();
-    private SimpleAdapter adapter;
     private String eventUID;
     private Event event;
     private TextView nameEvent;
     private TextView nameAsso;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
     private String name;
     private Date eventEndDate;
     private TextView participateButton;
+    private TextView beginText;
+    private TextView endText;
+    private TextView priceText;
+    private TextView placeText;
+    private TextView descText;
+    private TextView typeText;
+    private TextView typeLabelText;
+    private ImageView logo;
+    private final SimpleDateFormat inputDate  = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.FRANCE);
+    private final SimpleDateFormat outputDate = new SimpleDateFormat("EEEE d MMM à HH:mm", Locale.FRANCE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         setContentView(R.layout.activity_event_infos);
-        eventUID = (String) getIntent().getExtras().get("eventUID");
-        name = (String) getIntent().getExtras().get("eventName");
-        String eventEnd = (String) getIntent().getExtras().get("eventEndDate");
-        nameEvent = (TextView) findViewById(R.id.activity_event_infos_name_event);
-        participateButton = (Button) findViewById(R.id.activity_event_infos_participate_button);
-        nameAsso = (TextView) findViewById(R.id.activity_event_infos_name_asso);
+
+        eventUID            = (String) getIntent().getExtras().get("eventUID");
+        name                = (String) getIntent().getExtras().get("eventName");
+        String eventEnd     = (String) getIntent().getExtras().get("eventEndDate");
+        nameEvent           = (TextView) findViewById(R.id.event_infos_activity_event_name);
+        nameAsso            = (TextView) findViewById(R.id.event_infos_activity_asso_name);
+        beginText           = (TextView) findViewById(R.id.event_infos_activity_begin);
+        endText             = (TextView) findViewById(R.id.event_infos_activity_end);
+        priceText           = (TextView) findViewById(R.id.event_infos_activity_price);
+        placeText           = (TextView) findViewById(R.id.event_infos_activity_location);
+        descText            = (TextView) findViewById(R.id.event_infos_activity_description);
+        logo                = (ImageView) findViewById(R.id.event_infos_activity_logo_asso);
+        typeText            = (TextView) findViewById(R.id.event_infos_activity_type);
+        typeLabelText       = (TextView) findViewById(R.id.event_infos_activity_type_label);
+        descText.setMovementMethod(new ScrollingMovementMethod());
 
         loadEventInfoInBackground();
 
@@ -65,7 +80,7 @@ public class EventInfosActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Button participateButton = (Button) findViewById(R.id.activity_event_infos_participate_button);
+        participateButton   = (Button) findViewById(R.id.event_infos_activity_participate);
         participateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,8 +98,10 @@ public class EventInfosActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             participateButton.setText(R.string.activity_event_infos_nparticipate_button);
+                            participateButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                         } else {
                             participateButton.setText(R.string.activity_event_infos_participate_button);
+                            participateButton.setBackgroundColor(getResources().getColor(R.color.event_color_03));
                         }
                     }
 
@@ -121,12 +138,15 @@ public class EventInfosActivity extends AppCompatActivity {
 
                     if (snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).hasChild(eventUID)) {
                         participateButton.setText(R.string.activity_event_infos_participate_button);
-                        snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(eventUID).getRef().getRef().removeValue();
+                        participateButton.setBackgroundColor(getResources().getColor(R.color.event_color_03));
+                        snapshot.child(FirebaseAuth.getInstance().getCurrentUser()
+                                .getUid()).child(eventUID).getRef().getRef().removeValue();
                         Toast.makeText(getApplicationContext(), getApplicationContext()
                                 .getResources().getString(R.string.activity_event_infos_nparticipate_toast)
                                 + " " + name, Toast.LENGTH_LONG).show();
                     } else {
                         participateButton.setText(R.string.activity_event_infos_nparticipate_button);
+                        participateButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                         participateEvent();
                     }
                 } else {
@@ -145,72 +165,94 @@ public class EventInfosActivity extends AppCompatActivity {
 
     public void loadEventInfoInBackground() {
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("events");
-        reference.child(eventUID).addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("events")
+                .child(eventUID)
+                .addListenerForSingleValueEvent( new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     event = dataSnapshot.getValue(Event.class);
                     event.uid=eventUID;
                     nameEvent.setText(event.name);
-                    nameAsso.setText(" ");
-                    DatabaseReference references = FirebaseDatabase.getInstance().getReference("association");
-                    references.child(event.association).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    nameEvent.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataS) {
-                            if (dataS.exists()) {
-                                Association a = dataS.getValue(Association.class);
-                                nameAsso.setText(a.name);
+                        public void onClick(View view) {
+                            Toast.makeText(getApplicationContext(), event.name, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    FirebaseDatabase.getInstance()
+                            .getReference("association")
+                            .child(event.association)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot data) {
+                            if (data.exists()) {
+                                final Association association = data.getValue(Association.class);
+                                association.id = event.association;
+                                nameAsso.setText(association.name);
+
+                                if (association.logo != null) {
+                                    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+                                    StorageReference imagePath = storageReference.child(association.logo);
+
+                                    Glide.with(getApplicationContext())
+                                            .using(new FirebaseImageLoader())
+                                            .load(imagePath)
+                                            .into(logo);
+                                }
+
+                                logo.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent intent = new Intent(view.getContext(), ShowAssociationActivity.class);
+                                        intent.putExtra("associationID", association.id);
+                                        intent.putExtra("master", false);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                nameAsso.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Toast.makeText(getApplicationContext(), association.name, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
+                            Log.d("onCancelled", databaseError.getMessage());
                         }
                     });
-                    HashMap<String,Object> hashMapValueDateBegin = new HashMap<>();
-                    hashMapValueDateBegin.put("title_info","Date de début : ");
-                    hashMapValueDateBegin.put("content_info",event.start);
-                    HashMap<String,Object> hashMapValueDateEnd = new HashMap<>();
-                    hashMapValueDateEnd.put("title_info","Date de fin : ");
-                    hashMapValueDateEnd.put("content_info",event.end);
-                    HashMap<String,Object> hashMapValuePrice = new HashMap<>();
-                    hashMapValuePrice.put("title_info","Prix : ");
-                    hashMapValuePrice.put("content_info",event.price+" €");
-                    HashMap<String,Object> hashMapValueSpace = new HashMap<>();
-                    hashMapValueSpace.put("title_info","Places disponible : ");
-                    hashMapValueSpace.put("content_info",event.seat_free);
-                    HashMap<String,Object> hashMapValueBail = new HashMap<>();
-                    hashMapValueBail.put("title_info","Caution : ");
-                    hashMapValueBail.put("content_info",event.bail);
-                    HashMap<String,Object> hashMapValuePlace = new HashMap<>();
-                    hashMapValuePlace.put("title_info","Lieu : ");
-                    hashMapValuePlace.put("content_info",event.location);
-                    HashMap<String,Object> hashMapValueDescription = new HashMap<>();
-                    hashMapValueDescription.put("title_info","Description : ");
-                    hashMapValueDescription.put("content_info",event.description);
-                    HashMap<String,Object> hashMapValueCategorie = new HashMap<>();
-                    hashMapValueCategorie.put("title_info","Categorie : ");
-                    hashMapValueCategorie.put("content_info",event.type);
 
-                    listValues.add(hashMapValueDateBegin);
-                    listValues.add(hashMapValueDateEnd);
-                    listValues.add(hashMapValuePrice);
-                    listValues.add(hashMapValueSpace);
-                    listValues.add(hashMapValueBail);
-                    listValues.add(hashMapValuePlace);
-                    listValues.add(hashMapValueDescription);
-                    listValues.add(hashMapValueCategorie);
+                    try {
+                        beginText.setText(outputDate.format(inputDate.parse(event.start)));
+                        endText.setText(outputDate.format(inputDate.parse(event.end)));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
-                    String[] from = new String[] {"title_info","content_info"};
-                    int[] to = new int[] {R.id.content_infos_event_title_info,R.id.content_infos_event_content_info};
+                    if (event.price <= 0) {
+                        priceText.setText("Gratuit");
+                    } else {
+                        priceText.setText(String.format("%.2f €", event.price));
+                    }
+                    placeText.setText(event.location);
+                    descText.setText(event.description);
 
-                    listInfos = (ListView) findViewById(R.id.activity_event_infos_list);
-                    adapter = new SimpleAdapter(EventInfosActivity.this,listValues,R.layout.content_infos_event,from,to);
-                    listInfos.setAdapter(adapter);
+                    if (event.type.trim().equals("Other")) {
+                        typeText.setVisibility(View.GONE);
+                        typeLabelText.setVisibility(View.GONE);
+                    } else {
+                        typeText.setText(event.type);
+                    }
                 }
-
 
                 updateParticipate();
             }

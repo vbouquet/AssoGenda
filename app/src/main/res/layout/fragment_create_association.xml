@@ -56,6 +56,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            android:gravity="left|top"
+            android:minLines="2"
+            android:maxLines="3"
             android:ems="10"
             android:id="@+id/fragment_create_association_description"
             android:layout_weight="0.11" />
@@ -88,8 +92,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/fragment_create_association_button_validate"
             android:layout_weight="0.04" />
-
-
 
     </LinearLayout>
 </FrameLayout>
