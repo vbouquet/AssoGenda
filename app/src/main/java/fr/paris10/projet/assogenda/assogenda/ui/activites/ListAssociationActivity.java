@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -48,8 +49,11 @@ public class ListAssociationActivity extends AppCompatActivity {
         if (listView != null)
             listView.setAdapter(adapter);
 
-        if (loadFollowed)
+        if (loadFollowed) {
             loadFollowedAssociations();
+            TextView title = (TextView) findViewById(R.id.list_association_activity_title);
+            title.setText("Following");
+        }
         else
             loadAllAssociations();
 
