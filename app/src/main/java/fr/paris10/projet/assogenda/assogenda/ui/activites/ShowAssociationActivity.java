@@ -44,6 +44,10 @@ public class ShowAssociationActivity extends AppCompatActivity {
         descAsso        = (TextView) findViewById(R.id.activity_show_association_description_asso);
         createEvent     = (Button) findViewById(R.id.activity_show_association_create_event);
         associationID   = (String) getIntent().getExtras().get("associationID");
+        Boolean master  = (Boolean) getIntent().getExtras().get("master");
+
+        if (master != null && !master)
+            createEvent.setVisibility(View.GONE);
 
         nameAsso.setOnClickListener(new View.OnClickListener() {
             @Override

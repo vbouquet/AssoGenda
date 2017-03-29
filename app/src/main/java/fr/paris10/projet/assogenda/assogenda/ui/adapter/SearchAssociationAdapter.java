@@ -1,6 +1,7 @@
 package fr.paris10.projet.assogenda.assogenda.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -30,6 +31,7 @@ import java.util.Map;
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.daos.DAOUser;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
+import fr.paris10.projet.assogenda.assogenda.ui.activites.ShowAssociationActivity;
 
 /**
  * Adapter used to display associations and enable user to follow them
@@ -77,10 +79,11 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         final Association association = this.getItem(position);
         View view = convertView;
+        final Context context = this.getContext();
 
         if (convertView == null) {
             view = LayoutInflater.from(getContext()).inflate(
@@ -105,7 +108,15 @@ public class SearchAssociationAdapter extends ArrayAdapter<Association> {
         viewHolder.name = (TextView) view.findViewById(R.id.item_association_list_association_name);
         viewHolder.university = (TextView) view.findViewById(R.id.item_association_list_association_university);
         viewHolder.logo = (ImageView) view.findViewById(R.id.item_association_list_association_logo);
-
+        viewHolder.logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ShowAssociationActivity.class);
+                intent.putExtra("associationID", association.id);
+                intent.putExtra("master", false);
+                context.startActivity(intent);
+            }
+        });
         viewHolder.name.setText(association.name);
         viewHolder.university.setText(association.university);
 

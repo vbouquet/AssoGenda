@@ -1,5 +1,6 @@
 package fr.paris10.projet.assogenda.assogenda.ui.activites;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -191,6 +192,7 @@ public class EventInfosActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot data) {
                             if (data.exists()) {
                                 final Association association = data.getValue(Association.class);
+                                association.id = event.association;
                                 nameAsso.setText(association.name);
 
                                 if (association.logo != null) {
@@ -203,6 +205,16 @@ public class EventInfosActivity extends AppCompatActivity {
                                             .load(imagePath)
                                             .into(logo);
                                 }
+
+                                logo.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent intent = new Intent(view.getContext(), ShowAssociationActivity.class);
+                                        intent.putExtra("associationID", association.id);
+                                        intent.putExtra("master", false);
+                                        startActivity(intent);
+                                    }
+                                });
 
                                 nameAsso.setOnClickListener(new View.OnClickListener() {
                                     @Override

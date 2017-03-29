@@ -109,6 +109,7 @@ public class AssociationMainFragment extends Fragment implements View.OnClickLis
                 Intent intent = new Intent(view.getContext(), ShowAssociationActivity.class);
                 Association association = items.get(position);
                 intent.putExtra("associationID", association.id);
+                intent.putExtra("master", true);
                 startActivity(intent);
             }
         });

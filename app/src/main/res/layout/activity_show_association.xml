@@ -21,11 +21,10 @@
             android:id="@+id/activity_show_association_name_asso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="TextView"
             android:textAlignment="center"
-            android:clickable="true"
             android:textSize="36sp" />
 
         <ImageView
@@ -41,7 +40,6 @@
             android:layout_height="85dp"
             android:layout_weight="0.85"
             android:scrollbars="vertical"
-            android:text="TextView"
             android:textSize="18sp" />
 
         <Button
