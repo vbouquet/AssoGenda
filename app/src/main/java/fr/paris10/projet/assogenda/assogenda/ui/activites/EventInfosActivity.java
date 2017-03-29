@@ -49,7 +49,7 @@ public class EventInfosActivity extends AppCompatActivity {
     private TextView typeLabelText;
     private ImageView logo;
     private final SimpleDateFormat inputDate  = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.FRANCE);
-    private final SimpleDateFormat outputDate = new SimpleDateFormat("EEEE d MMM d à HH:mm", Locale.FRANCE);
+    private final SimpleDateFormat outputDate = new SimpleDateFormat("EEEE d MMM à HH:mm", Locale.FRANCE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
