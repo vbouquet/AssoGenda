@@ -3,6 +3,7 @@ package fr.paris10.projet.assogenda.assogenda.ui.activites;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
@@ -35,6 +37,9 @@ public class ListEventsActivity extends AppCompatActivity {
     private List<Event> listeEvenements = new ArrayList<>();
     private List<Event> listEventSort = new ArrayList<>();
     private HashMap<String, String> listAssociation= new HashMap<>();
+    private final SimpleDateFormat inputDate  = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.FRANCE);
+    private final SimpleDateFormat simpleDate  = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+    private final SimpleDateFormat outputDate = new SimpleDateFormat("EEEE d MMM à HH:mm", Locale.FRANCE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,14 +158,23 @@ public class ListEventsActivity extends AppCompatActivity {
                         HashMap<String, Object> hashMapValuesEvent = new HashMap<>();
                         hashMapValuesEvent.put("nameEvent", event.name);
                         hashMapValuesEvent.put("association", listAssociation.get(event.association));
-                        hashMapValuesEvent.put("dateEventBegin", event.start);
-                        hashMapValuesEvent.put("dateEventEnd", event.end);
+                        try {
+                            hashMapValuesEvent.put("dateEventBegin",
+                                        outputDate.format(inputDate.parse(event.start)));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         hashMapValuesEvent.put("locationEvent", event.location);
-                        hashMapValuesEvent.put("tagsEvent", event.type);
                         listValuesEvents.add(hashMapValuesEvent);
                     }
-                    String[] from = new String[]{"nameEvent", "association", "dateEventBegin", "dateEventEnd", "locationEvent", "tagsEvent"};
-                    int[] to = new int[]{R.id.content_list_events_name_event, R.id.content_list_events_name_association, R.id.content_list_events_date_event_begin, R.id.content_list_events_date_event_end, R.id.content_list_events_location_event, R.id.content_list_events_tags_event};
+                    String[] from = new String[]{"nameEvent",
+                            "association",
+                            "dateEventBegin",
+                            "locationEvent"};
+                    int[] to = new int[]{R.id.content_list_events_name_event,
+                            R.id.content_list_events_name_association,
+                            R.id.content_list_events_date_event_begin,
+                            R.id.content_list_events_location_event};
 
                     listEvents = (ListView) findViewById(R.id.activity_list_events_list);
                     adapter = new SimpleAdapter(ListEventsActivity.this, listValuesEvents, R.layout.content_list_events, from, to);

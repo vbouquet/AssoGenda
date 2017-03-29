@@ -24,7 +24,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Evenement" />
+            android:text="Evenement"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/content_list_events_name_association"
@@ -32,16 +34,11 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Association" />
+            android:text="Association"
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/content_list_events_date_event_begin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date et heure" />
-
-        <TextView
-            android:id="@+id/content_list_events_date_event_end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Date et heure" />
@@ -54,10 +51,5 @@
             android:maxLines="1"
             android:text="Lieu" />
 
-        <TextView
-            android:id="@+id/content_list_events_tags_event"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tags" />
     </LinearLayout>
 </LinearLayout>
