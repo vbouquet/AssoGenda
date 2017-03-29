@@ -25,9 +25,7 @@ import java.util.ArrayList;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
-import fr.paris10.projet.assogenda.assogenda.ui.activites.EventInfosActivity;
 import fr.paris10.projet.assogenda.assogenda.ui.activites.ShowAssociationActivity;
-import fr.paris10.projet.assogenda.assogenda.ui.activites.CreateEventActivity;
 import fr.paris10.projet.assogenda.assogenda.ui.adapter.CustomAssociationAdapter;
 
 /**

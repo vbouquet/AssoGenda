@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -24,7 +23,6 @@ import com.google.firebase.storage.StorageReference;
 
 import fr.paris10.projet.assogenda.assogenda.R;
 import fr.paris10.projet.assogenda.assogenda.model.Association;
-import fr.paris10.projet.assogenda.assogenda.model.User;
 
 public class ShowAssociationActivity extends AppCompatActivity {
     private String      associationID;
