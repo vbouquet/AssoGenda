@@ -1,4 +1,4 @@
-### <a href="https://github.com/Bouquet2/AssoGenda/releases/download/1.0.0-beta.1/assogenda-1.0.0-beta.1.apk">Download Asso'Genda</a>
+### <a href="https://github.com/Bouquet2/AssoGenda/releases/download/1.0.0/assogenda-1.0.0.apk">Download Asso'Genda</a>
 
 ![](/diagrams/flyer.png)
 
